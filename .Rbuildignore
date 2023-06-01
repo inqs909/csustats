@@ -8,3 +8,4 @@
 ^README.Rmd
 ^R/tutorials_data.R
 ^R/data.R
+^vignettes/articles$

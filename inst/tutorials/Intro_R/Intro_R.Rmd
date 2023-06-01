@@ -2,22 +2,23 @@
 title: "Introduction to R"
 output: learnr::tutorial
 runtime: shiny_prerendered
+description: |
+  Provides a basic introduction to R Programming.
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
 library(tidyverse)
+library(gradethis)
 knitr::opts_chunk$set(echo = FALSE)
-
-# set the learnr logging function
-# observe(options(tutorial.event_recorder = writing_tutorial))
 
 ```
 
 ## Introduction to R
 
-R is a multi-paradigm programming language that is popular among statisticians. The motto of R is "Created by statisticians, for statisticians". It has many statistical and graphical tools to help statisticians analyze data. Additionally, the programming language can be extended to implement new statistical techniques, create websites, and create dashboards (interactive software). This tutorial and your website was created using R. Lastly, and most importantly, R can be downloaded and used for free.
+R is a multi-paradigm programming language that is popular among statisticians. The motto of R is "Created by statisticians, for statisticians". It has many statistical and graphical tools to help statisticians analyze data. Additionally, the programming language can be extended to implement new statistical techniques, create websites, and create dashboards (interactive software). Lastly, and most importantly, R can be downloaded and used for free.
 
+**This tutorial will cover the basics of using R.**
 
 ## R Calculator
 
@@ -25,147 +26,340 @@ R can be thought as an advanced calculator.
 
 Try `9+9`
 
-```{r r-calc-1, exercise=T}
+```{r r-calc-1, exercise = TRUE}
 
+```
+
+```{r r-calc-1-solution}
+9+9
+```
+
+```{r r-calc-1-check}
+grade_this_code()
 ```
 
 Try `9*9`
 
-```{r r-calc-2, exercise=T}
+```{r r-calc-2, exercise = TRUE}
 
+```
+
+```{r r-calc-2-solution}
+9*9
+```
+
+```{r r-calc-2-check}
+grade_this_code()
 ```
 
 Try `9-9`
 
-```{r r-calc-3, exercise=T}
+```{r r-calc-3, exercise = TRUE}
 
+```
+
+```{r r-calc-3-solution}
+9-9
+```
+
+```{r r-calc-3-check}
+grade_this_code()
 ```
 
 Try `9/9`
 
-```{r r-calc-4, exercise=T}
+```{r r-calc-4, exercise = TRUE}
 
+```
+
+```{r r-calc-4-solution}
+9/9
+```
+
+```{r r-calc-4-check}
+grade_this_code()
 ```
 
 Try `9+9+9`
 
-```{r r-calc-5, exercise=T}
+```{r r-calc-5, exercise = TRUE}
 
+```
+
+```{r r-calc-5-solution}
+9+9+9
+```
+
+```{r r-calc-5-check}
+grade_this_code()
 ```
 
 Try `9+9*9`
 
-```{r r-calc-6, exercise=T}
+```{r r-calc-6, exercise = TRUE}
 
+```
+
+```{r r-calc-6-solution}
+9+9*9
+```
+
+```{r r-calc-6-check}
+grade_this_code()
 ```
 
 Try `9+9/1`
 
-```{r r-calc-8, exercise=T}
+```{r r-calc-7, exercise = TRUE}
 
+```
+
+```{r r-calc-7-solution}
+9+9/1
+```
+
+```{r r-calc-7-check}
+grade_this_code()
 ```
 
 Try `9+(9+9)/9`
 
-```{r r-calc-9, exercise=T}
+```{r r-calc-8, exercise = TRUE}
 
 ```
 
-Try `log(9,base=3`
+```{r r-calc-8-solution}
+9+(9+9)/9
+```
 
-```{r r-calc-10, exercise=T}
+```{r r-calc-8-check}
+grade_this_code()
+```
 
+Try `log(9, base=3)`
+
+```{r r-calc-9, exercise = TRUE}
+
+```
+
+```{r r-calc-9-solution}
+log(9, base = 3)
+```
+
+```{r r-calc-9-check}
+grade_this_code()
 ```
 
 Try `exp(5)` (e\^5)
 
-```{r r-calc-11, exercise=T}
+```{r r-calc-10, exercise = TRUE}
 
+```
+
+```{r r-calc-10-solution}
+exp(5)
+```
+
+```{r r-calc-10-check}
+grade_this_code()
 ```
 
 Try `3**3`
 
-```{r r-calc-12, exercise=T}
+```{r r-calc-11, exercise = TRUE}
 
+```
+
+```{r r-calc-11-solution}
+3**3
+```
+
+```{r r-calc-11-check}
+grade_this_code()
 ```
 
 Try `pi`
 
-```{r r-calc-13, exercise=T}
+```{r r-calc-12, exercise = TRUE}
 
+```
+
+```{r r-calc-12-solution}
+pi
+```
+
+```{r r-calc-12-check}
+grade_this_code()
 ```
 
 Try `sin(pi*2)`
 
-```{r r-calc-14, exercise=T}
+```{r r-calc-13, exercise = TRUE}
 
+```
+
+```{r r-calc-13-solution}
+sin(pi * 2)
+```
+
+```{r r-calc-13-check}
+grade_this_code()
 ```
 
 Try `cos(pi*2)`
 
-```{r r-calc-15, exercise=T}
+```{r r-calc-14, exercise = TRUE}
 
 ```
 
-Try `tan(pi*2)`
+```{r r-calc-14-solution}
+cos(pi * 2)
+```
 
-```{r r-calc-16, exercise=T}
+```{r r-calc-14-check}
+grade_this_code()
+```
 
+Try `tanpi(2)`
+
+```{r r-calc-15, exercise = TRUE}
+
+```
+
+```{r r-calc-15-solution}
+tanpi(2)
+```
+
+```{r r-calc-15-check}
+grade_this_code()
 ```
 
 ## R Functions
 
-An R function is a procedure that tells R to do certain tasks. For example, the `log(x)` is an R function. It takes the value `x` and provides you the natural logarithm. Here `x` is known as an argument which needs to be specified to us the `log()` function. Find the `log(x=5)`
+An R function is a procedure that tells R to do certain tasks. For example, the `log(x)` is an R function. It takes the value `x` and provides you the natural logarithm. Here `x` is known as an argument which needs to be specified to us the `log()` function. Find the `log(x = 5)`
 
-```{r r-func-1, exercise=T}
+```{r r-fx-1, exercise = TRUE}
 
 ```
+
+```{r r-fx-1-solution}
+# With Argument ----
+log(x = 5)
+
+# Without Argument ----
+log(5)
+```
+
+```{r r-fx-1-check}
+grade_this_code()
+```
+
 
 Another argument for the `log()` function is the `base` argument. With the previous code, we did not specify the `base` argument, so R makes the `base` argument The natural logarithm is just log with base **e**. If you want to use the common log with base 10, you will need to set the `base` argument equal to 10.
 
-Try `log(x=5,base=10)`
+Try `log(x = 5, base = 10)`
 
-```{r r-func-2, exercise=T}
-
-```
-
-Now try `log(5,10)`
-
-```{r r-func-3, exercise=T}
+```{r r-fx-2, exercise = TRUE}
 
 ```
 
-Notice that it provides the same value. This is because R can set arguments based on the position they are provided in the function when it is not specified. For `log(5,10)`, R thinks that 5 corresponds to the first argument `x` and 10 is the second argument `base`.
+```{r r-fx-2-solution}
+# With Argument ----
+log(x = 5, base = 10)
+
+# Without Argument ----
+log(5, 10)
+```
+
+```{r r-fx-2-check}
+grade_this_code()
+```
+
+Now try `log(5, 10)`
+
+```{r r-fx-3, exercise = TRUE}
+
+```
+
+```{r r-fx-3-solution}
+log(5, 10)
+```
+
+```{r r-fx-3-check}
+grade_this_code()
+```
+
+
+Notice that it provides the same value. This is because R can set arguments based on the position they are provided in the function when it is not specified. For `log(5, 10)`, R thinks that 5 corresponds to the first argument `x` and 10 is the second argument `base`.
 
 ## R Objects
 
-One major component in R is R objects. R objects are can be thought of as virtual containers of things. These objects can store results, numbers, functions, and many more. Here were will work on a few concepts with R objects. First, let's ;earn how to create an R object. To create an R object called `x` that contains the number 12, use the `<-` operator. The `<-` operator is just the less than arrow `<` and minus sign `-`. Type `x<-12`.
+One major component in R is R objects. R objects are can be thought of as virtual containers of things. These objects can store results, numbers, functions, and many more. Here were will work on a few concepts with R objects. First, let's ;earn how to create an R object. To create an R object called `x` that contains the number 12, use the `<-` operator. The `<-` operator is just the less than arrow `<` and minus sign `-`. Type `x <- 12`.
 
-```{r r-obj-1,exercise=T}
+```{r r-obj-1-setup}
+x <- 12
+```
+
+```{r r-obj-1, exercise = TRUE}
 
 ```
 
+```{r r-obj-1-solution}
+# Arrow ----
+x <- 12
+
+# Non Arrow ----
+x = 12
+```
+
+```{r r-obj-1-check}
+grade_this_code()
+```
+
+
 Notice that nothing pops out. This is because R does not need to print out any results. Now to view what is in `x`, just type `x`.
 
-```{r r-obj-2,exercise=T}
+```{r r-obj-2, exercise = TRUE, exercise.setup = "r-obj-1-setup"}
 
+```
+
+```{r r-obj-2-solution}
+# Arrow ----
+x
+
+# Non Arrow ----
+print(x)
+```
+
+```{r r-obj-2-check}
+grade_this_code()
 ```
 
 Notice that the number 12 pops out.
 
-Now try to add something to the R object `x`. Type `x+3`
+Now try to add something to the R object `x`. Type `x + 3`
 
-```{r r-obj-3,exercise=T}
+```{r r-obj-3, exercise = TRUE, exercise.setup = "r-obj-1-setup"}
 
+```
+
+```{r r-obj-3-solution}
+ x + 3
+```
+
+```{r r-obj-3-check}
+grade_this_code()
 ```
 
 Notice that 15 prints out.
 
 Not try other calculations to `x`
 
-```{r r-obj-4,exercise=T}
+```{r r-obj-4, exercise = TRUE, exercise.setup = "r-obj-1-setup"}
 
 ```
+
+
 
 R objects are extremely powerful and can be used in many ways.
 
@@ -173,4 +367,7 @@ R objects are extremely powerful and can be used in many ways.
 
 As I stated before, R can be extended to do more things, such as create this tutorial. This is done by installing R packages. An R package can be thought of as extra software. This allows you to do more with R. To install an R package, you will need to use `install.packages("NAME_OF_PACKAGE")`. Once you install it, you do not need to install it again. To use the R package, use `library("NAME_OF_PACKAGE")`. This allows you to load the package in R. You will need to load the package every time you start R. For more information, please watch the video below.
 
-![<https://vimeo.com/203516241>](https://vimeo.com/203516241)
+```{=html}
+<iframe src="https://player.vimeo.com/video/203516241?h=819422ce1e&color=428bca" width="640" height="400" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+<p><a href="https://vimeo.com/203516241">install Packages</a> from <a href="https://vimeo.com/rstudioinc">RStudio, Inc.</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+```

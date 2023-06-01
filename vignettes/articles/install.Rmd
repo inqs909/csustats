@@ -1,0 +1,45 @@
+---
+title: "Installing R, RStudio, and R Packages"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  echo = FALSE
+)
+```
+
+### Using R
+
+If you like to install R in your computer, please watch the video below.
+
+```{=html}
+<iframe src="https://player.vimeo.com/video/203516510?h=9ef4d70382&amp;color=428bca" width="640" height="400" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
+</iframe>
+<p><a href="https://vimeo.com/203516510">install-R</a> from <a href="https://vimeo.com/rstudioinc">Posit, Inc.</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+```
+## RStudio
+
+RStudio is an Integrated Development Environment (IDE) program used to make your life easier when you are programming in R. To use RStudio, you will need to install R first. While you can use R by itself, you don't want to, trust me! You can think of R as an engine of a car, and RStudio as the model of a car. There are other IDE's, but they are not as popular.
+
+Additionally, RStudio provides numerous resources for new learners and data scientists. If you are interested in learning R and RStudio, I recommend you to look at Posit's website for more information [posit.co/](https://posit.co/).
+
+### Posit.cloud
+
+Posit.cloud is an online platform to run R. It is one of the resources provided by Posit. It is free to use, but there are some limitations. The advantage is that you only need a modern internet browser to access it. The disadvantage is that you cannot run intensive data analysis. However, for our needs in the class, it is perfect, because you will not need to worry about installing anything on your computer. To access Posit.cloud, use the following link: [posit.cloud/](https://posit.cloud/). Use your Google account to create an account in Posit.
+
+### Install RStudio (Optional)
+
+To install RStudio on your computer, go to [posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/), and download the desktop free version to your system. Then install the software package on your computer. For more information, watch the video below.
+
+#### Windows
+
+```{=html}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YrEe2TLr3MI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+```
+#### Mac
+
+```{=html}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/n8kP7c_QbLA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+```
