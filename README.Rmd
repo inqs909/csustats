@@ -18,7 +18,6 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/inqs909/csustats/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/inqs909/csustats/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-
 ## Author
 
 Isaac Quintanilla Salinas
@@ -36,7 +35,6 @@ To install the package, use the following code:
 
 ```{r, eval=FALSE}
 #install.packages("remotes")
-#Intsall R Package
 remotes::install_github("inqs909/csustats")
 ```
 

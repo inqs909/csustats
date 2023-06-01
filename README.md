@@ -30,7 +30,6 @@ To install the package, use the following code:
 
 ``` r
 #install.packages("remotes")
-#Intsall R Package
 remotes::install_github("inqs909/csustats")
 ```
 
