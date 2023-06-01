@@ -17,11 +17,11 @@ Imports:
     car,
     tibble,
     readr,
-    gradethis (>= 0.2.3.9001)
+    gradethis 
 Suggests: 
     knitr,
     rmarkdown
 VignetteBuilder: knitr
 Remotes: 
-    rstudio-education/gradethis
+    rstudio/gradethis
 URL: http://www.inqs.info/csustats/
