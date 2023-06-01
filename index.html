@@ -22,7 +22,7 @@
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
     
 
-    <nav class="navbar fixed-top navbar-light navbar-expand-lg bg-light"><div class="container">
+    <nav class="navbar fixed-top navbar-dark navbar-expand-lg bg-primary"><div class="container">
     
     <a class="navbar-brand me-2" href="index.html">csustats</a>
 
@@ -54,6 +54,8 @@
 <div class="page-header"><h1 id="r-package-csustats">R Package <code>csustats</code>
 <a class="anchor" aria-label="anchor" href="#r-package-csustats"></a>
 </h1></div>
+<!-- badges: start -->
+
 <div class="section level2">
 <h2 id="author">Author<a class="anchor" aria-label="anchor" href="#author"></a>
 </h2>
@@ -69,9 +71,10 @@
 <h2 id="install-r-package">Install R Package<a class="anchor" aria-label="anchor" href="#install-r-package"></a>
 </h2>
 <p>To install the package, use the following code:</p>
-<pre><code><span><span class="co">#install.packages("remotes")</span></span>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#install.packages("remotes")</span></span>
 <span><span class="co">#Intsall R Package</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"inqs909/csustats"</span><span class="op">)</span></span></code></pre>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"inqs909/csustats"</span><span class="op">)</span></span></code></pre></div>
 <p>Make sure to install the <code>remotes</code> package first.</p>
 </div>
 <div class="section level2">
@@ -82,8 +85,9 @@
 <h3 id="access-learnr-tutorial">Access learnr tutorial<a class="anchor" aria-label="anchor" href="#access-learnr-tutorial"></a>
 </h3>
 <p>To access one of my learnr tutorials, use the <code><a href="reference/access_tutorial.html">access_tutorial()</a></code> function. It only needs the name (id) of the tutorial.</p>
-<pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">s170R</span><span class="op">)</span></span>
-<span><span class="fu"><a href="reference/access_tutorial.html">access_tutorial</a></span><span class="op">(</span><span class="st">"R_Basics"</span><span class="op">)</span></span></code></pre>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://www.inqs.info/csustats/">csustats</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="reference/access_tutorial.html">access_tutorial</a></span><span class="op">(</span><span class="st">"R_Basics"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 </div>
@@ -110,7 +114,12 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/inqs909/csustats/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/inqs909/csustats/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
