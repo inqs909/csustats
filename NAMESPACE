@@ -1,4 +1,1 @@
 exportPattern("^[[:alpha:]]+")
-
-export(access_tutorial)
-export(list_tutorials)
