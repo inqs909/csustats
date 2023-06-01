@@ -1,0 +1,178 @@
+---
+title: "R ANOVA"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(car)
+
+knitr::opts_chunk$set(echo = FALSE)
+
+mtcars$cyl <- as.character(mtcars$cyl)
+aov_1 <- aov(mpg~cyl, mtcars)
+
+```
+
+## Introduction
+
+This tutorial focuses on one-way ANOVA. **You only need to do section 1 and 2 to learn how to do an ANOVA in R.**
+
+For this tutorial, we will use the `mtcars` data set and comparing the the `mpg` (dependent) variable with the `cyl` (independent) variable. The `cyl` variable will b treated as categorical.
+
+Through out this tutorial, we use certain notations for different components in R. To begin, when something is in a gray block, `_`, this indicates that R code is being used. When I am talking about an R Object, it will be displayed as a word. For example, we will be using the R object `mtcars`. When I am talking about an R function, it will be displayed as a word followed by an open and close parentheses. For example, we will use the mean function denoted as `mean()` (read this as "mean function"). When I am talking about an R argument for a function, it will be displayed as a word following by an equal sign. For example, we will use the data argument denoted as `data=` (read this as "data argument"). When I am referencing an R package, I will use `::` (two colons) after the name. For example, in this tutorial, I will use the `ggplot2::` (read this as "ggplot2 package") Lastly, if I am displaying R code for your reference or to run, it will be displayed on its own line. There are many components in R, and my hope is that this will help you understand what components am I talking about.
+
+### Contents
+
+1.  Descriptive Statistics
+
+2.  ANOVA
+
+3.  Assumptions
+
+4.  Pairwise-Comparisons
+
+
+## Descriptive Statistics
+
+Before we begin, convert the `cyl` variable in the `mtcars` data set to a character variable.
+
+```{r aov_1_1, exercise = TRUE}
+
+```
+
+```{r aov_1_1-solution}
+mtcars$cyl <- as.character(mtcars$cyl)
+```
+
+
+Now find the individual means for each group (Note: tidyverse is loaded):
+
+```{r aov_1_2, exercise = TRUE}
+
+```
+
+```{r aov_1_2-solution}
+tapply(mtcars$mpg, list(mtcars$cyl), mean)
+
+## OR
+
+mtcars %>% group_by(cyl) %>% 
+  select(mpg) %>% 
+  summarise(mean = mean(mpg))
+```
+
+Find the individual variances for each group:
+
+```{r aov_1_3, exercise = TRUE}
+
+```
+
+```{r aov_1_3-solution}
+tapply(mtcars$mpg, list(mtcars$cyl), var)
+
+## OR
+
+mtcars %>% group_by(cyl) %>% 
+  select(mpg) %>% 
+  summarise(var = var(mpg))
+```
+
+## ANOVA
+
+To conduct an ANOVA, use the `aov()` where you will need to supply the `formula=` and the `data=` argument. Conduct an ANOVA with `mpg` as the response variable and `cyl` as the grouping variable. Store the output in an object called `aov_1`.
+
+```{r aov_2_1, exercise = TRUE}
+
+```
+
+```{r aov_2_1-solution}
+aov_1 <- aov(mpg~cyl, mtcars)
+```
+
+
+To obtain the ANOVA table, use the `anova()`. All you need to do is specify the object that contains the output from the `aov()`.
+
+```{r aov_2_2, exercise = TRUE}
+
+```
+
+```{r aov_2_2-solution}
+anova(aov_1)
+```
+
+## Assumptions
+
+There are a number of assumptions that is required to conduct an ANOVA. Many of the assumptions can be checked with a residual analysis. However, there are a couple of statistical tests to check for equal assumptions.
+
+### Bartlett's Test
+
+Bartlett's test analyzes if the variances are equal. It has the following hypotheses:
+
+$H_0:$ $\sigma_1^2=\sigma_2^2=\sigma^2_3$ 
+
+$H_1:$ $\sigma_i^2\neq \sigma_j^2$ for at least one pair of $(i,j)$ 
+
+To conduct Bartlett's test, use the `bartlett.test()` function. You will need to specify the `formula=` and the `data=`. Conduct the Bartlett's test for the variables `mpg` and `cyl`.
+
+```{r aov_3_1, exercise = TRUE}
+
+```
+
+
+
+```{r aov_3_1-solution}
+bartlett.test(mpg~cyl,data=mtcars)
+```
+
+### Levene's Test
+
+Levene's test analyzes if the variances are equal. It has the following hypotheses:
+
+$H_0:$ $\sigma_1^2=\sigma_2^2=\sigma^2_3$ 
+
+$H_1:$ $\sigma_i^2\neq \sigma_j^2$ for at least one pair of $(i,j)$ 
+
+To conduct Levene's test, use the `leveneTest()` function from the `car::`. You will need to specify the `formula=` and the `data=`. Conduct the Levene's test for the variables `mpg` and `cyl`.
+
+```{r aov_3_2, exercise = TRUE}
+
+```
+
+
+```{r aov_3_2-solution}
+leveneTest(mpg~cyl, data = mtcars)
+```
+
+
+## Pair-wise Comparison Tests
+
+Once you conclude that there is a significant association from the ANOVA table, you will need to find the groups that differ from each other. However, conducting multiple statistical tests will increase the family-wise error rate. Therefore, you will need to use methods that control this error rate. We will go over 2 types of tests: Bonferroni and Tukey.
+
+### Bonferroni
+
+The Bonferroni pairwise test can be conducted with the `pairwise.t.test()`. You will need to specify the `x=`, the response variable, the `g=`, the grouping variable, and set `p.adjust.method = "bonferroni"`. Conduct a pairwise test with the variables `mpg` and `cycl`. 
+
+```{r aov_4_1, exercise = TRUE}
+
+```
+
+```{r aov_4_1-solution}
+pairwise.t.test(x = mtcars$mpg, g = mtcars$cyl, p.adjust.method = "bonferroni")
+```
+
+### Tukey Honest Significance Difference
+
+The Tukey Honest Significance Difference test can be conducted with the `TukeyHSD()`. All you need to do is specify the object that contains the output from the `aov()`. Conduct the Tukey Honest Significance Difference test to the ANOVA results.
+
+```{r aov_4_2, exercise = TRUE}
+
+```
+
+```{r aov_4_2-solution}
+TukeyHSD(aov_1)
+
+```

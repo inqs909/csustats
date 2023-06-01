@@ -1,0 +1,403 @@
+---
+title: "Tutorial"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+knitr::opts_chunk$set(echo = FALSE)
+
+data1<-read_csv("data_3_1.csv")
+data2<-read_csv("data_3_2.csv")
+data3<-read_csv("data_3_3.csv")
+data4<-read_csv("data_3_6.csv")
+data5<-read_csv("data_3_7.csv")
+data6<-read_csv("data_3_5.csv")
+data7<-read_csv("data_3_4.csv")
+
+data8 <- data7 %>% pivot_longer(`v1/mean`:`v4/median`,"measurement","value") %>% 
+          separate(measurement,c("time","stat"),sep="/") %>% 
+          pivot_wider(names_from = stat,values_from = value)
+
+medval <- data2$va1 %>% median() 
+```
+
+
+## Introduction
+
+Tidyverse is a set of packages that makes data manipulation much easier. These are functions that many individuals from the R community find useful to use for data analysis. In my opinion, once you have understand how the Tidyverse packages function, it makes it much easier to work with than Base R. Many of the functions are descriptively named for easy remembrance. For the most part you can do almost everything that Base R. There are just a few things you can't do, but it is rare that you will use them. One last thing is that the output from tidyverse is always formatted as tibble class, the Tidyverse version of the data frame. This can have some ups and downs. However, think of a tibble as a lazier data frame. 
+
+Through out this tutorial, we use certain notations for different components in R. To begin, when something is in a gray block, `_`, this indicates that R code is being used. When I am talking about an R Object, it will be displayed as a word. For example, we will be using the R object `mtcars`. When I am talking about an R function, it will be displayed as a word followed by an open and close parentheses. For example, we will use the mean function denoted as `mean()` (read this as "mean function"). When I am talking about an R argument for a function, it will be displayed as a word following by an equal sign. For example, we will use the data argument denoted as `data=` (read this as "data argument"). When I am referencing an R package, I will use `::` (two colons) after the name. For example, in this tutorial, I will use the `ggplot2::` (read this as "ggplot2 package") Lastly, if I am displaying R code for your reference or to run, it will be displayed on its own line. There are many components in R, and my hope is that this will help you understand what components am I talking about.
+
+
+When you installed the `s170r::`, it would have installed the `tidyverse::` in your computer. Therefore, you will only need to use the `library()` to load `tidyverse::`:
+
+```{r load, exercise = TRUE}
+
+```
+
+```{r load-solution}
+library(tidyverse)
+```
+
+This will load the main Tidyverse packages: `ggplot2::`, `tibble::`, `tidyr::`, `readr::`, `purr::`, `dplyr::`, `stringr::`, and `forcats::`.
+
+## The Pipe Operator `%>%`
+
+The main benefit of the pipe operator is to make the code easier to read. The pipe operator is from the `magrittr::`. It is usually loaded when you load the `tidyverse::`. What the pipe operator, `%>%`, does is that it will take the output from a previous function and it will use it as an input for the next function. This prevents us from nesting functions together and overwhelm us with numerous parentheses and commas. To practice, pipe `data` into the `glimpse()`.
+
+```{r pipe, exercise = TRUE}
+
+```
+
+```{r pipe-solution}
+data1 %>% glimpse()
+```
+
+The `glimpse()` then provides basic variable information about `data1`. I recommend practice reading the code in plain English to help you understand how these functions. 
+
+
+## Data Transformation
+
+This section focuses on manipulating the data to obtain basic statistics, such as obtaining the mean for different categories. Many of the functions used here are from the `dplyr::`.
+
+### Summarizing Data
+
+Summarizing Data is one of the most important thing in statistics. First, let's get the mean for all the variables in `data1`. This is done by using the `summarize_all()`. All you need to do is provide the function you want R to provide. Pipe `data1` into the `summarize_all()` and specify `mean` in the function.
+
+```{r sd_1, exercise = TRUE}
+
+```
+
+```{r sd_1-solution}
+data1 %>% summarise_all(mean)
+```
+
+Notice how some values are `NA`, this is because the variables are character data types. Therefore, it will not be able to compute the mean. Now find the standard deviation for the data set.
+
+```{r sd_2, exercise = TRUE}
+
+```
+
+```{r sd_2-solution}
+data1 %>%  summarise_all(sd)
+```
+
+Now lets create a frequency table for the `cat1` variable in `data1`. use the `count()` and specify the variable you are interested in:
+
+```{r sd_3, exercise = TRUE}
+
+```
+
+```{r sd_3-solution}
+data1 %>% count(cat1)
+```
+
+Now, repeat for `cat2` in `data1`:
+
+```{r sd_4, exercise = TRUE}
+
+```
+
+```{r sd_4-solution}
+data1 %>%  count(cat2)
+```
+
+
+### Grouping
+
+Summarizing data is great, but sometimes you may want to group data and obtain summary statistics for those groups. This is done by using the `group_by()` and specify which variable you want to group. Try grouping `data1` by `cat1`:
+
+```{r g_1, exercise = TRUE}
+
+```
+
+```{r g_1-solution}
+data1 %>% group_by(cat1)
+```
+
+Great! You now have grouped data; however, this is not helpful. We can use this output and summarize the groups. All we need to do is pipe the output to the `summarise_all()`. Group `data1` by `cat1` and find the mean:
+
+```{r g_2, exercise = TRUE}
+
+```
+
+```{r g_2-solution}
+data1 %>% group_by(cat1) %>% summarise_all(mean)
+```
+
+
+If we want to group by two variables, all we need to do is specify both variables in the `group_by()`. Group `data1` by `cat1` and `cat2` then find the mean:
+
+```{r g_3, exercise = TRUE}
+
+```
+
+```{r g_3-solution}
+data1 %>% group_by(cat1,cat2) %>% summarise_all(mean)
+```
+
+Now, instead of finding the mean for all variables in a data set, we are only interested in viewing `var1`. We can use the `summarise()` and type the R code for finding the mean for the particular variable. Group `data1` by `cat1` and find the mean for `var1`:
+
+```{r g_4, exercise = TRUE}
+
+```
+
+
+```{r g_4-solution}
+data1 %>% group_by(cat1) %>% summarise(mean(var1))
+```
+
+
+### Subsets
+
+On occasion, you may need to create a subset of your data. You may only want to work with one part of your data. To create a subset of your data, use the `filter()` to create the subset. This will select the rows that satisfy a certain condition. Create a subset of `data1` where only the positive values of `var1` are present. Use the `filter()` and state `var1>0`.
+
+```{r s_1, exercise = TRUE}
+
+```
+
+
+```{r s_1-solution}
+data1 %>% filter(var1>0)
+```
+
+
+If you know which rows you want, you can use the `slice()` and specify the rows as a vector. Create a subset of `data1` and select the rows 100 to 200 and 300 to 400.
+
+```{r s_2, exercise = TRUE}
+
+```
+
+```{r s_2-solution}
+data1 %>% slice(c(100:200,300:400))
+```
+
+If you need random sample of your `data1`, use the `sample_n()` and specify the number you want. It will create a data set of randomly selected rows. Create a random sample of `data1` of 100 rows.
+
+```{r s_3, exercise = TRUE}
+
+```
+
+```{r s_3-solution}
+data1 %>%  sample_n(100)
+```
+
+If you want a random sample that is proportion of your original data size, use the `sample_frac()`. Specify the proportion that you want from the data. Create a random sample of `data1` that is only 2/7th of the original size.
+
+```{r s_4, exercise = TRUE}
+
+```
+
+```{r s_4-solution}
+data1 %>% sample_frac(2/7)
+```
+
+### Creating Variables
+
+Some times you may need to transform variables to a new variable. This can be done by using the `mutate()` where you specify the name of the new variable and set equal to the transformation of other variables. Using the `data2` data set, create a new variable called `logvar1` and set that to the log of `va1`.
+
+```{r m_1, exercise = TRUE}
+
+```
+
+
+```{r m_1-solution}
+data2 %>% mutate(logvar1 = log(va1))
+```
+
+The `mutate()` allows you to create multiple new variables at once. Id addition to `logvar1`, create a new variable called `sqrtvar2` and set that equal to the square root of `va2`.
+
+```{r m_2, exercise = TRUE}
+
+```
+
+```{r m_2-solution}
+data2 %>% mutate(logvar1 = log(va1), sqrtvar2 = sqrt(va2))
+```
+
+
+If you want to create categorical variables, use the `mutate()` and the `if_else()`.  The `if_else()` requires three arguments:  `condition=`, `true=`, and `false=`. The first argument requires a condition that will return a logical value. If true, then R will assign what is stated in the `true=`, otherwise R will assign what is in the `false=`. To begin, find the median of `va1` from `data2` and assign it to `medval`.
+
+```{r m_3, exercise = TRUE}
+
+```
+
+
+```{r m_3-solution}
+medval <- data2$va1 %>% median() 
+```
+
+No create a  new variable called `diva1` where if `va1` is greater than the median of `va1`,  assign it "A", otherwise assign it "B".
+
+```{r m_4, exercise = TRUE}
+
+```
+
+
+```{r m_4-solution}
+data2 %>% mutate(diva1=if_else(va1>medval,"A","B"))
+```
+
+
+### Merging Datasets
+
+One of the last thing is to go over how to merge data sets together.  To merge the data sets, we use the `full_join()`. The `full_join()` needs two data sets (separated by commas) and the `by=` which provides the variables needed (must be the same name for each data set) to merge the data sets. Merge `data1` and `data2` with the variable `ID1`.
+
+```{r j_1, exercise = TRUE}
+
+```
+
+
+```{r j_1-solution}
+full_join(data1, data2, by = "ID1")
+```
+
+The `full_join()` allows you to merge data sets using two variables instead of one. All you need to do is specify `by=` with a vector specifying the arguments. Merge `data2` and `data3` by `ID_1` and `ID_2`.
+
+```{r j_2, exercise = TRUE}
+
+```
+
+```{r j_2-solution}
+full_join(data2, data3, by = c("ID_1","ID_2"))
+```
+
+
+## Reshaping Data
+
+This section focuses on reshaping the data to prepare it for analysis. For example, to conduct longitudinal data analysis, you will need to have long data. Reshaping data may be with converting data from wide to long, converting back from long to wide, splitting variables, splitting rows and merging variable.
+The functions used in this lesson are from the `tidy::`
+
+### Wide to Long Data
+
+Converting data from wide to long is necessary when the data looks like `data4`, view `data4`:
+
+```{r wl_1, exercise = TRUE}
+
+```
+ 
+```{r wl_1-solution}
+data4
+```
+
+ 
+Let's say `data4` represents biomarker data. Variable `ID1` represents a unique identifier for the participant. Then `X1`, `X2`, `X3`, and `X4` represents a value collected for a participant at different time point. This is know as repeated measurements. This data is considered wide because the repeated measurements are on the same row. To make it long, the repeated measurements must be on the same column.
+
+To convert data from long to wide, we will use the `pivot_longer()` with the first argument taking variables of the repeated measurements, `c(X1:X4)` or `X1:X4`, the second argument asks for the name for the variable that contains the stored repeated measurements, the variable names, and the last variable asks for the name for all the values, the data collected. Convert the `data4` to long and name the variable names column `"measurement"`, and values column `"value"`.
+
+```{r wl_2, exercise = TRUE}
+
+```
+
+
+```{r wl_2-solution}
+data4 %>% pivot_longer(X1:X4, "measurement", "value")
+```
+
+### Long to Wide
+
+If you need to convert data from long to wide, use the `pivot_wider()`. You will need to specify the `names_from=` which specifies the variable names for the wide data set, and you will need to specify the `values_from=` that specifies variable that contains the values in the long data set. Convert `data5` from long to wide data. Note, you must specify the arguments for this function.
+
+```{r wl_3, exercise = TRUE}
+
+```
+
+```{r wl_3-solution}
+data5 %>% pivot_wider(names_from = measurement, values_from = value)
+```
+
+
+### Spliting Variables
+
+Before we begin, look at `data6`:
+
+```{r sv_1, exercise = TRUE}
+
+```
+
+Notice how the `merge` variable has two values separated by "/". If we need to split the variable into two variables, we need to specify the `separate()`. All you need to specify is the variable you need to split, the name of the 2 new variables, in a character vector, and how to split the variable `"/"`. Split the variable `merge` in `data6` to two new variables called `X1` and `X2`.
+
+```{r sv_2, exercise = TRUE}
+
+```
+
+
+```{r sv_2-solution}
+data6 %>% separate(merge, c("X1", "X2"), "/")
+```
+
+### Splitting Rows
+
+The variable `merge` in `data6` was split into different variables before, now instead of variables, let's split it into different rows instead. To do this, use the `separate_rows()`. All you need to specify the variable name and the `sep=` (must state the argument). Split the `merge` variable from `data6` into different rows.
+
+```{r sr_1, exercise = TRUE}
+
+```
+
+
+```{r sr_1-solution}
+data6 %>% separate_rows(merge, sep = "/")
+```
+
+### Merging Rows
+
+If you need to merge variables together, similar to the `merge` variable, use the `unite()`. All you need to do is specify the variables to merge, the `col=` which specifies the name of the new variable (as a character), and the `sep=` which indicates the symbol for separate value, as a character. Note, you need to specify the bot the `col=` and `sep=`.  Merge variable `X3` and `X4` in `data6` to a new variable called `merge2` and have the separator be a hyphen.
+
+```{r mr_1, exercise = TRUE}
+
+```
+
+
+```{r mr_1-solution}
+data6 %>% unite(X3, X4, col = "merge2", sep="-")
+```
+
+
+## Applied Example
+
+Here is an applied example where you will use what you learned from the previous lesson and convert `data7` into `data8`. `data7` has a wide data format which contains time points labeled as `vX`, where `X` represents the time point number. At each time point, the mean, sd, and median was taken. You will need to convert the data to long where each row represents a new time point, and each row will have 3 variables representing the mean, sd, and median. View both `data7` and `data8` to have a better idea on what is going on. Remember you need to convert `data7` to `data8`. 
+
+```{r ae_1, exercise = TRUE}
+
+```
+
+
+```{r ae_2, exercise = TRUE}
+
+```
+
+
+Now that you viewed the data set, type the code to convert `data7` to `data8`. Try working it out before you look at the solution.
+
+```{r ae_3, exercise = TRUE, exercise.lines = 6}
+
+```
+
+
+```{r ae_3-hint-1}
+#Specifying the variables will require the use of back ticks because of the forward slash. For example, use: `v1/mean`
+```
+
+
+```{r ae_3-hint-2}
+#You will need to use more than one function from the Reshaping Data section.
+```
+
+```{r ae_3-hint-3}
+#You will use both pivot_wider() and pivot_longer() plus one more function.
+```
+
+```{r ae_3-hint-4}
+#The other function is separate()
+```
+
+
+```{r ae_3-solution}
+data7 %>% pivot_longer(`v1/mean`:`v4/median`,"measurement","value") %>% 
+          separate(measurement,c("time","stat"),sep="/") %>% 
+          pivot_wider(names_from = stat,values_from = value)
+```
+

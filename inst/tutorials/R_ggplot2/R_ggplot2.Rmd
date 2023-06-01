@@ -1,0 +1,452 @@
+---
+title: "ggplot2"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+knitr::opts_chunk$set(echo = FALSE)
+mtcars$ind <- c(1:32)
+gg_1 <- ggplot(mtcars, aes(ind,mpg))
+gg_2 <- ggplot(mtcars, aes(mpg, disp))
+gg_3 <- ggplot(mtcars, aes(mpg))
+gg_4 <- ggplot(mtcars, aes(cyl))
+gg_5 <- ggplot(mtcars, aes(mpg, disp, color = factor(cyl)))
+gg_6 <- ggplot(mtcars, aes(ind, mpg, shape=factor(cyl)))
+gg_7 <- ggplot(mtcars, aes(mpg, fill = factor(cyl)))
+gg_8 <- ggplot(mtcars, aes(cyl, fill = factor(vs)))
+gg_9 <- ggplot(mtcars, aes(mpg, disp, color = factor(cyl)))+geom_point()
+```
+
+## Introduction
+
+Through out this tutorial, we use certain notations for different components in R. To begin, when something is in a gray block, `_`, this indicates that R code is being used. When I am talking about an R Object, it will be displayed as a word. For example, we will be using the R object `mtcars`. When I am talking about an R function, it will be displayed as a word followed by an open and close parentheses. For example, we will use the mean function denoted as `mean()` (read this as "mean function"). When I am talking about an R argument for a function, it will be displayed as a word following by an equal sign. For example, we will use the data argument denoted as `data=` (read this as "data argument"). When I am referencing an R package, I will use `::` (two colons) after the name. For example, in this tutorial, I will use the `ggplot2::` (read this as "ggplot2 package") Lastly, if I am displaying R code for your reference or to run, it will be displayed on its own line. There are many components in R, and my hope is that this will help you understand what components am I talking about.
+
+
+
+The `ggplot2::` provides a set of functions to create different graphics. For more information on plotting in `ggplot2::`, please visit the this excellent [resource](https://ggplot2.tidyverse.org/). Here we will discuss some of the basics to the `ggplot2::`. To me, `ggplot2::` creates a plot by adding layers to a base plot. The syntax is designed for you to change different components of a plot in an intuitive manner. For this tutorial, we will focus on plotting different components from the `mpg` data set.
+
+
+### Contents
+
+1. Basic
+
+2. Grouping
+
+3. Themes/Tweaking
+
+
+## Basics
+
+To begin, the `ggplot2::` really works well when you are using data frames. If you have any output that you want to plot, convert into to a data frame. Once we have our data set, the first thing you would want to do is specify the main components of your base plot. This will be what will be plotted on your x-axis, and what will be plotted on your y-axis. Next, you will create the the type of plot. Lastly, you will add different layers to tweak the plot for your needs. This can be changing the layout or even overlaying another plot. The `ggplot2::` provides you with tools to do almost everything you need to create a plot easily. 
+
+Before we begin plotting, load the `ggplot2::` in R. The `ggplot2::` would have been installed with installing this package, `s170r::`.
+
+```{r gg_b_1, exercise = TRUE}
+
+```
+
+```{r gg_b_1-solution}
+library(ggplot2)
+```
+
+
+Now, when we create a base plot, we will use the `ggplot()`. This will initialize the data that we need to use with the `data=` and how to map it on the x and y axis with the `mapping=`. With the `mapping=`, you will need to use the `aes()` which constructs the mapping function for the base plot. The `aes()` requires the `x=` and optionally uses the `y=` to set which values represents the x and y axis. The `aes()` also accepts other arguments for grouping or other aesthetics. 
+
+Before we begin, create a new variable in `mtcars` called `ind` and place a numeric vector which contains integers from 1 to 32.
+
+```{r gg_b_2, exercise = TRUE}
+
+```
+
+```{r gg_b_2-solution}
+mtcars$ind <- c(1:32)
+```
+
+
+Now, let's create the base plot and assign it to `gg_1`. Use the `ggplot()` and set `mtcars` as its data and the variable `ind` as `x=` and `mpg` as the `y=`
+
+```{r gg_b_3, exercise = TRUE}
+
+```
+
+```{r gg_b_3-solution}
+gg_1 <- ggplot(mtcars, aes(ind, mpg))
+```
+
+This base plot is now used to create certain plots. Plots are created by adding functions to the base plot. This is done by using the `+` operator and then a specific `ggplot2::` function. Below we will go over some of the functions necessary. 
+
+### Scatter Plot
+
+To create a scatter plot in `ggplot2::`, add the `geom_point()` to the base plot. You do not need to specify any arguments in the function. Create a scatter plot to `gg_1`
+
+```{r gg_sp_1, exercise = TRUE}
+
+```
+
+```{r gg_sp_1-solution}
+gg_1 + geom_point()
+```
+
+If we want to put lines instead of points, we will need to use the `geom_point()`. Change the points to a line.
+
+```{r gg_sp_2, exercise = TRUE}
+
+```
+
+
+```{r gg_sp_2-solution}
+gg_1 + geom_line()
+```
+
+To overlay points to the plot, add `geom_point()` as well as `geom_line()`. Add points to the plot above.
+
+```{r gg_sp_4, exercise = TRUE}
+
+```
+
+```{r gg_sp_4-solution}
+gg_1 + geom_point() + geom_line()
+```
+
+To create a 2 variable scatter plot. You will just need to specify the `x=` and `y=` in the `aes()`. Create a base plot using the `mtcars`
+data set and use the `mpg` and `disp` as the x and y variables, respectively, and assign in it to `gg_2`
+
+```{r gg_sp_5, exercise = TRUE}
+
+```
+
+```{r gg_sp_5-solution}
+gg_2 <- ggplot(mtcars, aes(mpg, disp))
+```
+
+Now create a scatter plot using `gg_2`.
+
+```{r gg_sp_6, exercise = TRUE}
+
+```
+
+```{r gg_sp_6-solution}
+gg_2 + geom_point()
+```
+
+
+### Histogram and Desnity Plot
+
+To create a histogram and density plots, create a base plot and specify the variable of interest in the `aes()`, only specify one variable. Create a base plot using the `mtcars` data set and the `mpg` variable. Assign it to `gg_3`.
+
+```{r gg_h_1, exercise = TRUE}
+
+```
+
+```{r gg_h_1-solution}
+gg_3 <- ggplot(mtcars, aes(mpg))
+```
+
+
+
+To create a histogram, use the `geom_histogram()`.
+
+
+```{r gg_h_2, exercise = TRUE}
+
+```
+
+
+```{r gg_h_2-solution}
+gg_3 + geom_histogram()
+```
+
+The above plot shows a histogram, but the number of bins is quite large. We can change the bin width argument, `binwidth=`, the the `geom_histogram()`. Change the bin width to seven.
+
+```{r gg_h_3, exercise = TRUE}
+
+```
+
+```{r gg_h_3-solution}
+gg_3 + geom_histogram(binwidth = 7)
+```
+
+#### Density Plot
+
+To create a density plot, use the `geom_density()`. Create a density plot for the `mpg` variable.
+
+```{r gg_h_4, exercise = TRUE}
+
+```
+
+```{r gg_h_4-solution}
+gg_3 + geom_density()
+```
+
+
+#### Both
+
+Similar to adding lines and points in the same plot, you can add a histogram and a density plot by adding both the `geom_histogram()` and `geom_density()`. However, in the `geom_histogram()`, you must add `aes(y=..density..)` to create a frequency histogram. Create a plot with a histogram and a density plot.
+
+```{r gg_h_5, exercise = TRUE}
+
+```
+
+```{r gg_h_5-solution}
+gg_3 + geom_histogram(aes(y=..density..),bins=7) +
+  geom_density()
+```
+
+### Box Plots
+
+If you need to create a box plot, use the `stat_boxplot()`. Create a boxplot for the variable `mpg`. All you need to do is add `stat_boxplot()`.
+
+```{r gg_box_1, exercise = TRUE}
+
+```
+
+```{r gg_box_1-solution}
+gg_3 + stat_boxplot()
+```
+
+### Bar Charts
+
+Creating a bar chart is similar to create a box plot. All you need to do is use the `stat_count()`. First create a base plot using the `mtcars` data sets and the `cyl` variable for the mapping and assign it to `gg_4`.
+
+```{r gg_bar_0, exercise = TRUE}
+
+```
+
+
+```{r gg_bar_0-solution}
+gg_4 <- ggplot(mtcars, aes(cyl))
+```
+
+
+Now create the bar plot by adding the `stat_count()`.
+
+```{r gg_bar_1, exercise = TRUE}
+
+```
+
+
+```{r gg_bar_1-solution}
+gg_4 + stat_count()
+```
+
+
+## Grouping
+
+The `ggplot2::` easily allows you to create plots from different groups. We will go over some of the arguments and functions to do this.
+
+### One Variable Grouping
+
+#### Scatter Plot
+
+To begin, we want to specify the grouping variable within the `aes()` with the `color=`. Additionally, the argument works best with a factor variable, so use the `factor()` to create a factor variable. Create a base plot from the `mtcars` data set using `mpg` and `disp` for the x and y axis, respectively, and set the `color=` equal to the `factor(cyl)`. Assign it the R object `gg_5`.
+
+```{r gg_g_sp_1, exercise = TRUE}
+
+```
+
+
+```{r gg_g_sp_1-solution}
+gg_5 <- ggplot(mtcars, aes(mpg, disp, color=factor(cyl)))
+```
+
+
+Once the base plot is created, `ggplot2::` will automatically group the data in the plots. Create the scatter plot from the base plot.
+
+```{r gg_g_sp_15, exercise = TRUE}
+
+```
+
+
+
+
+```{r gg_g_sp_15-solution}
+gg_5 + geom_point()
+```
+
+If you want to change the shapes instead of the color, use the `shape=`. Create a base plot from the `mtcars` data set using `mpg`, and `disp` for the x and y axis, respectively, and group it by `cyl` with the `shape=`. Assign it the R object `gg_6`.
+
+
+```{r gg_g_sp_2, exercise = TRUE}
+
+```
+
+
+```{r gg_g_sp_2-solution}
+gg_6 <- ggplot(mtcars, aes(mpg, disp, shape=factor(cyl)))
+```
+
+
+```{r gg_g_sp_3, exercise = TRUE}
+
+```
+
+
+```{r gg_g_sp_3-solution}
+gg_6 + geom_point()
+```
+
+
+#### Histograms
+
+Histograms can be grouped by different colors. This is done by using the `fill=` within the `aes()` in the base plot. Assign it the R object `gg_7`. 
+
+```{r gg_g_hist_2, exercise = TRUE}
+
+```
+
+```{r gg_g_hist_2-solution}
+gg_7 <- ggplot(mtcars, aes(mpg, fill = factor(cyl)))
+```
+
+
+Now create a histogram from the base plot `gg_7`.
+
+```{r gg_g_hist_3, exercise = TRUE}
+
+```
+
+```{r gg_g_hist_3-solution}
+gg_7 + geom_histogram(bins = 6, alpha = 0.3)
+```
+
+Sometimes we would like to view the histogram on separate plots. The `facet_wrap()` and the `flact_grid()` allows this. Using either function, you do not need to specify the grouping factor in the `aes()`. You will add `facet_wrap()`  to the plot. It needs a formula argument with the grouping variable. Using the R object `gg_3` create side by side plots using the `cyl` variable. Remember to add `geom_histogram()`. 
+
+```{r gg_g_hist_1, exercise = TRUE}
+
+```
+
+```{r gg_g_hist_1-solution}
+gg_3+geom_histogram() + facet_wrap( ~ cyl)
+```
+
+
+
+
+#### Density Plot
+
+Similar to histograms, density plots can be grouped by variables the same way.
+Using `gg_7`, create color-coded density plots. All you need to do is add `geom_density()`. 
+
+```{r gg_g_dp_3, exercise = TRUE}
+
+```
+
+```{r gg_g_dp_3-solution}
+gg_7 + geom_density(alpha=0.3)
+```
+
+Using `gg_3`, create side by side density plots. You need to do is add `geom_density()` and `facet_wrap()` to group with the `cyl` variable. 
+
+```{r gg_g_dp_1, exercise = TRUE}
+
+```
+
+```{r gg_g_dp_1-solution}
+gg_3 + geom_density() + facet_wrap( ~ cyl)
+```
+
+
+
+
+#### Bar Chart
+
+To create a side by side bar plot, you can use the `facet_wrap()` with a grouping variable. Using `gg_4`, create a side by side bar plot using `vs` as the grouping variable. Remember to add `stat_count()` as well.
+
+```{r gg_g_bc_1, exercise = TRUE}
+
+```
+
+```{r gg_g_bc_1-solution}
+gg_4 + stat_count() + facet_wrap(~vs)
+```
+
+If you want to compare the bars from different group in one plot, you can use the `fill=` from the `aes()`. The `fill=` just needs a factor variable (use `factor()`). First create a base plot using the data `mtcars`, variable `cyl` and grouping variable `vs`. Assign it to `gg_8`.
+
+```{r gg_g_bc_2, exercise = TRUE}
+
+```
+
+```{r gg_g_bc_2-solution}
+gg_8 <- ggplot(mtcars, aes(cyl, fill = factor(vs)))
+```
+
+Now create a bar chart by adding `stat_count()`.
+
+```{r gg_g_bc_4, exercise = TRUE}
+
+```
+
+
+```{r gg_g_bc_4-solution}
+gg_8 + stat_count()
+```
+
+If you want to grouping bars to be side by side, use the `position=` in the `stat_count()` and set it equal to `"dodge"`. Create the bar plot using the `position = "dodge"`. 
+
+```{r gg_g_bc_3, exercise = TRUE}
+
+```
+
+
+```{r gg_g_bc_3-solution}
+gg_8 + stat_count(position = "dodge")
+```
+
+## Themes/Tweaking
+
+In this section, we will talk about the basic tweaks and themes to `ggplot2::`. However. `ggplot2::` is much more powerful and can do much more. Before we begin, lets look at object `gg_9` to understand the plot. To view a plot, use the `plot()`.
+
+```{r gg_tt_1, exercise = TRUE}
+
+```
+
+```{r gg_tt_1-solution}
+plot(gg_9)
+```
+
+
+### Title
+
+To change the title, add the `ggtitle()` to the plot. Put the new title in quotes as the first argument. Change the title for `gg_9`.
+
+```{r gg_tt_2, exercise = TRUE}
+
+```
+
+```{r gg_tt_2-solution}
+gg_9 + ggtitle("Scatter Plot")
+```
+
+### Axis
+
+Changing the labels for a plot, add the `xlab()` and `ylab()`, respectively. The first argument contains the phrase for the axis. Change the axis labels for `gg_9`.
+
+```{r gg_tt_3, exercise = TRUE}
+
+```
+
+```{r gg_tt_3-solution}
+gg_9 + xlab("MPG") + ylab("Displacement")
+```
+
+### Themes
+
+If you don't like how the plot looks, `ggplot2::` has custom themes you can add to the plot to change it. These functions usually are formatted as `theme_*()`, where the `*` indicates different possibilities. I personally like how `theme_bw()` looks. Change the theme of `gg_9`
+
+```{r gg_tt_4, exercise = TRUE}
+
+```
+
+
+```{r gg_tt_4-solution}
+gg_9 + theme_bw()
+```
+
+Additionally, you can change certain part of the theme using the `theme()`. I encourage you to look at what are other possibilities.
+
+### Saving plot
+
+If you want to save the plot, use the `ggsave()`. Read the help documentation for the functions capabilities.

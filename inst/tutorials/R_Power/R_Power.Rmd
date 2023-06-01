@@ -1,0 +1,327 @@
+---
+title: "Tutorial"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(pwr)
+
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Introduction
+
+This tutorial focuses on power analysis and sample size calculations in R. The tutorial uses the `pwr::` for power and sample size calculations.
+
+Most of this tutorial is based on the [vignettes](https://cran.r-project.org/web/packages/pwr/vignettes/pwr-vignette.html) for the `pwr::`. I highly recommend you to read it to get a better understanding on how to use the package.
+
+
+Through out this tutorial, we use certain notations for different components in R. To begin, when something is in a gray block, `_`, this indicates that R code is being used. When I am talking about an R Object, it will be displayed as a word. For example, we will be using the R object `mtcars`. When I am talking about an R function, it will be displayed as a word followed by an open and close parentheses. For example, we will use the mean function denoted as `mean()` (read this as "mean function"). When I am talking about an R argument for a function, it will be displayed as a word following by an equal sign. For example, we will use the data argument denoted as `data=` (read this as "data argument"). When I am referencing an R package, I will use `::` (two colons) after the name. For example, in this tutorial, I will use the `ggplot2::` (read this as "ggplot2 package") Lastly, if I am displaying R code for your reference or to run, it will be displayed on its own line. There are many components in R, and my hope is that this will help you understand what components am I talking about.
+
+### Contents
+
+1.  t-test
+
+2.  ANOVA
+
+## t-test
+
+To conduct a power analysis on a t-test, you will need to use the `pwr.t.test()` or the `pwr.t2n.test()`. These two functions will allow you to conduct a power analysis on the different scenarios of related to the t-test.
+
+### One-Sample
+
+The power analysis for a 1 sample t-test is conducted with the `pwr.t.test()`. With the this function, you will need to specify all but one of the following main arguments: the `n=` (sample size), the `d=` (Cohen's D), the `sig.level=` (significance level), and the `power=` (power). You will also need to specify the `alternative=` (alternative hypothesis), and set the `type=` set to `"one.sample"`. 
+
+With the following main arguments, you will need to specify three arguments and leave one unspecified. R will then calculate the missing argument and provide the results.
+
+Cohen's D is expressed as
+
+$$
+d= \frac{\mu-\mu_0}{\sigma},
+$$
+
+where $\mu$ is the expected mean for the sample, $\mu_0$ is the theorized mean, and $\sigma$ is the standard deviation. The numerator provides the effect size from the sample and the theoretical mean. 
+
+#### Power
+
+To identify the power of a study, you will need to leave the `power=` as NULL. For a sample size of 30, effect size of 2, standard deviation of 3, and significance level of 0.05, and the alternative hypothesis being not equals, what is the power?
+
+```{r t1p, exercise = TRUE}
+
+```
+
+
+```{r t1p-solution}
+pwr.t.test(n=30, d = 2/3, sig.level = 0.05,
+           alternative = "two.sided", type = "one.sample")
+```
+
+```{r t1p1, echo=FALSE}
+question("What is the power?",
+  answer("0.64"),
+  answer("0.74"),
+  answer("0.84"),
+  answer("0.94", correct = TRUE)
+)
+```
+
+
+#### Sample Size
+
+Similar to the power calculation, you can calculate the sample size by not specifying the `n=`. For a power of .8, effect size of 3, standard deviation of 4, and significance level of 0.05, and the alternative hypothesis being not equals, what is the sample size needed?
+
+```{r t1s, exercise = TRUE}
+
+```
+
+```{r t1s-solution}
+pwr.t.test(power = 0.8, d = 2/4, sig.level = 0.05,
+           alternative = "two.sided", type = "one.sample")
+```
+
+```{r t1s1, echo=FALSE}
+question("What is the sample size needed?",
+  answer("10"),
+  answer("20", correct = TRUE),
+  answer("30"),
+  answer("40")
+)
+```
+
+### Two-Sample
+
+#### Paired
+
+The power analysis for a paired t-test is conducted with the `pwr.t.test()`. With the this function, you will need to specify all but one of the following main arguments: the `n=` (sample size for one group), the `d=` (Cohen's D), the `sig.level=` (significance level), and the `power=` (power). You will also need to specify the `alternative=` (alternative hypothesis), and set the `type=` set to `"paired"`.
+
+Cohen's D is expressed as
+
+$$
+d= \frac{\mu-\mu_D}{\sigma},
+$$
+
+where $\mu$ is the expected mean difference for the sample, $\mu_D$ is the theorized mean difference, and $\sigma$ is the standard deviation. The numerator provides the effect size from the sample and the theoretical mean difference. 
+
+##### Power
+
+To identify the power of a study, you will need to leave the `power=` as NULL. For a sample size of 40, effect size of 0.5, standard deviation of 3, and significance level of 0.05, and the alternative hypothesis being not equals, what is the power?
+
+```{r tpp, exercise = TRUE}
+
+```
+
+
+```{r tpp-solution}
+pwr.t.test(n=40, d = 0.5/3, sig.level = 0.05,
+           alternative = "two.sided", type = "one.sample")
+```
+
+```{r tpp1, echo=FALSE}
+question("What is the power?",
+  answer("0.13"),
+  answer("0.15"),
+  answer("0.17", correct = TRUE),
+  answer("0.19")
+)
+```
+
+
+##### Sample Size
+
+Similar to the power calculation, you can calculate the sample size by not specifying the `n=`. For a power of .9, effect size of 1, standard deviation of 4, and significance level of 0.05, and the alternative hypothesis being not equals, what is the sample size needed?
+
+```{r tps, exercise = TRUE}
+
+```
+
+```{r tps-solution}
+pwr.t.test(power = 0.9, d = 1/4, sig.level = 0.05,
+           alternative = "two.sided", type = "one.sample")
+```
+
+```{r tps1, echo=FALSE}
+question("What is the sample size needed?",
+  answer("170", correct = TRUE),
+  answer("180"),
+  answer("190"),
+  answer("200")
+)
+```
+
+
+#### Equal Sample Size
+
+The power analysis for a 2-sample t-test is conducted with the `pwr.t.test()`. With the this function, you will need to specify all but one of the following main arguments: the `n=` (sample size for one group), the `d=` (Cohen's D), the `sig.level=` (significance level), and the `power=` (power). You will also need to specify the `alternative=` (alternative hypothesis), and set the `type=` set to `"two.sample"` (default).
+
+Cohen's D is expressed as
+
+$$
+d= \frac{\mu_1-\mu_2}{\sigma},
+$$
+
+where $\mu_1$ is the group 1 mean, $\mu_2$ is the group 2 mean, and $\sigma$ is the standard deviation. The numerator provides the effect size from the sample and the theoretical mean difference. 
+
+##### Power
+
+To identify the power of a study, you will need to leave the `power=` as NULL. For a sample size of 60 for both groups, effect size of 1, standard deviation of 5, and significance level of 0.1, and the alternative hypothesis being not equals, what is the power?
+
+```{r t2p, exercise = TRUE}
+
+```
+
+
+```{r t2p-solution}
+pwr.t.test(n=60, d = 1/5, sig.level = 0.1,
+           alternative = "two.sided")
+```
+
+```{r t2p1, echo=FALSE}
+question("What is the power?",
+  answer("0.19"),
+  answer("0.29", correct = TRUE),
+  answer("0.39"),
+  answer("0.49")
+)
+```
+
+
+##### Sample Size
+
+Similar to the power calculation, you can calculate the sample size for both groups by not specifying the `n=`. For a power of .7, effect size of 3, standard deviation of 6, and significance level of 0.01, and the alternative hypothesis being not equals, what is the sample size needed?
+
+```{r t2s, exercise = TRUE}
+
+```
+
+```{r t2s-solution}
+pwr.t.test(power = 0.7, d = 3/6, sig.level = 0.01,
+           alternative = "two.sided")
+```
+
+```{r t2s1, echo=FALSE}
+question("What is the sample size needed for each group?",
+  answer("19"),
+  answer("39"),
+  answer("59"),
+  answer("79", correct = TRUE)
+)
+```
+
+
+#### Unequal Sample Size
+
+The power analysis for a 2-sample t-test with 2 different sample sizes is conducted with the `pwr.t2n.test()`. With the this function, you will need to specify all but one of the following main arguments: the `n1=` (sample size for first group), the `n2=` (sample size for second group) the `d=` (Cohen's D), the `sig.level=` (significance level), and the `power=` (power). You will also need to specify the `alternative=` (alternative hypothesis).
+
+Cohen's D is expressed as
+
+$$
+d= \frac{\mu_1-\mu_2}{\sigma},
+$$
+
+where $\mu_1$ is the group 1 mean, $\mu_2$ is the group 2 mean, and $\sigma$ is the standard deviation. The numerator provides the effect size from the sample and the theoretical mean difference. 
+
+##### Power
+
+To identify the power of a study, you will need to leave the `power=` as NULL. For a sample size of 40 for group 1, a sample size of 70 for group 2, effect size of 4, standard deviation of 5, and significance level of 0.01, and the alternative hypothesis being not equals, what is the power?
+
+```{r t2np, exercise = TRUE}
+
+```
+
+
+```{r t2np-solution}
+pwr.t2n.test(n1=40, n2 = 70, d = 4/5, sig.level = 0.01,
+           alternative = "two.sided")
+```
+
+```{r t2np1, echo=FALSE}
+question("What is the power?",
+  answer("0.91"),
+  answer("0.92", correct = TRUE),
+  answer("0.93"),
+  answer("0.94")
+)
+```
+
+
+## ANOVA
+
+The `pwr::` can conduct a power analysis on balanced one-way ANOVA, this means that the sample size must be the same for all groups.
+The power analysis is conducted with the `pwr.anova.test()`. The main arguments you need to specify except for one are the `k=` (number of groups), the `n=` (common sample size), the `f=` (effect size), the `sig.level=` (significance level), and the `power=` (power).
+
+The effect size is calculated as 
+
+$$
+f = \frac{\sigma_{means}} {\sigma_{pop}},
+$$
+
+where $\sigma_{means}$ is the between group standard deviation and $\sigma_{pop}$ is the common standard deviation of the groups. The value $\sigma_{means}$ can be expressed as
+
+$$
+\sigma_{means} = \sqrt{\frac{\sum^k_{i=1}(\bar x_i - \bar x)^2}{k}},
+$$
+
+where $k$ is the number of groups, $\bar x_i$ is the sample mean for the $i^{th}$ group, and $\bar x$ is the overall mean.
+The value $\sigma_{pop}$ is expressed as
+
+$$
+\sigma_{pop} = \sqrt{\frac{\sum^k_{i=1}s_i^2}{k}},
+$$
+where $s_i^2$ is the variance of the $i^{th}$ group.
+
+### Power
+
+To identify the power of a study, you will need to leave the `power=` as NULL. For a sample size of 30 for all groups, with 5 groups, between group variance of 1, within group variance of 9, and significance level of 0.1, what is the power?
+
+```{r ap, exercise = TRUE}
+
+```
+
+
+```{r ap-solution}
+pwr.anova.test(k=5,
+               f = 1/3, 
+               sig.level = 0.1,
+               n=30)
+```
+
+```{r ap1, echo=FALSE}
+question("What is the power?",
+  answer("0.94"),
+  answer("0.95", correct = TRUE),
+  answer("0.96"),
+  answer("0.97")
+)
+```
+
+
+### Sample Size
+
+To identify the sample size of a study, you will need to leave the `n=` as NULL. For a power of 0.9, with 3 groups, between group variance of 4, within group variance of 9, and significance level of 0.01, what is the power?
+
+```{r as, exercise = TRUE}
+
+```
+
+
+```{r as-solution}
+pwr.anova.test(k=3,
+               f = 2/3, 
+               sig.level = 0.01,
+               power = 0.9)
+```
+
+```{r as1, echo=FALSE}
+question("What is the sample size for each group?",
+  answer("5"),
+  answer("10"),
+  answer("15", correct = TRUE),
+  answer("20")
+)
+```
+
+
+
+

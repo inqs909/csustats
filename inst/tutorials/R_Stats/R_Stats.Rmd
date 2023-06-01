@@ -1,0 +1,399 @@
+---
+title: "Basic Probability and Statistics"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+knitr::opts_chunk$set(echo = FALSE)
+
+# set the learnr logging function
+# observe(options(tutorial.event_recorder = writing_tutorial))
+```
+
+
+## Introduction
+
+This tutorial provides an introduction on some of the basic statistics in R.
+
+### Contents
+
+1. Probability
+
+2. Statistics
+
+3. Diagnostics
+
+
+### Notation
+
+Through out this tutorial, we use certain notations for different components in R. To begin, when something is in a gray block, `_`, this indicates that R code is being used. When I am talking about an R Object, it will be displayed as a word. For example, we will be using the R object `mtcars`. When I am talking about an R function, it will be displayed as a word followed by an open and close parentheses. For example, we will use the mean function denoted as `mean()` (read this as "mean function"). When I am talking about an R argument for a function, it will be displayed as a word following by an equal sign. For example, we will use the data argument denoted as `data=` (read this as "data argument"). When I am referencing an R package, I will use `::` (two colons) after the name. For example, in this tutorial, I will use the `ggplot2::` (read this as "ggplot2 package") Lastly, if I am displaying R code for your reference or to run, it will be displayed on its own line. There are many components in R, and my hope is that this will help you understand what components am I talking about.
+
+
+## Probability
+
+We will discuss several R functions used for different probability distributions
+
+### Distributions
+
+To see what distributions R supports, use
+
+```
+?Distributions
+```
+or 
+```
+help(Distributions)
+```
+for more information. Every distribution has four different functions associated to them. The letter at the beginning of the distribution indicates the functions capabilities.
+
+|Letter|Functionality|
+|:-|:-|
+|"d"|returns the height of the probability density function|
+|"p"|returns the cummulative density function value|
+|"q"|returns the inverse cummulative density function (percentiles) |
+|"r"|returns a randomly generated number|
+
+
+### Probabilities
+
+R can compute the probabilities of a distribution given the correct parameters. If you need the cummulative probability, `p` in front of the distribution function is needed. If you need the probability for a discrete distribution, the `d` in front of the distribution function is needed. Below are a few examples.
+
+Find $P(X \leq 5 )$ where $X \sim N(6,2)$. Here we will use the `pnorm()` and we set `q = 5`, `mean = 6` and `sd = sqrt(2)`.
+
+```{r xnorm5, exercise = TRUE}
+
+```
+
+```{r xnorm5-solution}
+pnorm(5,6,sqrt(2))
+```
+
+Find $P(X \geq 7 )$ where $X \sim N(6,2)$. Here we will use the `pnorm()` and we set `q = 5`, `mean = 6`, `sd = sqrt(2)` and `lower.tail = F`.
+
+```{r xnorm7, exercise = TRUE}
+
+```
+
+```{r xnorm7-solution}
+pnorm(7,6,sqrt(2),F)
+```
+
+Find $P(X = 20 )$ where $X \sim Bin(30,0.8)$. Here we will use the `dbinom()` and we set `x = 20`, `size = 30` and `prob = 0.8`.
+
+```{r xbinom30, exercise = TRUE}
+
+```
+
+```{r xbinom30-solution}
+dbinom(20,30,.8)
+```
+
+### Percentiles
+
+Finding the values (percentiles) for a Z, F, and t distributions, use `qnorm()`, `qf()`, and `qt()` functions, respectively.
+
+Finding the $95^{th}$ percentile from $N(0,1)$, we will use the `qnorm()`. We will set `mean=0`, `sd=1`, and `p=0.95`.
+
+```{r z95, exercise = TRUE}
+
+```
+
+```{r z95-solution}
+qnorm(.95,0,1)
+```
+
+
+Finding the $95^{th}$ percentile from a t-distribution with DF=9, we will use the `qt()`. We will set `df=9` and `p=0.95`.
+
+```{r t95, exercise = TRUE}
+
+```
+
+```{r t95-solution}
+qt(.95,9)
+```
+
+
+Finding the $95^{th}$ percentile for $F(3,4)$, we will use the `qt()`. We will set `df1=3`, `df2=4` and `p=0.95`.
+
+```{r f95, exercise = TRUE}
+qf(.95,3,4)
+```
+
+```{r f95-solution, exercise = TRUE}
+
+```
+
+### Random Number Generator
+
+
+R is capable of generating random numbers. For example if we want to generate a random sample of size fifty from a normal distribution with mean eight and variance three, we will use the `rnorm()`. If we want to generate a random sample from any distribution, use the distribution function with `r` in front of it. 
+
+Let's first generate the random sample of fifty from $X \sim N(8,3)$. This is done with the `rnorm()` and setting `n = 50`, `mean = 8` and `sd = sqrt(3)`.
+
+```{r rsnorm, exercise = TRUE}
+
+```
+
+```{r rsnorm-solution}
+rnorm(50,8,sqrt(3))
+```
+
+No let's generate a random sample of 100 form an `X \sim \Gamma (2,3)`. This is done by using the `rgamma()` and setting `n = 100`, `shape = 2`, and `rate = 3`.
+
+```{r rsgamma, exercise = TRUE}
+
+```
+
+
+```{r rsgamma-solution}
+rgamma(100,2,3)
+```
+
+
+## Statistics
+
+Here, we will go over some of the basic syntax to obtain basic statistics. We will use the variables `mpg` and `cyl` from the `mtcars` data set. To view the data set use the `head()`:
+
+```{r mtcarsview, exercise = TRUE}
+
+```
+
+```{r mtcarsview-solution}
+head(mtcars)
+```
+
+The variable `mpg` would be used as a continuous variable, and the variable `cyl` would be used as a categorical variable.
+
+
+### Point Estimates
+
+The first basic statistic you can compute are point estimates. These are your means, medians, etc. Here we will calculate these estimates. 
+
+#### Mean
+
+To obtain the mean, use the `mean()`, you only need to specify `x=` for the data to compute the mean:
+
+```{r meanmpg, exercise = TRUE}
+
+```
+
+
+```{r meanmpg-solution}
+mean(mtcars$mpg)
+```
+
+
+#### Median
+
+To obtain the median, use the `median()`, you only need to specify `x=` for the data to compute the median:
+
+```{r medianmpg, exercise = TRUE}
+
+```
+
+
+```{r medianmpg-solution}
+median(mtcars$mpg)
+```
+
+
+#### Frequency
+
+To obtain a frequency table, use the `table()`, you only need to specify the data as the first argument to compute the frequency table:
+
+```{r freqcyl, exercise = TRUE}
+
+```
+
+
+```{r freqcyl-solution}
+table(mtcars$cyl)
+```
+
+
+
+#### Proportion
+
+To obtain a the proportions for the frequency table, use the `prop.table()`. However the first argument must be the results from the `table()`. Use the `table()` inside the `prop.table()` to get the proportions:
+
+```{r propcyl, exercise = TRUE}
+
+```
+
+
+```{r propcyl-solution}
+prop.table(table(mtcars$cyl))
+```
+
+
+### Variability
+
+In addition to point estimates, variability is an important statistic to report to let a user know about the spread of the data. Here we will calculate certain variability statistics.
+
+#### Variance
+
+To obtain the variance, use the `var()`, you only need to specify `x=` for the data to compute the variance:
+
+```{r varmpg, exercise = TRUE}
+
+```
+
+
+```{r varmpg-solution}
+var(mtcars$mpg)
+```
+
+
+#### Standard deviation
+
+To obtain the standard deviation, use the `sd()`, you only need to specify `x=` for the data to compute the standard deviation:
+
+```{r sdmpg, exercise = TRUE}
+
+```
+
+
+```{r sdmpg-solution}
+sd(mtcars$mpg)
+```
+
+#### Max and Min
+
+To obtain the max and min, use the `max()` and `min()`, respectively. You only need to specify the data as the first argument to compute the max and min:
+
+```{r minimaxmpg, exercise = TRUE}
+
+```
+
+
+```{r minimaxmpg-solution}
+max(mtcars$mpg)
+min(mtcars$mpg)
+```
+
+#### Q1 and Q3
+
+To obtain the Q1 and Q3, use the `quantile()` and specify the desired quantile with `probs=`. You only need to specify the data as the first argument and `probs=` (as a decimal) to compute the Q1 and Q3:
+
+```{r Q13mpg, exercise = TRUE}
+
+```
+
+
+```{r Q13mpg-solution}
+quantile(mtcars$mpg,.25)
+quantile(mtcars$mpg,.75)
+```
+
+### Associations
+
+In statistics, we may be interested on how different variables are related to each other. These associations can be represented in a numerical value.
+
+#### Continuous and Continuous
+
+When we measure the association between to continuous variables, we tend to use a correlation statistic. This statistic tells us how linearly associated are the variables are to each other. Essentially, as one variable increases, what happens to the other variable? Does it increase (positive association) or does it decrease (negative association). To find the correlation in R, use the `cor()`. You will need to specify the `x=` and `y=` which represents vectors for each variable. Find the correlation between `mpg` and `hp` from the `mtcars` data set.
+
+```{r corr, exercise = TRUE}
+
+```
+
+
+```{r corr-solution}
+cor(mtcars$mpg,mtcars$hp)
+```
+
+```{r corr-q, echo=FALSE}
+question("What type of association does R display?",
+  answer("Negative", correct = TRUE),
+  answer("No Association"),
+  answer("Positive"),
+  incorrect = "Incorrect: Check the sign of the number.")
+
+```
+
+
+#### Categorical and Continuous
+
+When comparing categorical variables, it becomes a bit more nuanced in how to report associations. Most of time you will discuss key differences in certain groups. Here, we will talk about how to get the means for different groups of data. Our continuous variable is the `mpg` variable, and our categorical variable is the `cyl` variable. Both are from the `mtcars` data set.  The `tapply()` allows us to split the data into different groups and then calculate different statistics. We only need to specify `X=` of the R object to split, `INDEX=` which is a list of factors or categories indicating how to split the data set, and `FUN=` which is the function that needs to be computed. Use the `tapply()` and find the mean `mpg` for each `cyl` group: 4, 5, and 6.
+
+```{r cvc, exercise = TRUE}
+
+```
+
+
+```{r cvc-solution}
+tapply(mtcars$mpg, list(mtcars$cyl), mean)
+```
+
+```{r cvc-q, echo=FALSE}
+question("Which cylinder has the smallest mpg?",
+  answer("8", correct = TRUE),
+  answer("4"),
+  answer("6")
+)
+```
+
+
+#### Categorical and Categorical
+
+Reporting the association between two categorical variables is may be challenging. If you have a $2\times 2$ table, you can report a ratio of association. However, any other case may be challenging. You can report a hypothesis test to indicate an association, but it does not provide much information about the effect of each variable. You can also report row, column, or table proportions. Here we will talk about creating cross tables and report these proportions. To create a cross table, use the `table()` and use the first two arguments to specify the two categorical variables. Create a cross tabulation between `cyl` and `carb` from the `mtcars` data set.
+
+```{r ctab, exerise = TRUE}
+
+```
+
+```{r ctab-solution}
+table(mtcars$cyl,mtcars$carb)
+```
+
+Notice how the first argument is represented in the rows and the second argument is in the columns. Now create table proportions using both of the variables. You first need to create the table and store it in a variable and then use the `prop.table()`.
+
+```{r ctab_1, exercise = TRUE}
+
+```
+
+```{r ctab_1-solution}
+prop.table(table(mtcars$cyl,mtcars$carb))
+```
+
+To get the row proportions, use the argument `margin = 1` within the `prop.table()`.
+
+
+```{r ctab_2, exercise = TRUE}
+
+```
+
+```{r ctab_2-solution}
+prop.table(table(mtcars$cyl,mtcars$carb), margin = 1)
+```
+
+To get the column proportions, use the argument `margin = 2` within the `prop.table()`.
+
+
+```{r ctab_3, exercise = TRUE}
+
+```
+
+```{r ctab_3-solution}
+prop.table(table(mtcars$cyl,mtcars$carb), margin = 2)
+```
+
+
+## Diagnostics
+
+Here is more practice in trying to understand some of the errors R may output. Type the following code
+```
+qnorm(2)
+```
+
+```{r rd_1, exercise = TRUE}
+
+```
+
+```{r rd_1-solution}
+qnorm(2)
+```
+Here a `NaN` is produced. Notice how R puts a warning in the output. Here it is much more difficult to diagnose what the problem may be. My first advice is to look at the R documentation for the `qnorm()`. Now looking at the documentation for this particular function may not provide information on why it is wrong. The next best thing may be to go online. However, you may have read that this function provides a quantile; therefore, the value we input must be a number between 0 and 1. 

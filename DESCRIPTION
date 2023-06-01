@@ -1,0 +1,26 @@
+Package: csustats
+Type: Package
+Title: CSU R Tutorials
+Version: 0.1.0
+Author: Isaac Quintanilla Salinas
+Maintainer: Isaac Quintanilla Salinas <inqs.909@gmail.com>
+Description: This package contains learnr tutorials used to teach R for STAT 170 students.
+License: GPL (>= 3)
+Encoding: UTF-8
+LazyData: true
+Depends: R (>= 3.5.0)
+Imports: 
+    learnr,
+    tidyverse,
+    shiny,
+    formatR,
+    car,
+    tibble,
+    readr,
+    gradethis (>= 0.2.3.9001)
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
+Remotes: 
+    rstudio-education/gradethis

@@ -1,0 +1,42 @@
+---
+title: "Tutorial"
+output: learnr::tutorial
+runtime: shiny_prerendered
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(car)
+
+knitr::opts_chunk$set(echo = FALSE)
+
+mtcars$cyl <- as.character(mtcars$cyl)
+aov_1 <- aov(mpg~cyl, mtcars)
+
+```
+
+## Introduction
+
+This tutorial focuses on one-way ANOVA. **You only need to do section 1 and 2 to learn how to do an ANOVA in R.**
+
+For this tutorial, we will use the `mtcars` data set and comparing the the `mpg` (dependent) variable with the `cyl` (independent) variable. The `cyl` variable will b treated as categorical.
+
+Through out this tutorial, we use certain notations for different components in R. To begin, when something is in a gray block, `_`, this indicates that R code is being used. When I am talking about an R Object, it will be displayed as a word. For example, we will be using the R object `mtcars`. When I am talking about an R function, it will be displayed as a word followed by an open and close parentheses. For example, we will use the mean function denoted as `mean()` (read this as "mean function"). When I am talking about an R argument for a function, it will be displayed as a word following by an equal sign. For example, we will use the data argument denoted as `data=` (read this as "data argument"). When I am referencing an R package, I will use `::` (two colons) after the name. For example, in this tutorial, I will use the `ggplot2::` (read this as "ggplot2 package") Lastly, if I am displaying R code for your reference or to run, it will be displayed on its own line. There are many components in R, and my hope is that this will help you understand what components am I talking about.
+
+### Contents
+
+1.  Random-Block ANOVA
+
+2.  Factorial Design
+
+3.  Latin-Squares
+
+## Random-Block ANOVA
+
+## Factorial Design
+
+## Latin-Squares Design
+
+
+
