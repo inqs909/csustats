@@ -8,5 +8,5 @@
 #'
 #'
 list_tutorials <- function() {
-  return(ucrstats::tutorials)
+  return(csustats::tutorials)
 }

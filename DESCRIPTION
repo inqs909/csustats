@@ -26,3 +26,4 @@ VignetteBuilder: knitr
 Remotes: 
     rstudio/gradethis
 URL: http://www.inqs.info/csustats/
+RoxygenNote: 7.2.3
