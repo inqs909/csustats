@@ -24,3 +24,4 @@ Suggests:
 VignetteBuilder: knitr
 Remotes: 
     rstudio-education/gradethis
+URL: http://www.inqs.info/csustats/
