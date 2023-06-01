@@ -11,15 +11,15 @@ LazyData: true
 Depends: R (>= 3.5.0)
 Imports: 
     learnr,
-    tidyverse,
     shiny,
+    gradethis 
+Suggests:
     formatR,
     car,
     tibble,
     readr,
     rsconnect,
-    gradethis 
-Suggests: 
+    tidyverse,
     knitr,
     rmarkdown
 VignetteBuilder: knitr

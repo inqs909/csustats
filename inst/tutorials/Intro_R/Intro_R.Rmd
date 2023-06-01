@@ -14,59 +14,14 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
-
-
 ## Introduction to R
 
 R is a multi-paradigm programming language that is popular among statisticians. The motto of R is "Created by statisticians, for statisticians". It has many statistical and graphical tools to help statisticians analyze data. Additionally, the programming language can be extended to implement new statistical techniques, create websites, and create dashboards (interactive software). This tutorial and your website was created using R. Lastly, and most importantly, R can be downloaded and used for free.
 
-### Using R
-
-If you like to install R in your computer, please watch the video below.
-
-![https://vimeo.com/203516510](https://vimeo.com/203516510)
-
-```{r intro_r_1, echo = FALSE}
-question(
-  "What kind of programming languages have you learned?",
-  answer("answer", correct = TRUE),
-  correct = NULL,
-  incorrect = NULL,
-  allow_retry = TRUE,
-  type = c("always_correct", "learnr_text")
-)
-```
-
-## RStudio
-
-RStudio is an Integrated Development Environment (IDE) program used to make your life easier when you are programming in R. To use RStudio, you will need to install R first. While you can use R by itself, you don't want to, trust me! You can think of R as an engine of a car, and RStudio as the model of a car. There are other IDE's, but they are not as popular.
-
-Additionally, RStudio provides numerous resources for new learners and data scientists. If you are interested in learning R and RStudio, I recommend you to look at the website for more information [www.rstudio.com](www.rstudio.com).
-
-### RStudio.cloud
-
-RStudio.cloud is an online platform to run R. It is one of the resources provided by RStudio. It is free to use, but there are some limitations. The advantage is that you only need a modern internet browser to access it. The disadvantage is that you cannot run intensive data analysis. However, for our needs in the class, it is perfect, because you will not need to worry about installing anything on your computer. To access RStudio.cloud, use the following link: [rstudio.cloud](rstudio.cloud). Use your Google account to create an account in RStudio. May receive an email from shinyapps.io. This is apart of RStudio.
-
-### Install RStudio (Optional)
-
-To install RStudio on your computer, go to [www.rstudio.com/download](www.rstudio.com/download), and download the desktop free version to your system. Then install the software package on your computer. For more information, watch the video below.
-
-![https://vimeo.com/203516968](https://vimeo.com/203516968)
-
-```{r intro_r_2, echo = FALSE}
-question(
-  "Have you ever heard of Integrated Development Environment?",
-  answer("answer", correct = TRUE),
-  correct = NULL,
-  incorrect = NULL,
-  allow_retry = TRUE,
-  type = c("always_correct", "learnr_text")
-)
-```
 
 ## R Calculator
 
-R can be thought as an advanced calculator. 
+R can be thought as an advanced calculator.
 
 Try `9+9`
 
@@ -80,13 +35,11 @@ Try `9*9`
 
 ```
 
-
 Try `9-9`
 
 ```{r r-calc-3, exercise=T}
 
 ```
-
 
 Try `9/9`
 
@@ -100,13 +53,11 @@ Try `9+9+9`
 
 ```
 
-
 Try `9+9*9`
 
 ```{r r-calc-6, exercise=T}
 
 ```
-
 
 Try `9+9/1`
 
@@ -114,13 +65,11 @@ Try `9+9/1`
 
 ```
 
-
 Try `9+(9+9)/9`
 
 ```{r r-calc-9, exercise=T}
 
 ```
-
 
 Try `log(9,base=3`
 
@@ -128,13 +77,11 @@ Try `log(9,base=3`
 
 ```
 
-
-Try `exp(5)` (e^5)
+Try `exp(5)` (e\^5)
 
 ```{r r-calc-11, exercise=T}
 
 ```
-
 
 Try `3**3`
 
@@ -142,13 +89,11 @@ Try `3**3`
 
 ```
 
-
 Try `pi`
 
 ```{r r-calc-13, exercise=T}
 
 ```
-
 
 Try `sin(pi*2)`
 
@@ -161,7 +106,6 @@ Try `cos(pi*2)`
 ```{r r-calc-15, exercise=T}
 
 ```
-
 
 Try `tan(pi*2)`
 
@@ -176,7 +120,8 @@ An R function is a procedure that tells R to do certain tasks. For example, the 
 ```{r r-func-1, exercise=T}
 
 ```
-Another argument for the `log()` function is the `base` argument.  With the previous code, we did not specify the `base` argument, so R makes the `base` argument The natural logarithm is just log with base **e**. If you want to use the common log with base 10, you will need to set the `base` argument equal to 10.
+
+Another argument for the `log()` function is the `base` argument. With the previous code, we did not specify the `base` argument, so R makes the `base` argument The natural logarithm is just log with base **e**. If you want to use the common log with base 10, you will need to set the `base` argument equal to 10.
 
 Try `log(x=5,base=10)`
 
@@ -190,8 +135,7 @@ Now try `log(5,10)`
 
 ```
 
-Notice that it provides the same value. This is because R can set arguments based on the position they are provided in the function when it is not specified. For `log(5,10)`, R thinks that 5 corresponds to the first argument `x` and 10 is the second argument `base`. 
-
+Notice that it provides the same value. This is because R can set arguments based on the position they are provided in the function when it is not specified. For `log(5,10)`, R thinks that 5 corresponds to the first argument `x` and 10 is the second argument `base`.
 
 ## R Objects
 
@@ -207,14 +151,13 @@ Notice that nothing pops out. This is because R does not need to print out any r
 
 ```
 
-Notice that the number 12 pops out. 
+Notice that the number 12 pops out.
 
 Now try to add something to the R object `x`. Type `x+3`
 
 ```{r r-obj-3,exercise=T}
 
 ```
-
 
 Notice that 15 prints out.
 
@@ -226,9 +169,8 @@ Not try other calculations to `x`
 
 R objects are extremely powerful and can be used in many ways.
 
-
 ## R Packages
 
 As I stated before, R can be extended to do more things, such as create this tutorial. This is done by installing R packages. An R package can be thought of as extra software. This allows you to do more with R. To install an R package, you will need to use `install.packages("NAME_OF_PACKAGE")`. Once you install it, you do not need to install it again. To use the R package, use `library("NAME_OF_PACKAGE")`. This allows you to load the package in R. You will need to load the package every time you start R. For more information, please watch the video below.
 
-![https://vimeo.com/203516241](https://vimeo.com/203516241)
+![<https://vimeo.com/203516241>](https://vimeo.com/203516241)
