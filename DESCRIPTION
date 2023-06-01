@@ -17,6 +17,7 @@ Imports:
     car,
     tibble,
     readr,
+    rsconnect
     gradethis 
 Suggests: 
     knitr,
