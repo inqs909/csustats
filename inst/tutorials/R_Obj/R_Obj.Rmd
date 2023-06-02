@@ -2,6 +2,7 @@
 title: "R Objects"
 output: 
   learnr::tutorial:
+    css: css/styles.css
     progressive: true
     allow_skip: true
 runtime: shiny_prerendered
@@ -56,7 +57,7 @@ Through out this tutorial, we use certain notations for different components in 
 
 ## Types of Data
 
-Before we begin learning about R Objects, it is important to learn about different data types. For this class, there are three types of data: numeric, character, and logical. There are other types of data; however, we will most likely not use them.
+Before we begin learning about R Objects, it is important to learn about different data types. For this tutorial, there are three types of data: numeric, character, and logical.
 
 ### Numeric
 
@@ -94,6 +95,17 @@ Logical data types are data that only take two values that represent either true
 is.logical(TRUE)
 ```
 
+
+::: {.note}
+Numerical, Character, and Logical are not the only other data types available in R. R can create data of the following data types:
+
+-   POSIX: time-based data
+
+-   complex: complex numbers
+
+-   factors: levels data
+:::
+
 ## R Objects
 
 Data and results are stored in R objects. R objects can be thought of containers with information. For this class, we will focus on three different types of containers: vectors, lists, and data frames.
@@ -124,6 +136,10 @@ my_vec <- 1:10
 grade_this_code()
 ```
 
+::: {#my_vec-hint}
+Try typing each number inside the `c()` and separate them by commas.
+:::
+
 To view what is inside the vector, type the name of vector (`my_vec`):
 
 ```{r vec, exercise = TRUE, exercise.setup = "my_vec-setup"}
@@ -151,6 +167,10 @@ length(my_vec)
 ```{r len_vec-check}
 grade_this_code()
 ```
+
+::: {#len_vec-hint}
+Type the name of the object inside the `lenght()`.
+:::
 
 ### Matrices
 
@@ -314,7 +334,7 @@ Type `list_one` to see what pops out:
 
 ```
 
-```{r list_one-solution, exercise = TRUE}
+```{r list_one-solution}
 list_one
 ```
 

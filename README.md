@@ -4,6 +4,8 @@
 # R Package `csustats`
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/inqs909/csustats/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/inqs909/csustats/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 ## Author

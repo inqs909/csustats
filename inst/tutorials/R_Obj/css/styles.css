@@ -1,0 +1,99 @@
+/*****************/
+/*Elementos principales */
+/*****************/
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14;
+}
+
+
+
+h1, h2 {
+  color: #cb132a;
+}
+
+h3, h4, h5{
+  color: #cb132a;
+}
+
+a {
+    color: #cb132a;
+    text-decoration: none;
+}
+
+
+
+
+
+/***********/
+/* Botones */
+/***********/
+
+.btn {
+  background-color: #cb132a;
+  color: #fff;
+}
+
+.btn-default {
+    color: #ffffff;
+    background-color: #cb132a;
+    border: none;
+}
+
+.btn-light {
+  background-color: #cb132a;
+  color: #fff;
+}
+
+.btn-primary , .btn-success, .btn-info{
+  background-color: #cb132a;
+  color: #fff;
+}
+
+.btn:hover, .btn:active, .btn:disabled {
+  background-color: #cb132a;
+  color: #fff;
+}
+
+/****************/
+/* Code     */
+/****************/
+
+code {
+    color: #cb132a;
+    background-color:  #f7f7f7;
+    font-size: 14px;
+}
+
+
+/****************/
+/* Recuadro para ejemplos */
+/****************/
+
+
+.note {
+    padding: 1em;
+    margin: 0.5em 0;
+    padding-left: 100px;
+    background-size: 70px;
+    background-repeat: no-repeat;
+    background-position: 15px 15px;
+    min-height: 120px;
+    color: black;
+    border: solid 5px #cb132a;
+  }
+
+.note_white {
+    padding: 1em;
+    margin: 1em 0;
+    padding-left: 100px;
+    background-size: 70px;
+    background-repeat: no-repeat;
+    background-position: 15px 15px;
+    min-height: 120px;
+    color: black;
+    background-color: white;
+    border: solid 5px #cb132a;
+    background-image: url("manzana.png");
+  }
+
