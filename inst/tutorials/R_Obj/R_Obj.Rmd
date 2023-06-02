@@ -1,0 +1,561 @@
+---
+title: "R Objects"
+output: learnr::tutorial
+runtime: shiny_prerendered\
+description: |
+  This tutorial provides the basics of R Objects
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(tidyverse)
+library(gradethis)
+knitr::opts_chunk$set(echo = FALSE)
+
+# set the learnr logging function
+# observe(options(tutorial.event_recorder = writing_tutorial))
+
+new_df <- data.frame(x=c("A", "B", "C", "D"), y=c(1:4))
+my_vec <- c(1,2,3,4,5,6,7,8,9,10)
+list_one <- list(mtcars, rep(0, 4), diag(rep(1, 3)))
+first_array <- array(c(rep(1,9),rep(2,9),rep(3,9)),dim=c(3,3,3))
+list_two <- list(mtcars = mtcars, vector = rep(0, 4), identity = diag(rep(1, 3)))
+list_three <- list(list_two = list_two, array = first_array)
+Z <- function(x, y){x^2+y^2}
+Z2 <- function (x,y){
+  z1<-x^2+y^2
+  z2<-x^3+y^3
+  return(c(z1=z1,z2=z2))
+}
+```
+
+## Introduction
+
+This tutorial provides an introduction on some of the basics of R that you will need for the class.
+
+### Contents
+
+1. Types of Data
+
+2. R Objects
+
+3. Loading Data
+
+4. Functions
+
+5. Code Diagnostics
+
+### Notation
+
+Through out this tutorial, we use certain notations for different components in R. To begin, when something is in a gray block, `_`, this indicates that R code is being used. When I am talking about an R Object, it will be displayed as a word. For example, we will be using the R object `mtcars`. When I am talking about an R function, it will be displayed as a word followed by an open and close parentheses. For example, we will use the mean function denoted as `mean()` (read this as "mean function"). When I am talking about an R argument for a function, it will be displayed as a word following by an equal sign. For example, we will use the data argument denoted as `data=` (read this as "data argument"). When I am referencing an R package, I will use `::` (two colons) after the name. For example, in this tutorial, I will use the `ggplot2::` (read this as "ggplot2 package") Lastly, if I am displaying R code for your reference or to run, it will be displayed on its own line. There are many components in R, and my hope is that this will help you understand what components am I talking about.
+
+
+## Types of Data
+
+Before we begin learning about R Objects, it is important to learn about different data types. For this class, there are three types of data: numeric, character, and logical. There are other types of data; however, we will most likely not use it. 
+
+### Numeric
+
+Numeric data are data points that represent a number. This can be an integer or a number with decimal values (also known as double). To see if a data value is a number, we can use `is.numeric()`. Try 
+```
+is.numeric(pi)
+```
+
+```{r numeric-pi, exercise = TRUE}
+
+```
+
+```{r numeric-pi-solution}
+is.numeric(pi)
+```
+
+### Character
+
+Character data types are expressions (also known as a string) that do not have a numerical value. These are usually denoted with quotes. For example `"1"` is now considered a character because it focuses on the symbol of one and not the value of one. To check if you have character data, use `is.character()`. Try 
+
+```
+is.character("1")
+```
+
+```{r char-1, exercise = TRUE}
+
+```
+
+```{r char-1-solution}
+is.character("1")
+```
+
+
+### Logical
+
+Logical data types are data that only take two values that represent either true or false. True can be represented as either `TRUE`, `T`, or `1`. and false can be represented as either `FALSE`, `F`, or `0`. To check if you have logical data, use `is.logical()`. Try 
+```
+is.logical(TRUE)
+```
+
+```{r log-T, exercise = TRUE}
+
+```
+
+```{r log-T-solution}
+is.logical(TRUE)
+```
+
+## R Objects
+
+Data and results are stored in R objects. R objects can be thought of containers with information. For this class, we will focus on three different types of containers: vectors, lists, and data frames.
+
+### Vectors
+
+Vector can be thought as a set of data points. Each data point is known as an element in the vector. The length of a vector is the number of elements contained. Additionally, all element have the same data type.
+
+The best way to create a vector is by using the `c()` function. This combines values together to create a vector. Create a vector called `my_vec` and put the numbers one to ten:
+
+```{r my_vec, exercise = TRUE}
+
+```
+
+```{r my_vec-solution}
+my_vec <- c(1,2,3,4,5,6,7,8,9,10)
+```
+
+To view what is inside the vector, type the name of vector (`my_vec`):
+
+```{r vec, exercise = TRUE}
+
+```
+
+```{r vec-solution}
+my_vec
+```
+
+To find the length of the vector, use the `length()` function:
+
+```{r len_vec, exercise = TRUE}
+
+```
+
+```{r len_vec-solution}
+length(my_vec)
+```
+
+
+### Matrices
+
+A matrix can be thought as a square or rectangular grid of data values. This grid can be constructed in any rectangular shape. Similar to vectors they must contain the same data type. The size of a matrix is usually denoted as $n\times k$, where $n$ represents the number of rows and $k$ represents the number of columns. To get a rough idea of how a matrix may look like, type 
+
+```
+matrix(rep(1, 12), nrow = 4, ncol = 3)
+```
+
+The function `rep()` creates a vector by repeating a value for a certain length, 
+```
+rep(1, 12)
+```
+creates a vector of length 12 with each element being 1:
+
+```{r mat_one, exercise = TRUE}
+
+```
+
+```{r mat_one-solution}
+matrix(rep(1, 12), nrow = 4, ncol = 3)
+```
+
+
+Notice that this is a $4\times 3$ matrix. Each element in the matrix has the value 1.Each element in a matrix can hold any value.
+
+Constructing a matrix can be a bit difficult to do because the data values may need to be arranged in a certain way. Notice that I used the `matrix()` function to create the matrix. The examples above contain other components in the function that we will discuss later.
+
+
+
+### Arrays
+
+Matrices can be considered as a 2-dimensional block of numbers. An array is an n-dimensional block of numbers. While you may never need to use an array for data analysis. It may come in handy when programming by hand. To create an array, use the `array()` function. Below is an example of a $3 \times 3 \times 3$ with the numbers 1, 2, and 3  are in each square matrix of the array. The array will be stored in an R object called `first_array`:
+
+```
+first_array <- array(c(rep(1, 9), rep(2, 9), rep(3, 9)), dim=c(3, 3, 3))
+```
+
+
+```{r array_1, exercise = TRUE}
+
+```
+
+```{r array_1-solution}
+first_array <- array(c(rep(1, 9), rep(2, 9), rep(3, 9)), dim=c(3, 3, 3))
+```
+
+To view the array, type the name of the array
+
+```{r view_array, exercise = TRUE}
+
+```
+
+
+
+### Data Frames
+
+Data Frames is an R object that can be thought of as R's version of a data set. It contains other special features, but for this class, it is just a data set.
+
+#### Structure of a data frame
+
+The structure of a data frame is similar to a data set, the rows represent a single observation, and the columns represent the variables. For example type `head(mtcars)` to view the first six observations of the `mtcars` data frame,
+
+```{r mpg-head, exercise=TRUE}
+
+```
+
+```{r mpg-head-solution}
+head(mtcars)
+```
+
+Here each row represents a car and each column represents measurements of the car.
+
+For this class, we will want to access variable is the data set. The general code to access a variable is by specifying the name of the data frame, typing the `$` symbol, and then the name of the variable. Generally speaking, to code goes as follow: `DATA$VARIABLE`. This tells R to look in the `DATA` data frame and get the `VARIABLE` variable. Now using the `mtcars` data set, print out the `mpg` variable:
+
+```{r mpg-hwy, exercise=TRUE}
+
+```
+
+```{r mpg-hwy-solution}
+mtcars$mpg
+```
+
+#### Creating a Data Frame
+
+To create a data frame, we use the `data.frame()` function. This will allow you to specify the variables and the data for each variable. Let's create a new data frame called `new_df` which would have four observations and two variables. The first variable is called `x` which is a vector containing the first four letters of the alphabet, and `y` is a vector containing numbers one through four.  
+
+
+```{r new_df, exercise=TRUE}
+
+```
+
+```{r new_df-solution}
+new_df <- data.frame(x=c("A", "B", "C", "D"), y=c(1:4))
+```
+
+Try viewing the data frame:
+
+```{r head_new_df, exercise=TRUE}
+
+```
+
+```{r head_new_df-solution}
+head(new_df)
+```
+
+### Lists
+
+To me a list is just a container that you can store practically anything. It is compiled of elements, where each element contains an R object. For example, the first element of a list may contain a data frame, the second element may contain a vector, and the third element may contain another list. It is just another way to store things.
+
+To create a list, use the `list()` function. Create a list compiled of first element with the `mtcars` data set, second element with a vector of zeros of size 4, and a matrix $3 \times 3$ identity matrix. An identity matrix is a matrix where the diagonal elements are 1 and the non-diagonal elements are 0. Store the list in an object called `list_one`:
+
+```{r list_C_One, exercise = TRUE}
+
+```
+
+```{r list_C_One-solution}
+list_one <- list(mtcars, rep(0, 4), diag(rep(1, 3)))
+```
+
+
+Type `list_one` to see what pops out:
+
+```{r list_one, exercise = TRUE}
+
+```
+
+```{r list_one-solution, exercise = TRUE}
+list_one
+```
+
+Each element in the list is labeled as a number. It is more useful to have the elements named. An element is named by typing the name in quotes followed by the `=` symbol before your object in the `list()` function (`mtcars = mtcars`). Create a new list and call it `list_two` by naming each element form `list_one`:
+```
+list(mtcars = mtcars, vector = rep(0, 4), identity = diag(rep(1, 3)))
+```
+
+```{r list_two, exercise = TRUE}
+
+```
+
+```{r list_two-solution}
+list_two <- list(mtcars = mtcars, vector = rep(0, 4), identity = diag(rep(1, 3)))
+```
+
+Print out `list_two`
+
+```{r list_two_print, exercise = TRUE}
+
+```
+
+
+Here I am creating an object called `list_two`, where the first element is `mtcars` labeled `mtcars`, the second element is a vector of zeros labeled `vector` and the last element is the identity matrix labeled `identity`.'
+
+
+Let's say you want to access the data set `mtcars` from `list_two`. You can do this similar to accessing a variable from a data frame with a `$` sign: `LIST_NAME$ELEMENT_NAME`. Type `list_two$mtcars`:
+
+```{r list_two_data, exercise = TRUE}
+
+```
+
+```{r list_two_data-solution}
+list_two$mtcars
+```
+
+
+Now create a new list called `list_three` and store `list_two` labeled as `list_one` and `first_array` labeled as `array`.
+
+```{r list_three, exercise = TRUE}
+
+```
+
+```{r list_three-solution}
+list_three <- list(list_two = list_two, array = first_array)
+```
+
+To view the list, type `list_three`:
+
+```{r list_three_print, exercise = TRUE}
+
+```
+
+
+## Loading Data
+
+There are three methods to load a data set in R: using base R, using tidyverse, or using RStudio. While it is important to understand how the code works to load a data set, I recommend using RStudio to import the data. It does all the work for you. Additionally, if you decide to use tidyverse packages, RStudio will provide corresponding code for a particular file.
+
+To import a data set using RStudio, head over to the environment tab (usually in the upper right hand pane) and click on the Import Dataset button. A pop-up window should look something like below.
+
+
+```{r fig1, echo = FALSE, out.width = "50%"}
+knitr::include_graphics("images/import.png")
+```
+
+Notice how there are several options to load a data set. Depending on the format, you may want to choose one of those options. Next, notice how there are 2 "From Text". This is because it will load text data using either Base R packages or the `readr::` package from tidyverse. Either works, but the `readr::` package provides the necessary code to load the data set in the window. The other one provides the code in the console. 
+
+
+### CSV Files 
+
+A CSV file is a type of text file that where the values are separated from commas. It is very common file that you will work with. Here I will provide the code necessary to import a CSV file using either Base R or `readr::` code.
+
+#### Base R
+
+```
+read.csv("FILE_NAME_AND_LOCATION")
+```
+
+#### `readr::`
+
+```
+read_csv("FILE_NAME_AND_LOCATION")
+```
+
+Notice that the functions are virtually the same. 
+
+## Functions
+
+R uses functions to process data. These functions come from either Base R, from R Packages, or user-written functions. These function usually takes the data as an input, then it produces some sort of output for you to use. The Base R packages contain many functions the makes R really powerful. However, you may need other functions to run other statistical techniques. You may need to use the `survival::` package if you need to conduct a survival analysis.
+
+### R Functions
+
+R's built-in functions provide you with all the essential functions for basic statistical methods. Here we will talk a little about how we use the functions and their output.
+
+#### Input and Arguments
+
+With any program, or function in this case, it takes some type of input, and then it provides output of results from a process. The input a function takes is known as arguments. In this tutorial we used the `matrix()` to create matrices:
+
+```
+matrix(data = rep(x=1, times=12), nrow = 4, ncol = 3)
+```
+Here we used three different arguments: `data=`, `nrow=`, and `ncol=`. This helped us create a $4 \times 3$ matrix with all the values as one. Here, `data=` tells us what the function is going to use to fill the matrix, `nrow=` tells how many rows for the matrix, and `ncol=` for how many columns. We also used the `rep()` function with the arguments `x=` and `times=` to create a vector of length twelve and replicate the value one for each element. The `x=` tells us which value to repeat, and `times=` tells R how many times to repeat it. If we needed to create a different type of matrix we will need to change the values of the arguments. Create a $5 \times 6$ matrix with all the values being 2
+
+```{r r_func_1, exercise = TRUE}
+
+```
+
+
+```{r r_func_1-solution}
+matrix(data = rep(x=2, times=30), nrow = 5, ncol = 6)
+```
+
+
+Lastly, R functions don't need the arguments specified as long as the information is provided on the right location. For example, 
+```
+rep(x = 1, times = 12)
+```
+can be rewritten as 
+```
+rep(1, 12)
+```
+Both of these functions will provide a vector of length twelve with the value of one for each element. R uses the location of the values in the function to determine which arguments are being specified. When you look at the `rep()` documentation, the first argument is `x=` and the second argument is `times=`.   
+
+
+#### Output
+
+Just a word on output. 
+The R functions provide some sort of output that can be stored in R objects. Some functions will return a vector or matrix as the output. This can be used for further analysis if necessary. Other times, an R functions may provide lists that contain further information stored. This information can be extracted with other functions or indexed.
+
+
+#### Help Documentation
+
+The help documentation is where you can get most of the information to see how a function works. Know how the help documentation works is an excellent skill to have. To access the help documentation of a function, type `?` in front of the function in the console. If you are using RStudio, you can use the help tab in the lower right-hand corner.
+
+The help documentation is usually structured with many sections. The sections are Description, Usage,
+Arguments, Details, and Value. Other help documents may contain other sections as well. Learning what each section provides will help you master many of the R functions.
+
+### User Created Functions 
+
+
+User created functions help you increase the functionality of R. You can create a function that computes the necessary statistics from a data set. You can create a function in R by using the `function()`. The function requires you to type specify the necessary arguments you need. For example, let's say you need to compute the value of $Z$ when $X=2$  and $Y=4$ with the following formula:
+$$
+Z=X^2+Y^2
+$$
+
+To create the function, use `function()`, and specify the formula in curly brackets, `{}`, and store it an R object. Here we will create a function called `Z()` that takes the arguments `x=` and `y=`. The output will be the result from the formula above. Use the following code to create the function:
+
+```
+Z <- function(x, y){x^2+y^2}
+```
+
+```{r Z_Func, exercise = TRUE}
+
+```
+
+```{r Z_Func-solution}
+Z <- function(x, y){x^2+y^2}
+```
+
+Now use the `Z()` to find the value of $Z$ when $X=2$ and $Y=4$.
+
+
+```{r ZFS, exercise = TRUE}
+
+```
+
+
+```{r ZFS-solution}
+Z(2,4)
+```
+
+Now, let's say we had 2 different $Z$ formulas we were interested in:
+
+$$
+Z_1=X^2+Y^2
+$$
+
+and
+
+$$
+Z_2=X^3+Y^3.
+$$
+
+We can recreate the `Z()` to provide both of the values. Store the new function in an R object called `Z2()`:
+
+```
+Z2 <- function (x,y){
+  z1<-x^2+y^2
+  z2<-x^3+y^3
+  zz<-c(z1=z1,z2=z2)
+  return(zz)
+}
+```
+
+There are many things going on in the code above. First, the function computes $Z_1$ and stores it in an object called `z1`. Then it computes $Z_2$ and stores it in `z2`. Then it creates a vector called `zz` where it stores `z1` as the first value and `z2` as the second value. The last thing the function does is return the vector `zz`. The `return()` will return `zz` as its output. Try creating the function in R.
+
+```{r Z2_F, exercise = TRUE}
+
+```
+
+
+```{r Z2_F-solution}
+Z2 <- function (x,y){
+  z1<-x^2+y^2
+  z2<-x^3+y^3
+  return(c(z1=z1,z2=z2))
+}
+```
+
+Now use the `Z2()` to find the value of $Z$ when $X=2$ and $Y=4$.
+
+```{r Z2_F_V, exercise = TRUE}
+
+```
+
+
+```{r Z2_F_V-solution}
+Z2(2,4)
+```
+
+## Code Diagnostics
+
+This section covers some common mistakes programmers make and steps to resolve the error that R produces. The best way to resolve errors are to read the output and try to decipher what is going on. To begin type the following:
+
+```
+my_vec <- c(1,2,3,4,5,6,7,8,9,)
+```
+
+```{r cd_1, exercise = TRUE}
+
+```
+
+```{r cd_1-hint}
+my_vec <- c(1,2,3,4,5,6,7,8,9,)
+```
+
+
+Notice it provides an error stating that argument 10 is missing. You can see in the code that there is an extra comma. You may need to add an extra value or delete the comma.
+
+Next type the following to create a list:
+
+```
+list_three <- list(list_two = list_two, array = first_aray)
+```
+
+```{r cd_2, exercise = TRUE}
+
+```
+
+
+```{r cd_2-hint}
+list_three <- list(list_two = list_two, array = first_aray)
+```
+
+The error states that the object `first_aray` is not found. This means that the object was not created. This could mean that the object you were thinking about may have been spelled differently, or a period is used instead of an underscore. Check the original object to make sure it is correct. If it is correct, check it ran and is in the environment. To see what is in your environment, you can either click on the environment tab in RStudio or use the `ls()`.
+
+```{r cd_3, exercise = TRUE}
+
+```
+
+```{r cd_3-solution}
+ls()
+```
+
+One last common error to discuss is the when you have the wrong data type in a function. When this occurs, R will tell you what type of data it needs to be. Type 
+```
+mean(list_two)
+```
+
+```{r cd_4, exercise = TRUE}
+
+```
+
+```{r cd_4-hint}
+mean(list_two)
+```
+
+Since `list_two` is a list, R cannot compute the mean, it will need to be provided with an object where the type of data is numeric or logical. Try 
+```
+mean(list_two$vector)
+```
+
+```{r cd_5, exercise = TRUE}
+
+```
+
+```{r cd_5-solution}
+mean(list_two$vector)
+```
+
+
+When there is an error, R will provide information on what it is having problems with. When you see an error, these are easy to solve. Try to read it an go to the help documentation or online to figure out what is going on. The real challenge is when R does not provide you with an error, but provides you with an incorrect value (hopefully you will know it is wrong). This is where you will need to debug your code to understand why it is wrong. 

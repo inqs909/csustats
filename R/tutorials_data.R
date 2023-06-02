@@ -1,6 +1,6 @@
-ID <- c("Intro_R", "R_Basics", "R_Graphics",
+ID <- c("R_Basics", "R_Obj", "R_Graphics",
         "R_Stats", "R_Hyp",
-        "R_ANOVA", "R_design",
+        "R_ANOVA", "R_Design",
         "R_SLR", "R_MLR", "R_Resid",
         "R_Tidy", "R_ggplot2")
 
@@ -11,8 +11,8 @@ Subject <- c(rep("R Basics", 3),
              rep("Tidyverse", 2))
 
 Description <- c("This tutorial is an introduction to R.",
-                 "This tutorial details on R Basics",
-                 "This tutorial details on graphics",
+                 "This tutorial provides information on R Objects",
+                 "This tutorial provide information on R Graphics",
                  "This tutorial details how to conduct a basic statistics in R.",
                  "This tutorial details how to conduct hypothesis testing in R.",
                  "This tutorial details how to conduct an ANOVA in R.",
