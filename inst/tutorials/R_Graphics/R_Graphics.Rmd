@@ -1,11 +1,15 @@
 ---
 title: "Base R Graphics"
-output: learnr::tutorial
+output: 
+  learnr::tutorial:
+    progressive: true
+    allow_skip: true
 runtime: shiny_prerendered
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(gradethis)
 knitr::opts_chunk$set(echo = FALSE)
 
 # set the learnr logging function
@@ -22,17 +26,15 @@ This tutorial provides an introduction on how to create different graphics in R.
 
 ### Contents
 
-1. Basic
+1.  Basic
 
-2. Grouping
+2.  Grouping
 
-3. Tweaking
+3.  Tweaking
 
 ### Notation
 
 Through out this tutorial, we use certain notations for different components in R. To begin, when something is in a gray block, `_`, this indicates that R code is being used. When I am talking about an R Object, it will be displayed as a word. For example, we will be using the R object `mtcars`. When I am talking about an R function, it will be displayed as a word followed by an open and close parentheses. For example, we will use the mean function denoted as `mean()` (read this as "mean function"). When I am talking about an R argument for a function, it will be displayed as a word following by an equal sign. For example, we will use the data argument denoted as `data=` (read this as "data argument"). When I am referencing an R package, I will use `::` (two colons) after the name. For example, in this tutorial, I will use the `ggplot2::` (read this as "ggplot2 package") Lastly, if I am displaying R code for your reference or to run, it will be displayed on its own line. There are many components in R, and my hope is that this will help you understand what components am I talking about.
-
-
 
 ## Basic Graphics
 
@@ -50,6 +52,10 @@ Let's first create a scatter plot for one variable using the `mpg` variable. Thi
 plot(mtcars$mpg)
 ```
 
+```{r base_sp_1-check}
+grade_this_code()
+```
+
 Notice that the x-axis is the index (which is not informative) and the y-axis is the `mpg` values.
 
 Let's connect the points with a line. This is done by setting the `type=` to `"l"`.
@@ -62,6 +68,11 @@ Let's connect the points with a line. This is done by setting the `type=` to `"l
 plot(mtcars$mpg, type = "l")
 ```
 
+```{r base_sp_2-check}
+grade_this_code()
+```
+
+\
 Let's add the points back to the plot and keep the lines. What we are going to do is first create the scatter plot as we did before, but we will also use the `lines()` to add the lines. The `lines()` needs the `x=` which is a vector of points (`mpg`). The two lines of code must run together.
 
 ```{r base_sp_3, exercise = TRUE}
@@ -73,8 +84,11 @@ plot(mtcars$mpg)
 lines(mtcars$mpg)
 ```
 
+```{r base_sp_3-check}
+grade_this_code()
+```
 
-Now, let's create a more realistic scatter plot with 2 variables. This is done by specifying the `y=` with another variable in addition to the `x=` in the `plot=`. Plot a scatter plot between `mpg` and `disp`.
+Now, let's create a more realistic scatter plot with 2 variables. This is done by specifying the `y=` with another variable in addition to the `x=` in the `plot()`. Plot a scatter plot between `mpg` and `disp`.
 
 ```{r base_sp_4, exercise = TRUE}
 
@@ -84,7 +98,11 @@ Now, let's create a more realistic scatter plot with 2 variables. This is done b
 plot(mtcars$mpg,mtcars$disp)
 ```
 
-Now, let's change the the axis labels and plot title. This is done by using the arguments `main=`, `xlab=`, and `ylab`. The `main=` changes the title of the plot. 
+```{r base_sp_4-check}
+grade_this_code()
+```
+
+Now, let's change the the axis labels and plot title. This is done by using the arguments `main=`, `xlab=`, and `ylab`. The `main=` changes the title of the plot.
 
 ### Histogram
 
@@ -98,6 +116,10 @@ To create a histogram, use the `hist()`. The `hist()` only needs `x=` which is n
 hist(mtcars$mpg)
 ```
 
+```{r base_hist_1-check}
+grade_this_code()
+```
+
 If you want to change the number of breaks in the histogram, use the `breaks=`. Create a new histogram of the `mpg` variable with ten breaks.
 
 ```{r base_hist_2, exercise = TRUE}
@@ -108,6 +130,9 @@ If you want to change the number of breaks in the histogram, use the `breaks=`. 
 hist(mtcars$mpg, breaks = 10)
 ```
 
+```{r base_hist_2-check}
+grade_this_code()
+```
 
 The above histograms provide frequencies instead of relative frequencies. If you want relative frequencies, use the `freq=` and set it equal to `FALSE` in the `hist()`.
 
@@ -117,6 +142,10 @@ The above histograms provide frequencies instead of relative frequencies. If you
 
 ```{r base_hist_3-solution}
 hist(mtcars$mpg, freq = FALSE)
+```
+
+```{r base_hist_3-check}
+grade_this_code()
 ```
 
 ### Density Plot
@@ -131,20 +160,24 @@ A density plot can be used instead of a histogram. This is done by using the `de
 plot(density(mtcars$mpg))
 ```
 
-Now, if we want to overlay the density function over a histogram, use the `lines()` with the output from the `density()` as its main input. First create the histogram using the `hist()` and setting the `freq=` to `FALSE`. Then use the `lines()` to overlay the density. Make sure to run both lines together.
+```{r base_dense_1-check}
+grade_this_code()
+```
 
+Now, if we want to overlay the density function over a histogram, use the `lines()` with the output from the `density()` as its main input. First create the histogram using the `hist()` and setting the `freq=` to `FALSE`. Then use the `lines()` to overlay the density. Make sure to run both lines together.
 
 ```{r base_dense_2, exercise = TRUE}
 
 ```
-
 
 ```{r base_dense_2-solution}
 hist(mtcars$mpg, freq = FALSE)
 lines(density(mtcars$mpg))
 ```
 
-
+```{r base_dense_2-check}
+grade_this_code()
+```
 
 ### Box Plots
 
@@ -154,9 +187,12 @@ A commonly used plot to display relevant statistics is the box plot. To create a
 
 ```
 
-
 ```{r base_box_1-solution}
 boxplot(mtcars$mpg)
+```
+
+```{r base_box_1-check}
+grade_this_code()
 ```
 
 If you want to make the box plot horizontal, use `horizontal=` and set it equal to `TRUE`.
@@ -165,9 +201,12 @@ If you want to make the box plot horizontal, use `horizontal=` and set it equal 
 
 ```
 
-
 ```{r base_box_2-solution}
 boxplot(mtcars$mpg, horizontal = TRUE)
+```
+
+```{r base_box_2-check}
+grade_this_code()
 ```
 
 ### Bar Chart
@@ -182,6 +221,10 @@ A histogram shows you the frequency for a continuous variable. A bar chart will 
 barplot(table(mtcars$cyl))
 ```
 
+```{r base_bar_1-check}
+grade_this_code()
+```
+
 ### Pie Chart
 
 While I do not recommend using a pie chart, R is capable of creating one using the `pie()`. It only needs the `x=` which is a vector numerical quantities. This could be the output from the `table()`. Create a pie chart with the `cyl` variable.
@@ -194,26 +237,32 @@ While I do not recommend using a pie chart, R is capable of creating one using t
 pie(table(mtcars$cyl))
 ```
 
+```{r base_pie_1-check}
+grade_this_code()
+```
+
 ## Grouping
 
 Similar to obtaining statistics for certain groups, plots can be grouped to reveal certain trends. We will look at a couple of methods to visualize different groups.
 
 ### One Variable Grouping
 
-Two ways to display groups is by using color coding or panels. I will show you what I think is the best way to group variables. There may be better ways to do this, such as using the ggplot2 package. Before we begin, create three new R objects that are a subset of the `mtcars` data set into 3 different data sets with for the three different values of the `cyl` variable: "4", "6", and "8". use the `subset()` to create the different data sets. Name the new R objects `mtcars_4`, `mtcars_6`, and `mtcars_8`, respectively. 
+Two ways to display groups is by using color coding or panels. I will show you what I think is the best way to group variables. There may be better ways to do this, such as using the ggplot2 package. Before we begin, create three new R objects that are a subset of the `mtcars` data set into 3 different data sets with for the three different values of the `cyl` variable: "4", "6", and "8". use the `subset()` to create the different data sets. Name the new R objects `mtcars_4`, `mtcars_6`, and `mtcars_8`, respectively.
 
 
-```{r base_sub, exercise = T}
+```{r base_one_null_color, exercise = TRUE}
 
 ```
 
-
-```{r base_sub-solution}
+```{r base_one_null_color-solution}
 mtcars_4 <- subset(mtcars, cyl == 4)
 mtcars_6 <- subset(mtcars, cyl == 6)
 mtcars_8 <- subset(mtcars, cyl == 8)
 ```
 
+```{r base_one_null_color-check}
+grade_this_code()
+```
 
 #### Scatter Plot
 
@@ -230,10 +279,13 @@ points(mtcars_6$mpg, mtcars_6$disp, col = "blue")
 points(mtcars_8$mpg, mtcars_8$disp, col = "green")
 ```
 
+```{r base_one_scatter_color-check}
+grade_this_code()
+```
 
 #### Histogram
 
-Now, it us more difficult to overlay histograms on a plot to different colors. Therefore, a panel approach may be more beneficial. This can be done by setting up R to plot a grid of plots. To do this, use the `par()` to tell R how to set up the grid. Then use the `mfrow=`, which is a vector of length two, to set up a grid. The `mfrow=` usually has an input of `c(ROWS,COLS)` which states the number of rows and the number of columns. Once this is done, the next plots you create will be used to populate the grid.  
+Now, it us more difficult to overlay histograms on a plot to different colors. Therefore, a panel approach may be more beneficial. This can be done by setting up R to plot a grid of plots. To do this, use the `par()` to tell R how to set up the grid. Then use the `mfrow=`, which is a vector of length two, to set up a grid. The `mfrow=` usually has an input of `c(ROWS,COLS)` which states the number of rows and the number of columns. Once this is done, the next plots you create will be used to populate the grid.
 
 ```{r base_one_hist_panel, exercise = TRUE}
 
@@ -246,14 +298,17 @@ hist(mtcars_6$mpg)
 hist(mtcars_8$mpg)
 ```
 
+```{r base_one_hist_panel-check}
+grade_this_code()
+```
+
 Every time you use the `par()`, it will change how graphics are created in an R session. Therefore, all your plots will follow the new graphic parameters. You will need to reset it by typing `dev.off()`.
 
 #### Bar Chart
 
 To visualize two categorical variables, we can use a color-coded bar chart to compare the frequencies of the categories. This is simple to do with the `barplot()`. First, use the `table()` to create a cross-tabulation of the frequencies for two variables. Then use the `boxplot()` to visualize both variables. Then use `legend=` to create a label when the bar chart is color-coded. Additionally, use the `beside=` argument to change how the plot looks. Use the code below to compare the variables `cyl` and `am` variable.
 
-
-```
+```         
 barplot(table(mtcars$cyl, mtcars$am), beside = TRUE, legend = rownames(table(mtcars$cyl, mtcars$am)))
 ```
 
@@ -261,13 +316,15 @@ barplot(table(mtcars$cyl, mtcars$am), beside = TRUE, legend = rownames(table(mtc
 
 ```
 
-
 ```{r base_bar-solution}
 barplot(table(mtcars$cyl, mtcars$am), beside = TRUE, legend = rownames(table(mtcars$cyl, mtcars$am)))
 ```
 
+```{r base_bar-check}
+grade_this_code()
+```
 
-Notice that I use the `rownames()` to label the legend.  
+Notice that I use the `rownames()` to label the legend.
 
 ## Tweaking
 
@@ -283,3 +340,6 @@ The main tweaking of plots I will talk about is changing the the axis label and 
 plot(mtcars$mpg, mtcars$disp, main = "MPG vs Displacement", xlab = "MPG", ylab = "Displacement")
 ```
 
+```{r base_label-check}
+grade_this_code()
+```
