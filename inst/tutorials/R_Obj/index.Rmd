@@ -2,7 +2,7 @@
 title: "R Objects"
 output: 
   learnr::tutorial:
-    css: css/styles.css
+    css: css/styles.scss
     progressive: true
     allow_skip: true
 runtime: shiny_prerendered
@@ -12,7 +12,6 @@ description: |
 
 ```{r setup, include=FALSE}
 library(learnr)
-library(tidyverse)
 library(gradethis)
 knitr::opts_chunk$set(echo = FALSE)
 
@@ -25,18 +24,13 @@ list_one <- list(mtcars, rep(0, 4), diag(rep(1, 3)))
 first_array <- array(c(rep(1,9),rep(2,9),rep(3,9)),dim=c(3,3,3))
 list_two <- list(mtcars = mtcars, vector = rep(0, 4), identity = diag(rep(1, 3)))
 list_three <- list(list_two = list_two, array = first_array)
-Z <- function(x, y){x^2+y^2}
-Z2 <- function (x,y){
-  z1<-x^2+y^2
-  z2<-x^3+y^3
-  return(c(z1=z1,z2=z2))
-}
 ```
 
-## Introduction
+## Introduction {data-progressive="FALSE"}
 
-This tutorial provides an introduction on some of the basics of R that you will need for the class.
+This tutorial provides an introduction on some of the basics of R objects. R objects are considered as data packets of varying structures.
 
+::: contents
 ### Contents
 
 1.  Types of Data
@@ -47,17 +41,21 @@ This tutorial provides an introduction on some of the basics of R that you will 
 
 4.  Loading Data
 
-5.  Functions
+5.  Quiz
 
-6.  Code Diagnostics
+:::
 
 ### Notation
 
 Through out this tutorial, we use certain notations for different components in R. To begin, when something is in a gray block, `_`, this indicates that R code is being used. When I am talking about an R Object, it will be displayed as a word. For example, we will be using the R object `mtcars`. When I am talking about an R function, it will be displayed as a word followed by an open and close parentheses. For example, we will use the mean function denoted as `mean()` (read this as "mean function"). When I am talking about an R argument for a function, it will be displayed as a word following by an equal sign. For example, we will use the data argument denoted as `data=` (read this as "data argument"). When I am referencing an R package, I will use `::` (two colons) after the name. For example, in this tutorial, I will use the `ggplot2::` (read this as "ggplot2 package") Lastly, if I am displaying R code for your reference or to run, it will be displayed on its own line. There are many components in R, and my hope is that this will help you understand what components am I talking about.
 
+### Resources
+
+More information on the topics can be found here: [Data Types](https://www.inqs.info/stat_comp/basics.html#types-of-data), [Objects](https://www.inqs.info/stat_comp/basics.html#sec-r-objects), [Indexing](https://www.inqs.info/stat_comp/control_flow.html#indexing), and [Importing](https://www.inqs.info/stat_comp/importing.html).
+
 ## Types of Data
 
-Before we begin learning about R Objects, it is important to learn about different data types. For this tutorial, there are three types of data: numeric, character, and logical.
+Before we begin learning about R Objects, it is important to learn about different data types. Data types are For this tutorial, there are three types of data: numeric, character, and logical.
 
 ### Numeric
 
@@ -71,6 +69,12 @@ Numeric data are data points that represent a number. This can be an integer or 
 is.numeric(pi)
 ```
 
+::: info
+#### Note
+
+Numeric is one of the most common data types you can work with; however, numbers can be represented as well as a double or integer.
+:::
+
 ### Character
 
 Character data types are expressions (also known as a string) that do not have a numerical value. These are usually denoted with quotes. For example `"1"` is now considered a character because it focuses on the symbol of one and not the value of one. To check if you have character data, use `is.character()`. Try `is.character("1")`:
@@ -82,6 +86,12 @@ Character data types are expressions (also known as a string) that do not have a
 ```{r char-1-solution}
 is.character("1")
 ```
+
+::: info
+#### Note
+
+Character data can be used different analysis, such as text mining. However, there is a special type of character data type called factor. Factors are data types where only a set number of options are available and they can be leveled in a way.
+:::
 
 ### Logical
 
@@ -95,8 +105,14 @@ Logical data types are data that only take two values that represent either true
 is.logical(TRUE)
 ```
 
+::: info
+#### Note
 
-::: {.note}
+Since a logical data type can be represented as `1` and `0`, numerical operations can be applied to the data such as `sum()`, `mean()`, and `var()`.
+:::
+
+### Other Data Types
+
 Numerical, Character, and Logical are not the only other data types available in R. R can create data of the following data types:
 
 -   POSIX: time-based data
@@ -104,7 +120,12 @@ Numerical, Character, and Logical are not the only other data types available in
 -   complex: complex numbers
 
 -   factors: levels data
-:::
+
+Use the sandbox below to play with other data types:
+
+```{r other_data, exercise = TRUE}
+
+```
 
 ## R Objects
 
@@ -203,7 +224,7 @@ Constructing a matrix can be a bit difficult to do because the data values may n
 
 Matrices can be considered as a 2-dimensional block of numbers. An array is an n-dimensional block of numbers. While you may never need to use an array for data analysis. It may come in handy when programming by hand. To create an array, use the `array()` function. Below is an example of a $3 \times 3 \times 3$ with the numbers 1, 2, and 3 are in each square matrix of the array. The array will be stored in an R object called `first_array`:
 
-```         
+``` default
 first_array <- array(c(rep(1, 9), rep(2, 9), rep(3, 9)), dim=c(3, 3, 3))
 ```
 
@@ -245,7 +266,17 @@ grade_this_code()
 
 ### Data Frames
 
-Data Frames is an R object that can be thought of as R's version of a data set. It contains other special features, but for this class, it is just a data set.
+Data Frames is an R object that can be thought of as R's version of a data set.
+
+###
+
+::: info
+#### What is a data set?
+
+A data set is a method to store information about an experimental unit. The rows shows the characteristics (data) related each specific experimental unit, and the columns explains what the data characteristic.
+:::
+
+###
 
 #### Structure of a data frame
 
@@ -344,7 +375,7 @@ grade_this_code()
 
 Each element in the list is labeled as a number. It is more useful to have the elements named. An element is named by typing the name in quotes followed by the `=` symbol before your object in the `list()` function (`mtcars = mtcars`). Create a new list and call it `list_two` by naming each element form `list_one`:
 
-```         
+``` default
 list(mtcars = mtcars, 
      vector = rep(0, 4),
      identity = diag(rep(1, 3)))
@@ -422,6 +453,29 @@ grade_this_code
 
 ## Indexing
 
+Each are objected can be indexed to access a specific element in the object.
+
+### Vectors
+
+### Matrix
+
+### Array
+
+### Data Frame
+
+### List
+
+###
+
+::: warning
+
+#### Other Programming Languages
+
+In R, the first element of the is labeled with `1`. While in other programming languages, like python, has its first element labeled with `0`.
+
+:::
+
+
 ## Loading Data
 
 There are three methods to load a data set in R: using base R, using tidyverse, or using RStudio. While it is important to understand how the code works to load a data set, I recommend using RStudio to import the data. It does all the work for you. Additionally, if you decide to use tidyverse packages, RStudio will provide corresponding code for a particular file.
@@ -440,233 +494,64 @@ A CSV file is a type of text file that where the values are separated from comma
 
 #### Base R
 
-```         
+``` default
 read.csv("FILE_NAME_AND_LOCATION")
 ```
 
 #### `readr::`
 
-```         
+``` default
 read_csv("FILE_NAME_AND_LOCATION")
 ```
 
 Notice that the functions are virtually the same.
 
-## Functions
+::: info
+#### Reading other data file types?
 
-R uses functions to process data. These functions come from either Base R, from R Packages, or user-written functions. These function usually takes the data as an input, then it produces some sort of output for you to use. The Base R packages contain many functions the makes R really powerful. However, you may need other functions to run other statistical techniques. You may need to use the `survival::` package if you need to conduct a survival analysis.
+Both base R and `readr::` is great at reading tabular text files separated from some kind of delimiter. However, they struggle to read data of different formats. For example, if you have an excel file that needs to be read into R, you will need to use the [readxl](https://readxl.tidyverse.org/) package. If you need to read other files from other software packages, such as SAS or SPSS, use the [haven](https://haven.tidyverse.org/) package. While there are some differences in the type of data files, the syntax is generally the same as the `readr::`.
+:::
 
-### R Functions
+## Quiz
 
-R's built-in functions provide you with all the essential functions for basic statistical methods. Here we will talk a little about how we use the functions and their output.
-
-#### Input and Arguments
-
-With any program, or function in this case, it takes some type of input, and then it provides output of results from a process. The input a function takes is known as arguments. In this tutorial we used the `matrix()` to create matrices:
-
-```         
-matrix(data = rep(x=1, times=12), nrow = 4, ncol = 3)
+```{r quiz, echo=FALSE}
+quiz(caption = "",
+  question("If I were to extract a variable from a data frame, what type of R object is it?",
+    answer("list", message = "A list contains multiple R objects"),
+    answer("matrix", message = sprintf("A matrix produces a $n \\times k$ R object")),
+    answer("vector", correct = TRUE),
+    answer("data frame", message = "A data frame contains multiple variables"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("What are methods to import data into R?",
+    answer("Base R Code", correct = TRUE),
+    answer("shiny app", message = "Shiny apps are used to create data dashboards"),
+    answer("`readr::` code", correct = TRUE),
+    answer("RStudio data import wizard.", correct = TRUE),
+    incorrect = "Incorrect. You are at least on one more thing.",
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+    question("When testing the type of variables, we utilized a function similar to `is.xxx()`. What type of data was the output?",
+    answer("Logical", correct = TRUE),
+    answer("Character", message = "A character will be surrounded by quotes"),
+    answer("Numeric", message = "A number will be produced instead"),
+    answer("Raw", message = "Raw would look like byte code"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("What is the difference between a matrix and a data frame?",
+    answer("A matrix requires the data to be the same type and data frame does not", correct = TRUE),
+    answer("Each row of a data frame correspones to an experimental unit and a matrix does not.", message = "The rows of a matrix can still correspond to different experimental units and columns correspond to characteristics"),
+    answer("A data frame can be indexed with the `$` operator and a matrix cannot.", correct = TRUE),
+    answer("A matrix must be a squared and a data frame does not."),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("Different programming languages have their index starting value at 0?",
+           answer("TRUE", correct = T),
+           answer("FALSE"),
+           allow_retry = TRUE)
+)
 ```
-
-Here we used three different arguments: `data=`, `nrow=`, and `ncol=`. This helped us create a $4 \times 3$ matrix with all the values as one. Here, `data=` tells us what the function is going to use to fill the matrix, `nrow=` tells how many rows for the matrix, and `ncol=` for how many columns. We also used the `rep()` function with the arguments `x=` and `times=` to create a vector of length twelve and replicate the value one for each element. The `x=` tells us which value to repeat, and `times=` tells R how many times to repeat it. If we needed to create a different type of matrix we will need to change the values of the arguments. Create a $5 \times 6$ matrix with all the values being 2
-
-```{r r_func_1, exercise = TRUE}
-
-```
-
-```{r r_func_1-solution}
-matrix(data = rep(x=2, times=30), nrow = 5, ncol = 6)
-```
-
-```{r r_func_1-check}
-grade_this_code()
-```
-
-Lastly, R functions don't need the arguments specified as long as the information is provided on the right location. For example,
-
-```         
-rep(x = 1, times = 12)
-```
-
-can be rewritten as
-
-```         
-rep(1, 12)
-```
-
-Both of these functions will provide a vector of length twelve with the value of one for each element. R uses the location of the values in the function to determine which arguments are being specified. When you look at the `rep()` documentation, the first argument is `x=` and the second argument is `times=`.
-
-#### Output
-
-Just a word on output. The R functions provide some sort of output that can be stored in R objects. Some functions will return a vector or matrix as the output. This can be used for further analysis if necessary. Other times, an R functions may provide lists that contain further information stored. This information can be extracted with other functions or indexed.
-
-#### Help Documentation
-
-The help documentation is where you can get most of the information to see how a function works. Know how the help documentation works is an excellent skill to have. To access the help documentation of a function, type `?` in front of the function in the console. If you are using RStudio, you can use the help tab in the lower right-hand corner.
-
-The help documentation is usually structured with many sections. The sections are Description, Usage, Arguments, Details, and Value. Other help documents may contain other sections as well. Learning what each section provides will help you master many of the R functions.
-
-### User Created Functions
-
-User created functions help you increase the functionality of R. You can create a function that computes the necessary statistics from a data set. You can create a function in R by using the `function()`. The function requires you to type specify the necessary arguments you need. For example, let's say you need to compute the value of $Z$ when $X=2$ and $Y=4$ with the following formula: $$
-Z=X^2+Y^2
-$$
-
-To create the function, use `function()`, and specify the formula in curly brackets, `{}`, and store it an R object. Here we will create a function called `Z()` that takes the arguments `x=` and `y=`. The output will be the result from the formula above. Use the following code to create the function:
-
-```         
-Z <- function(x, y){x^2+y^2}
-```
-
-```{r Z_Func, exercise = TRUE}
-
-```
-
-```{r Z_Func-solution}
-Z <- function(x, y){x^2+y^2}
-```
-
-```{r Z_Func-check}
-grade_this_code()
-```
-
-Now use the `Z()` to find the value of $Z$ when $X=2$ and $Y=4$.
-
-```{r ZFS, exercise = TRUE}
-
-```
-
-```{r ZFS-solution}
-# O -----
-Z(2,4)
-
-# T -----
-Z(x = 2, y = 4)
-```
-
-```{r ZFS-check}
-grade_this_code()
-```
-
-Now, let's say we had 2 different $Z$ formulas we were interested in:
-
-$$
-Z_1=X^2+Y^2
-$$
-
-and
-
-$$
-Z_2=X^3+Y^3.
-$$
-
-We can recreate the `Z()` to provide both of the values. Store the new function in an R object called `Z2()`:
-
-```         
-Z2 <- function (x,y){
-  z1<-x^2+y^2
-  z2<-x^3+y^3
-  zz<-c(z1=z1,z2=z2)
-  return(zz)
-}
-```
-
-There are many things going on in the code above. First, the function computes $Z_1$ and stores it in an object called `z1`. Then it computes $Z_2$ and stores it in `z2`. Then it creates a vector called `zz` where it stores `z1` as the first value and `z2` as the second value. The last thing the function does is return the vector `zz`. The `return()` will return `zz` as its output. Try creating the function in R.
-
-```{r Z2_F, exercise = TRUE}
-
-```
-
-```{r Z2_F-solution}
-Z2 <- function (x,y){
-  z1<-x^2+y^2
-  z2<-x^3+y^3
-  return(c(z1=z1,z2=z2))
-}
-```
-
-```{r Z2_F-check}
-grade_this_code()
-```
-
-Now use the `Z2()` to find the value of $Z$ when $X=2$ and $Y=4$.
-
-```{r Z2_F_V, exercise = TRUE}
-
-```
-
-```{r Z2_F_V-solution}
-# O -----
-Z(2,4)
-
-# T -----
-Z(x = 2, y = 4)
-```
-
-```{r Z2_F_V-check}
-grade_this_code()
-```
-
-## Code Diagnostics
-
-This section covers some common mistakes programmers make and steps to resolve the error that R produces. The best way to resolve errors are to read the output and try to decipher what is going on. To begin type the following:
-
-```         
-my_vec <- c(1,2,3,4,5,6,7,8,9,)
-```
-
-```{r cd_1, exercise = TRUE}
-
-```
-
-```{r cd_1-hint}
-my_vec <- c(1,2,3,4,5,6,7,8,9,)
-```
-
-Notice it provides an error stating that argument 10 is missing. You can see in the code that there is an extra comma. You may need to add an extra value or delete the comma.
-
-Next type the following to create a list:
-
-```         
-list_three <- list(list_two = list_two, array = first_aray)
-```
-
-```{r cd_2, exercise = TRUE}
-
-```
-
-```{r cd_2-solution}
-list_three <- list(list_two = list_two, array = first_aray)
-```
-
-The error states that the object `first_aray` is not found. This means that the object was not created. This could mean that the object you were thinking about may have been spelled differently, or a period is used instead of an underscore. Check the original object to make sure it is correct. If it is correct, check it ran and is in the environment. To see what is in your environment, you can either click on the environment tab in RStudio or use the `ls()`.
-
-```{r cd_3, exercise = TRUE}
-
-```
-
-```{r cd_3-solution}
-ls()
-```
-
-One last common error to discuss is the when you have the wrong data type in a function. When this occurs, R will tell you what type of data it needs to be. Type `mean(list_two)`:
-
-```{r cd_4, exercise = TRUE}
-
-```
-
-```{r cd_4-hint}
-mean(list_two)
-```
-
-Since `list_two` is a list, R cannot compute the mean, it will need to be provided with an object where the type of data is numeric or logical. Try `mean(list_two$vector)`:
-
-```{r cd_5, exercise = TRUE}
-
-```
-
-```{r cd_5-solution}
-mean(list_two$vector)
-```
-
-When there is an error, R will provide information on what it is having problems with. When you see an error, these are easy to solve. Try to read it an go to the help documentation or online to figure out what is going on. The real challenge is when R does not provide you with an error, but provides you with an incorrect value (hopefully you will know it is wrong). This is where you will need to debug your code to understand why it is wrong.

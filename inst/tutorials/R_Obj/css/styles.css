@@ -71,29 +71,55 @@ code {
 /****************/
 
 
-.note {
-    padding: 1em;
-    margin: 0.5em 0;
-    padding-left: 100px;
-    background-size: 70px;
-    background-repeat: no-repeat;
-    background-position: 15px 15px;
-    min-height: 120px;
-    color: black;
-    border: solid 5px #cb132a;
-  }
+.danger {
+  padding: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #ffdddd;
+  border-left: 8px solid #f44336;
+}
 
-.note_white {
-    padding: 1em;
-    margin: 1em 0;
-    padding-left: 100px;
-    background-size: 70px;
-    background-repeat: no-repeat;
-    background-position: 15px 15px;
-    min-height: 120px;
-    color: black;
-    background-color: white;
-    border: solid 5px #cb132a;
-    background-image: url("manzana.png");
-  }
+.danger h4 {
+  color: #36454F;
+}
 
+.info {
+  padding: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #e7f3fe;
+  border-left: 8px solid #2196F3;
+}
+
+.info h4 {
+  color: #36454F;
+}
+
+
+.success {
+  padding: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #ddffdd;
+  border-left: 8px solid #04AA6D;
+}
+
+.success h4 {
+  color: #36454F;
+}
+
+.warning {
+  padding: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 5px;
+  margin-bottom: 10px;
+  background-color: #ffffcc;
+  border-left: 8px solid #ffeb3b;
+}
+
+.warning h4 {
+  color: #36454F;
+}
