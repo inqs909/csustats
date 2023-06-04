@@ -3,7 +3,9 @@ Type: Package
 Title: CSU R Tutorials
 Version: 0.1.1
 Authors@R: c(
-  person("Isaac", "Quintanilla Salinas", role = c("aut","cre"), email = "inqs.909@gmail.com")
+  person("Isaac", "Quintanilla Salinas", 
+  role = c("aut","cre"), email = "inqs.909@gmail.com",
+  comment = c(ORCID = "0000-0002-1137-4310"))
   )
 Maintainer: Isaac Quintanilla Salinas <inqs.909@gmail.com>
 Description: This package contains learnr tutorials used to teach R for STAT 170 students.
