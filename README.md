@@ -6,6 +6,7 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/inqs909/csustats/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/inqs909/csustats/actions/workflows/R-CMD-check.yaml)
+
 <!-- badges: end -->
 
 ## Author
@@ -49,7 +50,7 @@ function. It only needs the name (id) of the tutorial.
 
 ``` r
 library(csustats)
-access_tutorial("R_Basics")
+access_tutorial("R_Obj")
 ```
 
 ### List learnr tutorials
@@ -58,8 +59,8 @@ To see what tutorials are available in this package, use the following
 code:
 
 ``` r
-library(csustats)
-list_tutorials()
+
+csustats::list_tutorials()
 ```
 
 This will display a data frame that you can manipulate it further.
