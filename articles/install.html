@@ -62,6 +62,8 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="" class="logo" alt=""><h1>Installing R, RStudio, and R Packages</h1>
+                        <h4 data-toc-skip class="author">Isaac
+Quintanilla Salinas</h4>
             
       
       
@@ -70,6 +72,23 @@
 
     
     
+<p>If you ever want to use R, there are a couple ways to access R: in
+the cloud or on your computer. If you want a cloud-based approach,
+utilize Posit.cloud. If you want it on your local computer<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Which for the most part is the best way to go.&lt;/p&gt;"><sup>1</sup></a>, you will need to
+install R and RStudio.</p>
+<div class="section level3">
+<h3 id="posit-cloud">Posit.cloud<a class="anchor" aria-label="anchor" href="#posit-cloud"></a>
+</h3>
+<p>Posit.cloud is an online platform to run R. It is one of the
+resources provided by Posit. It is free to use, but there are some
+limitations. The advantage is that you only need a modern internet
+browser to access it. The disadvantage is that you cannot run intensive
+data analysis. Additionally, you should never upload any sensitive data.
+However, it is perfect for learning, because you will not need to worry
+about installing anything on your computer. To access Posit.cloud, use
+the following link: <a href="https://posit.cloud/" class="external-link">posit.cloud/</a>. Use
+your Google account to create an account in Posit.</p>
+</div>
 <div class="section level3">
 <h3 id="using-r">Using R<a class="anchor" aria-label="anchor" href="#using-r"></a>
 </h3>
@@ -92,18 +111,6 @@ as popular.</p>
 and data scientists. If you are interested in learning R and RStudio, I
 recommend you to look at Posit’s website for more information <a href="https://posit.co/" class="external-link">posit.co/</a>.</p>
 <div class="section level3">
-<h3 id="posit-cloud">Posit.cloud<a class="anchor" aria-label="anchor" href="#posit-cloud"></a>
-</h3>
-<p>Posit.cloud is an online platform to run R. It is one of the
-resources provided by Posit. It is free to use, but there are some
-limitations. The advantage is that you only need a modern internet
-browser to access it. The disadvantage is that you cannot run intensive
-data analysis. However, for our needs in the class, it is perfect,
-because you will not need to worry about installing anything on your
-computer. To access Posit.cloud, use the following link: <a href="https://posit.cloud/" class="external-link">posit.cloud/</a>. Use your Google account to
-create an account in Posit.</p>
-</div>
-<div class="section level3">
 <h3 id="install-rstudio-optional">Install RStudio (Optional)<a class="anchor" aria-label="anchor" href="#install-rstudio-optional"></a>
 </h3>
 <p>To install RStudio on your computer, go to <a href="https://posit.co/download/rstudio-desktop/" class="external-link">posit.co/download/rstudio-desktop/</a>,
@@ -121,7 +128,61 @@ below.</p>
 <iframe width="560" height="315" src="https://www.youtube.com/embed/n8kP7c_QbLA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
 </div>
+<div class="section level3">
+<h3 id="installing-r-packages">Installing R Packages<a class="anchor" aria-label="anchor" href="#installing-r-packages"></a>
+</h3>
+<p>If you are using RStudio, installing R packages is quite simple.
+Watch the video on install and use R packages.</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2nfWaMsD1fw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
+<div class="section level3">
+<h3 id="additional-requirements">Additional Requirements<a class="anchor" aria-label="anchor" href="#additional-requirements"></a>
+</h3>
+<p>Sometimes, you may want to install an R package, but it fails to
+install because you need additional software, c++. I personally use
+Linux, so I do not truly know what other OS’s need, but I will try my
+best to explain what other software you need to install the
+<code>Rcpp</code> package, one of the most commonly used package by
+other R packages. Most of this information is available <a href="https://teuder.github.io/rcpp4everyone_en/020_install.html" class="external-link">here</a>.</p>
+<div class="section level4">
+<h4 id="windows-1">Windows<a class="anchor" aria-label="anchor" href="#windows-1"></a>
+</h4>
+<p>Once you install R, you will need to install <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools</a>. It
+will have the necessary cpp<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;c++&lt;/p&gt;"><sup>2</sup></a> compiler to install <code>Rcpp</code>.</p>
+</div>
+<div class="section level4">
+<h4 id="mac-1">Mac<a class="anchor" aria-label="anchor" href="#mac-1"></a>
+</h4>
+<p>Once you install R, you will need to install Xcode via the terminal.
+Use the following code:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>xcode-select --install</span></code></pre></div>
+</div>
+<div class="section level4">
+<h4 id="linux">Linux<a class="anchor" aria-label="anchor" href="#linux"></a>
+</h4>
+<p>If you follow the instructions <a href="https://cran.r-project.org/" class="external-link">here</a>, you should already have a
+cpp compiler. However, you may need other code to install tidyverse or
+other R packages, via the terminal<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;Code for ubuntu/debian-based distros&lt;/p&gt;"><sup>3</sup></a>:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a># tidyverse</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>sudo apt install libcurl4-openssl-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a># lme4</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>sudo apt install cmake</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a># JMBayes</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>sudo apt install jags</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a># RStan</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>sudo apt install libv8-dev </span></code></pre></div>
+</div>
+</div>
+</div>
+
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
 </div>
