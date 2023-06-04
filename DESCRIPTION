@@ -12,9 +12,7 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.5.0)
 Imports: 
-    learnr,
-    shiny,
-    gradethis 
+    learnr
 Suggests:
     formatR,
     car,
@@ -23,7 +21,9 @@ Suggests:
     rsconnect,
     tidyverse,
     knitr,
-    rmarkdown
+    rmarkdown,
+    shiny,
+    gradethis
 VignetteBuilder: knitr
 Remotes: 
     rstudio/gradethis

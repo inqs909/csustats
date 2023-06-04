@@ -1,5 +1,6 @@
 ---
 title: "Installing R, RStudio, and R Packages"
+author: "Isaac Quintanilla Salinas"
 ---
 
 ```{r, include = FALSE}
@@ -9,6 +10,14 @@ knitr::opts_chunk$set(
   echo = FALSE
 )
 ```
+
+If you ever want to use R, there are a couple ways to access R: in the cloud or on your computer. If you want a cloud-based approach, utilize Posit.cloud. If you want it on your local computer[^1], you will need to install R and RStudio.
+
+[^1]: Which for the most part is the best way to go.
+
+### Posit.cloud
+
+Posit.cloud is an online platform to run R. It is one of the resources provided by Posit. It is free to use, but there are some limitations. The advantage is that you only need a modern internet browser to access it. The disadvantage is that you cannot run intensive data analysis. Additionally, you should never upload any sensitive data. However, it is perfect for learning, because you will not need to worry about installing anything on your computer. To access Posit.cloud, use the following link: [posit.cloud/](https://posit.cloud/). Use your Google account to create an account in Posit.
 
 ### Using R
 
@@ -25,10 +34,6 @@ RStudio is an Integrated Development Environment (IDE) program used to make your
 
 Additionally, RStudio provides numerous resources for new learners and data scientists. If you are interested in learning R and RStudio, I recommend you to look at Posit's website for more information [posit.co/](https://posit.co/).
 
-### Posit.cloud
-
-Posit.cloud is an online platform to run R. It is one of the resources provided by Posit. It is free to use, but there are some limitations. The advantage is that you only need a modern internet browser to access it. The disadvantage is that you cannot run intensive data analysis. However, for our needs in the class, it is perfect, because you will not need to worry about installing anything on your computer. To access Posit.cloud, use the following link: [posit.cloud/](https://posit.cloud/). Use your Google account to create an account in Posit.
-
 ### Install RStudio (Optional)
 
 To install RStudio on your computer, go to [posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/), and download the desktop free version to your system. Then install the software package on your computer. For more information, watch the video below.
@@ -42,4 +47,53 @@ To install RStudio on your computer, go to [posit.co/download/rstudio-desktop/](
 
 ```{=html}
 <iframe width="560" height="315" src="https://www.youtube.com/embed/n8kP7c_QbLA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+```
+### Installing R Packages
+
+If you are using RStudio, installing R packages is quite simple. Watch the video on install and use R packages.
+
+```{=html}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2nfWaMsD1fw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+```
+### Additional Requirements
+
+Sometimes, you may want to install an R package, but it fails to install because you need additional software, c++. I personally use Linux, so I do not truly know what other OS's need, but I will try my best to explain what other software you need to install the `Rcpp` package, one of the most commonly used package by other R packages. Most of this information is available [here](https://teuder.github.io/rcpp4everyone_en/020_install.html).
+
+#### Windows
+
+Once you install R, you will need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/). It will have the necessary cpp[^2] compiler to install `Rcpp`.
+
+[^2]: c++
+
+#### Mac
+
+Once you install R, you will need to install Xcode via the terminal. Use the following code:
+
+``` default
+xcode-select --install
+```
+
+#### Linux
+
+If you follow the instructions [here](https://cran.r-project.org/), you should already have a cpp compiler. However, you may need other code to install tidyverse or other R packages, via the terminal[^3]:
+
+[^3]: Code for ubuntu/debian-based distros
+
+``` default
+# tidyverse
+sudo apt install libcurl4-openssl-dev libfontconfig1-dev libharfbuzz-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev
+
+
+# lme4
+
+sudo apt install cmake
+
+
+# JMBayes
+
+sudo apt install jags
+
+# RStan
+
+sudo apt install libv8-dev 
 ```
