@@ -13,6 +13,7 @@ description: |
 ```{r setup, include=FALSE}
 library(learnr)
 library(gradethis)
+tutorial_options(exercise.timelimit = 25)
 knitr::opts_chunk$set(echo = FALSE)
 
 # set the learnr logging function
@@ -20,10 +21,23 @@ knitr::opts_chunk$set(echo = FALSE)
 
 new_df <- data.frame(x=c("A", "B", "C", "D"), y=c(1:4))
 my_vec <- c(1,2,3,4,5,6,7,8,9,10)
-list_one <- list(mtcars, rep(0, 4), diag(rep(1, 3)))
-first_array <- array(c(rep(1,9),rep(2,9),rep(3,9)),dim=c(3,3,3))
-list_two <- list(mtcars = mtcars, vector = rep(0, 4), identity = diag(rep(1, 3)))
-list_three <- list(list_two = list_two, array = first_array)
+list_one <- list(mtcars, 
+                 rep(0, 4), 
+                 diag(rep(1, 3)))
+first_array <- array(c(rep(1, 9), rep(2, 9), rep(3, 9)), 
+                     dim = c(3, 3, 3))
+list_two <- list(mtcars = mtcars, 
+                 vector = rep(0, 4), 
+                 identity = diag(rep(1, 3)))
+
+list_three <- list(list_two = list_two, 
+                   array = first_array)
+
+x <- -5:5
+y <- matrix(rep(1, 12), ncol = 3, nrow = 4)
+toy_list <- list(mtcars = mtcars,
+                 vector = rep(0, 4),
+                 identity = diag(rep(1, 3)))
 ```
 
 ## Introduction {data-progressive="FALSE"}
@@ -359,7 +373,9 @@ To create a list, use the `list()` function. Create a list compiled of first ele
 ```
 
 ```{r list_C_One-solution}
-list_one <- list(mtcars, rep(0, 4), diag(rep(1, 3)))
+list_one <- list(mtcars, 
+                 rep(0, 4), 
+                 diag(rep(1, 3)))
 ```
 
 ```{r list_C_One-check}
@@ -393,7 +409,9 @@ list(mtcars = mtcars,
 ```
 
 ```{r list_two-solution}
-list_two <- list(mtcars = mtcars, vector = rep(0, 4), identity = diag(rep(1, 3)))
+list_two <- list(mtcars = mtcars, 
+                 vector = rep(0, 4), 
+                 identity = diag(rep(1, 3)))
 ```
 
 ```{r list_two-check}
@@ -437,7 +455,8 @@ Now create a new list called `list_three` and store `list_two` labeled as `list_
 ```
 
 ```{r list_three-solution}
-list_three <- list(list_two = list_two, array = first_array)
+list_three <- list(list_two = list_two, 
+                   array = first_array)
 ```
 
 ```{r list_three-check}
@@ -462,29 +481,104 @@ grade_this_code
 
 Each are objected can be indexed to access a specific element in the object.
 
-### Vectors
+### Vector
 
-### Matrix
+A vector can be a certain data type with a set number of elements. Here we construct a vector called `x` increasing from -5 to 5 by one unit:
 
-### Array
+```{r}
+(x <- -5:5)
+```
 
-### Data Frame
+The vector `x` has 11 elements. If we want access the 6th element of `x`, we will use `[]` square brackets after `x` to index it. For example, we index the 6th element of `x`:
 
-### List
+```{r}
+x[6]
+```
+
+
+
+### Matrices
+
+A matrix can be indexed the same way as a vector using the `[]` brackets. However, since the matrix is a 2-dimensional objects, we will need to include a comma to represent the different dimensions: `[,]`. The first element indexes the row and the second element indexes the columns. To begin, we create the following $4 \times 3$ matrix:
+
+```{r}
+y <- matrix(1:12, nrow = 4, ncol = 3)
+```
+
+Now to index the element at row 2 and column 3, use `x[2, 3]`:
+
+```{r}
+y[2, 3]
+```
+
+
+### Data Frames
+
+There are several ways to index a data frame, since it is in a tabular (matrix) format, you can index it the same way as a matrix. Here are a couple of examples using the `mtcars` data frame.
+
+```{r}
+mtcars[,2]
+mtcars[2,]
+```
+
+However, a data frame has labeled columns, variables, we can index the data frame with the variable names within the brackets:
+
+```{r}
+mtcars[, "cyl"]
+```
+
+Lastly, a data frame can be indexed to a specific variable using the `$`.
+
+### Lists
+
+As described in @sec-basics-lists, lists contain elements holding different R objects. To index a specific element of a list, you will use `[[]]` double brackets. Below is a toy list:
+
+```{r}
+toy_list <- list(mtcars = mtcars,
+                 vector = rep(0, 4),
+                 identity = diag(rep(1, 3)))
+```
+
+
+To access the second element, vector element, you can type `toy_list[[2]]`
+
+```{r}
+toy_list[[2]]
+```
+Since the elements are labeled within the list, you can place the label in quotes inside `[[]]`:
+
+```{r}
+toy_list[["vector"]]
+```
+
+The element can be accessed using the `$` notation with a list:
+
+```{r}
+toy_list$vector
+```
+
+Lastly, you can further index the list if needed, we can access the `mpg` variable in `mtcars` from the `toy_list`:
+
+```{r}
+toy_list$mtcars$mpg
+toy_list[["mtcars"]]$mpg
+toy_list$mtcars[,'mpg']
+```
 
 ### 
 
 ::: warning
 #### Other Programming Languages
 
-In R, the first element of the is labeled with `1`. While in other programming languages, like python, has its first element labeled with `0`.
+In R, the first element of an R object is labeled as `1`. While in other programming languages, like python, the first element labeled as `0`.
 :::
 
 ## Loading Data
 
 There are three methods to load a data set in R: using base R, using tidyverse, or using RStudio. While it is important to understand how the code works to load a data set, I recommend using RStudio to import the data. It does all the work for you. Additionally, if you decide to use tidyverse packages, RStudio will provide corresponding code for a particular file.
 
-To import a data set using RStudio, head over to the environment tab (usually in the upper right hand pane) and click on the Import Dataset button. A pop-up window should look something like below.
+To import a data set using RStudio, head over to the E
+nvironment tab (usually in the upper right hand pane) and click on the Import Dataset button. A pop-up window should look something like below.
 
 ```{r fig1, echo = FALSE, out.width = "50%"}
 knitr::include_graphics("images/import.png")
