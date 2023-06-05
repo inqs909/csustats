@@ -70,6 +70,8 @@ Numeric data are data points that represent a number. This can be an integer or 
 is.numeric(pi)
 ```
 
+### 
+
 ::: info
 #### Note
 
@@ -88,6 +90,8 @@ Character data types are expressions (also known as a string) that do not have a
 is.character("1")
 ```
 
+### 
+
 ::: info
 #### Note
 
@@ -105,6 +109,8 @@ Logical data types are data that only take two values that represent either true
 ```{r log-T-solution}
 is.logical(TRUE)
 ```
+
+### 
 
 ::: info
 #### Note
@@ -503,6 +509,8 @@ read_csv("FILE_NAME_AND_LOCATION")
 ```
 
 Notice that the functions are virtually the same.
+
+### 
 
 ::: info
 #### Reading other data file types?
