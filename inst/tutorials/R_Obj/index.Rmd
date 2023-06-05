@@ -28,7 +28,9 @@ list_three <- list(list_two = list_two, array = first_array)
 
 ## Introduction {data-progressive="FALSE"}
 
-This tutorial provides an introduction on some of the basics of R objects. R objects are considered as data packets of varying structures.
+One of the central principles of R is the use of objects,
+
+***In this tutorial, we will learn about the different components of an R object, and how we can create and use them.***
 
 ::: contents
 ### Contents
@@ -42,7 +44,6 @@ This tutorial provides an introduction on some of the basics of R objects. R obj
 4.  Loading Data
 
 5.  Quiz
-
 :::
 
 ### Notation
@@ -268,7 +269,7 @@ grade_this_code()
 
 Data Frames is an R object that can be thought of as R's version of a data set.
 
-###
+### 
 
 ::: info
 #### What is a data set?
@@ -276,7 +277,7 @@ Data Frames is an R object that can be thought of as R's version of a data set.
 A data set is a method to store information about an experimental unit. The rows shows the characteristics (data) related each specific experimental unit, and the columns explains what the data characteristic.
 :::
 
-###
+### 
 
 #### Structure of a data frame
 
@@ -465,16 +466,13 @@ Each are objected can be indexed to access a specific element in the object.
 
 ### List
 
-###
+### 
 
 ::: warning
-
 #### Other Programming Languages
 
 In R, the first element of the is labeled with `1`. While in other programming languages, like python, has its first element labeled with `0`.
-
 :::
-
 
 ## Loading Data
 
