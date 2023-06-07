@@ -1,7 +1,7 @@
 Package: csustats
 Type: Package
 Title: CSU R Tutorials
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(
   person("Isaac", "Quintanilla Salinas", 
   role = c("aut","cre"), email = "inqs.909@gmail.com",
