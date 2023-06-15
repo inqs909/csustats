@@ -4,7 +4,6 @@
 #'
 #' @param tutorial Name of the tutorial to be accessed.
 #'
-#' @return
 #' @export
 #'
 access_tutorial<-function(tutorial){

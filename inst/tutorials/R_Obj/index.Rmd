@@ -7,7 +7,7 @@ output:
     allow_skip: true
 runtime: shiny_prerendered
 description: |
-  This tutorial provides the basics of R Objects
+  This tutorial provides the basics of R Objects.
 ---
 
 ```{r setup, include=FALSE}
@@ -17,7 +17,7 @@ tutorial_options(exercise.timelimit = 25)
 knitr::opts_chunk$set(echo = FALSE)
 
 # set the learnr logging function
-# observe(options(tutorial.event_recorder = writing_tutorial))
+# shiny::observe(options(tutorial.event_recorder = csustats::writing_tutorial))
 
 new_df <- data.frame(x=c("A", "B", "C", "D"), y=c(1:4))
 my_vec <- c(1,2,3,4,5,6,7,8,9,10)
@@ -42,7 +42,7 @@ toy_list <- list(mtcars = mtcars,
 
 ## Introduction {data-progressive="FALSE"}
 
-One of the central principles of R is the use of objects,
+One of the central principles of R is the use of objects.
 
 ***In this tutorial, we will learn about the different components of an R object, and how we can create and use them.***
 
@@ -59,6 +59,19 @@ One of the central principles of R is the use of objects,
 
 5.  Quiz
 :::
+
+```{r intro, echo=FALSE}
+question(
+  "Make a prediction on what you think an R object is and why it is used.",
+  answer(NULL, correct = TRUE),
+  correct = NULL,
+  incorrect = NULL,
+  allow_retry = TRUE,
+  type = c("always_correct", "learnr_text")
+)
+
+```
+
 
 ### Notation
 
@@ -851,3 +864,5 @@ quiz(caption = "",
   
 )
 ```
+
+
