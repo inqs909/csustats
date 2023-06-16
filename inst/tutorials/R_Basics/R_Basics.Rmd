@@ -1,6 +1,10 @@
 ---
 title: "Introduction to R"
-output: learnr::tutorial
+output: 
+  learnr::tutorial:
+    css: css/styles.scss
+    progressive: true
+    allow_skip: true
 runtime: shiny_prerendered
 description: |
   Provides a basic introduction to R Programming.
@@ -10,11 +14,12 @@ description: |
 library(learnr)
 library(tidyverse)
 library(gradethis)
+tutorial_options(exercise.timelimit = 25)
 knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
-## Introduction to R
+## Introduction to R {data-progressive="FALSE"}
 
 R is a multi-paradigm programming language that is popular among statisticians. The motto of R is "Created by statisticians, for statisticians". It has many statistical and graphical tools to help statisticians analyze data. Additionally, the programming language can be extended to implement new statistical techniques, create websites, and create dashboards (interactive software). Lastly, and most importantly, R can be downloaded and used for free.
 
@@ -234,6 +239,8 @@ tanpi(2)
 grade_this_code()
 ```
 
+## R Operators
+
 ## R Functions
 
 An R function is a procedure that tells R to do certain tasks. For example, the `log(x)` is an R function. It takes the value `x` and provides you the natural logarithm. Here `x` is known as an argument which needs to be specified to us the `log()` function. Find the `log(x = 5)`
@@ -361,7 +368,11 @@ Not try other calculations to `x`
 
 
 
-R objects are extremely powerful and can be used in many ways.
+R objects are powerful and versatile. More information can be found the R Objects tutorial which can be accessed here:
+
+```{default}
+csustats::access_tutorial("R_Obj")
+```
 
 ## R Packages
 

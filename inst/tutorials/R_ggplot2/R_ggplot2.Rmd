@@ -1,7 +1,13 @@
 ---
 title: "ggplot2"
-output: learnr::tutorial
+output: 
+  learnr::tutorial:
+    css: css/styles.scss
+    progressive: true
+    allow_skip: true
 runtime: shiny_prerendered
+description: |
+  Provides a basic introduction to ggplot2
 ---
 
 ```{r setup, include=FALSE}
@@ -20,22 +26,29 @@ gg_8 <- ggplot(mtcars, aes(cyl, fill = factor(vs)))
 gg_9 <- ggplot(mtcars, aes(mpg, disp, color = factor(cyl)))+geom_point()
 ```
 
-## Introduction
+## Introduction {data-progressive="FALSE"}
+
+This tutorial focuses on plotting different components from the `mpg` data set using functions from ggplot2.
+
+::: contents
+
+1. Basics
+
+2. Grouping
+
+3. Themes and Tweaking
+
+:::
+
+
+### Notation
 
 Through out this tutorial, we use certain notations for different components in R. To begin, when something is in a gray block, `_`, this indicates that R code is being used. When I am talking about an R Object, it will be displayed as a word. For example, we will be using the R object `mtcars`. When I am talking about an R function, it will be displayed as a word followed by an open and close parentheses. For example, we will use the mean function denoted as `mean()` (read this as "mean function"). When I am talking about an R argument for a function, it will be displayed as a word following by an equal sign. For example, we will use the data argument denoted as `data=` (read this as "data argument"). When I am referencing an R package, I will use `::` (two colons) after the name. For example, in this tutorial, I will use the `ggplot2::` (read this as "ggplot2 package") Lastly, if I am displaying R code for your reference or to run, it will be displayed on its own line. There are many components in R, and my hope is that this will help you understand what components am I talking about.
 
 
 
-The `ggplot2::` provides a set of functions to create different graphics. For more information on plotting in `ggplot2::`, please visit the this excellent [resource](https://ggplot2.tidyverse.org/). Here we will discuss some of the basics to the `ggplot2::`. To me, `ggplot2::` creates a plot by adding layers to a base plot. The syntax is designed for you to change different components of a plot in an intuitive manner. For this tutorial, we will focus on plotting different components from the `mpg` data set.
+The `ggplot2::` provides a set of functions to create different graphics. For more information on plotting in `ggplot2::`, please visit the this excellent [resource](https://ggplot2.tidyverse.org/). Here we will discuss some of the basics to the `ggplot2::`. To me, `ggplot2::` creates a plot by adding layers to a base plot. The syntax is designed for you to change different components of a plot in an intuitive manner. 
 
-
-### Contents
-
-1. Basic
-
-2. Grouping
-
-3. Themes/Tweaking
 
 
 ## Basics

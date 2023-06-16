@@ -1,11 +1,18 @@
 ---
 title: "Basic Probability and Statistics"
-output: learnr::tutorial
+output: 
+  learnr::tutorial:
+    css: css/styles.scss
+    progressive: true
+    allow_skip: true
 runtime: shiny_prerendered
+description: |
+  This tutorial provides code to conduct basic statistics.
 ---
 
 ```{r setup, include=FALSE}
 library(learnr)
+library(gradethis)
 knitr::opts_chunk$set(echo = FALSE)
 
 # set the learnr logging function
@@ -13,10 +20,11 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-## Introduction
+## Introduction {data-progressive="FALSE"}
 
 This tutorial provides an introduction on some of the basic statistics in R.
 
+::: contents
 ### Contents
 
 1. Probability
@@ -24,6 +32,19 @@ This tutorial provides an introduction on some of the basic statistics in R.
 2. Statistics
 
 3. Diagnostics
+:::
+
+```{r intro, echo=FALSE}
+question(
+  "Make a prediction on how R calculates basic probability and descriptive statistics.",
+  answer(NULL, correct = TRUE),
+  correct = NULL,
+  incorrect = NULL,
+  allow_retry = TRUE,
+  type = c("always_correct", "learnr_text")
+)
+
+```
 
 
 ### Notation
@@ -170,6 +191,20 @@ The variable `mpg` would be used as a continuous variable, and the variable `cyl
 
 ### Point Estimates
 
+```{r PE, echo=FALSE}
+question(
+  "Describe in your words what is the definition of a point estimate. Click the 'Continue' button to reveal the answer.",
+  answer(NULL, correct = TRUE),
+  correct = NULL,
+  incorrect = NULL,
+  allow_retry = TRUE,
+  type = c("always_correct", "learnr_text")
+)
+
+```
+
+###
+
 The first basic statistic you can compute are point estimates. These are your means, medians, etc. Here we will calculate these estimates. 
 
 #### Mean
@@ -183,6 +218,10 @@ To obtain the mean, use the `mean()`, you only need to specify `x=` for the data
 
 ```{r meanmpg-solution}
 mean(mtcars$mpg)
+```
+
+```{r meanmpg-check}
+grade_this_code()
 ```
 
 
@@ -199,6 +238,10 @@ To obtain the median, use the `median()`, you only need to specify `x=` for the 
 median(mtcars$mpg)
 ```
 
+```{r medianmpg-check}
+grade_this_code()
+```
+
 
 #### Frequency
 
@@ -213,6 +256,9 @@ To obtain a frequency table, use the `table()`, you only need to specify the dat
 table(mtcars$cyl)
 ```
 
+```{r freqcyl-check}
+grade_this_code()
+```
 
 
 #### Proportion
@@ -226,6 +272,10 @@ To obtain a the proportions for the frequency table, use the `prop.table()`. How
 
 ```{r propcyl-solution}
 prop.table(table(mtcars$cyl))
+```
+
+```{r propcyl-check}
+grade_this_code()
 ```
 
 
@@ -246,6 +296,10 @@ To obtain the variance, use the `var()`, you only need to specify `x=` for the d
 var(mtcars$mpg)
 ```
 
+```{r varmpg-check}
+grade_this_code()
+```
+
 
 #### Standard deviation
 
@@ -259,6 +313,11 @@ To obtain the standard deviation, use the `sd()`, you only need to specify `x=` 
 ```{r sdmpg-solution}
 sd(mtcars$mpg)
 ```
+
+```{r sdmpg-check}
+grade_this_code()
+```
+
 
 #### Max and Min
 
@@ -274,6 +333,11 @@ max(mtcars$mpg)
 min(mtcars$mpg)
 ```
 
+```{r minimaxmpg-check}
+grade_this_code()
+```
+
+
 #### Q1 and Q3
 
 To obtain the Q1 and Q3, use the `quantile()` and specify the desired quantile with `probs=`. You only need to specify the data as the first argument and `probs=` (as a decimal) to compute the Q1 and Q3:
@@ -287,6 +351,11 @@ To obtain the Q1 and Q3, use the `quantile()` and specify the desired quantile w
 quantile(mtcars$mpg,.25)
 quantile(mtcars$mpg,.75)
 ```
+
+```{r Q13mpg-check}
+grade_this_code()
+```
+
 
 ### Associations
 
@@ -304,6 +373,11 @@ When we measure the association between to continuous variables, we tend to use 
 ```{r corr-solution}
 cor(mtcars$mpg,mtcars$hp)
 ```
+
+```{r corr-check}
+grade_this_code()
+```
+
 
 ```{r corr-q, echo=FALSE}
 question("What type of association does R display?",
@@ -328,6 +402,11 @@ When comparing categorical variables, it becomes a bit more nuanced in how to re
 tapply(mtcars$mpg, list(mtcars$cyl), mean)
 ```
 
+```{r cvc-check}
+grade_this_code()
+```
+
+
 ```{r cvc-q, echo=FALSE}
 question("Which cylinder has the smallest mpg?",
   answer("8", correct = TRUE),
@@ -335,6 +414,7 @@ question("Which cylinder has the smallest mpg?",
   answer("6")
 )
 ```
+
 
 
 #### Categorical and Categorical
@@ -349,6 +429,11 @@ Reporting the association between two categorical variables is may be challengin
 table(mtcars$cyl,mtcars$carb)
 ```
 
+```{r ctab-check}
+grade_this_code()
+```
+
+
 Notice how the first argument is represented in the rows and the second argument is in the columns. Now create table proportions using both of the variables. You first need to create the table and store it in a variable and then use the `prop.table()`.
 
 ```{r ctab_1, exercise = TRUE}
@@ -358,6 +443,11 @@ Notice how the first argument is represented in the rows and the second argument
 ```{r ctab_1-solution}
 prop.table(table(mtcars$cyl,mtcars$carb))
 ```
+
+```{r ctab_1-check}
+grade_this_code()
+```
+
 
 To get the row proportions, use the argument `margin = 1` within the `prop.table()`.
 
@@ -370,6 +460,11 @@ To get the row proportions, use the argument `margin = 1` within the `prop.table
 prop.table(table(mtcars$cyl,mtcars$carb), margin = 1)
 ```
 
+```{r ctab_2-check}
+grade_this_code()
+```
+
+
 To get the column proportions, use the argument `margin = 2` within the `prop.table()`.
 
 
@@ -379,6 +474,10 @@ To get the column proportions, use the argument `margin = 2` within the `prop.ta
 
 ```{r ctab_3-solution}
 prop.table(table(mtcars$cyl,mtcars$carb), margin = 2)
+```
+
+```{r ctab_3-check}
+grade_this_code()
 ```
 
 
@@ -396,4 +495,61 @@ qnorm(2)
 ```{r rd_1-solution}
 qnorm(2)
 ```
+
+
 Here a `NaN` is produced. Notice how R puts a warning in the output. Here it is much more difficult to diagnose what the problem may be. My first advice is to look at the R documentation for the `qnorm()`. Now looking at the documentation for this particular function may not provide information on why it is wrong. The next best thing may be to go online. However, you may have read that this function provides a quantile; therefore, the value we input must be a number between 0 and 1. 
+
+
+## Quiz
+
+```{r quiz, echo=FALSE}
+quiz(caption = "",
+  question("If I were to extract a variable from a data frame, what type of R object is it?",
+    answer("list", message = "A list contains multiple R objects"),
+    answer("matrix", message = sprintf("A matrix produces a $n \\times k$ R object")),
+    answer("vector", correct = TRUE),
+    answer("data frame", message = "A data frame contains multiple variables"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("What are methods to import data into R?",
+    answer("Base R Code", correct = TRUE),
+    answer("shiny app", message = "Shiny apps are used to create data dashboards"),
+    answer("`readr::` code", correct = TRUE),
+    answer("RStudio data import wizard.", correct = TRUE),
+    incorrect = "Incorrect. You are at least on one more thing.",
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+    question("When testing the type of variables, we utilized a function similar to `is.xxx()`. What type of data was the output?",
+    answer("Logical", correct = TRUE),
+    answer("Character", message = "A character will be surrounded by quotes"),
+    answer("Numeric", message = "A number will be produced instead"),
+    answer("Raw", message = "Raw would look like byte code"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("What is the difference between a matrix and a data frame?",
+    answer("A matrix requires the data to be the same type and data frame does not", correct = TRUE),
+    answer("Each row of a data frame corresponds to an experimental unit and a matrix does not.", message = "The rows of a matrix can still correspond to different experimental units and columns correspond to characteristics"),
+    answer("A data frame can be indexed with the `$` operator and a matrix cannot.", correct = TRUE),
+    answer("A matrix must be a squared and a data frame does not."),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("Different programming languages have their index starting value at 0?",
+           answer("TRUE", correct = T),
+           answer("FALSE"),
+           allow_retry = TRUE),
+  question("Choose the correct brackets to index and R object:",
+           answer("()"),
+           answer("{}"),
+           answer("[]", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE
+           )
+  
+)
+```
+
+

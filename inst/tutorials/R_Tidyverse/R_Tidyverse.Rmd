@@ -1,7 +1,13 @@
 ---
-title: "Tutorial"
-output: learnr::tutorial
+title: "Tidyverse!"
+output: 
+  learnr::tutorial:
+    css: css/styles.scss
+    progressive: true
+    allow_skip: true
 runtime: shiny_prerendered
+description: |
+  An introduction to the Tidyverse!
 ---
 
 ```{r setup, include=FALSE}
@@ -25,9 +31,9 @@ medval <- data2$va1 %>% median()
 ```
 
 
-## Introduction
+## Introduction {data-progressive="FALSE"}
 
-Tidyverse is a set of packages that makes data manipulation much easier. These are functions that many individuals from the R community find useful to use for data analysis. In my opinion, once you have understand how the Tidyverse packages function, it makes it much easier to work with than Base R. Many of the functions are descriptively named for easy remembrance. For the most part you can do almost everything that Base R. There are just a few things you can't do, but it is rare that you will use them. One last thing is that the output from tidyverse is always formatted as tibble class, the Tidyverse version of the data frame. This can have some ups and downs. However, think of a tibble as a lazier data frame. 
+Tidyverse is a set of packages that makes data manipulation much easier. These are functions that many individuals from the R community find useful to use for data analysis. In my opinion, once you have understand how the Tidyverse packages function, it makes it much easier to work with than Base R. Many of the functions are descriptively named for easy remembrance. For the most part you can do almost everything that Base R can do. There are just a few things you can't do, but it is rare that you will use them. One last thing is that the output from tidyverse is always formatted as tibble class, the Tidyverse version of the data frame. This can have some ups and downs. However, think of a tibble as a lazier data frame. 
 
 Through out this tutorial, we use certain notations for different components in R. To begin, when something is in a gray block, `_`, this indicates that R code is being used. When I am talking about an R Object, it will be displayed as a word. For example, we will be using the R object `mtcars`. When I am talking about an R function, it will be displayed as a word followed by an open and close parentheses. For example, we will use the mean function denoted as `mean()` (read this as "mean function"). When I am talking about an R argument for a function, it will be displayed as a word following by an equal sign. For example, we will use the data argument denoted as `data=` (read this as "data argument"). When I am referencing an R package, I will use `::` (two colons) after the name. For example, in this tutorial, I will use the `ggplot2::` (read this as "ggplot2 package") Lastly, if I am displaying R code for your reference or to run, it will be displayed on its own line. There are many components in R, and my hope is that this will help you understand what components am I talking about.
 
@@ -44,7 +50,7 @@ library(tidyverse)
 
 This will load the main Tidyverse packages: `ggplot2::`, `tibble::`, `tidyr::`, `readr::`, `purr::`, `dplyr::`, `stringr::`, and `forcats::`.
 
-## The Pipe Operator `%>%`
+## Pipes 
 
 The main benefit of the pipe operator is to make the code easier to read. The pipe operator is from the `magrittr::`. It is usually loaded when you load the `tidyverse::`. What the pipe operator, `%>%`, does is that it will take the output from a previous function and it will use it as an input for the next function. This prevents us from nesting functions together and overwhelm us with numerous parentheses and commas. To practice, pipe `data` into the `glimpse()`.
 
@@ -153,7 +159,7 @@ data1 %>% group_by(cat1) %>% summarise(mean(var1))
 
 ### Subsets
 
-On occasion, you may need to create a subset of your data. You may only want to work with one part of your data. To create a subset of your data, use the `filter()` to create the subset. This will select the rows that satisfy a certain condition. Create a subset of `data1` where only the positive values of `var1` are present. Use the `filter()` and state `var1>0`.
+On occasion, you may need to create a subset of your data. You may only want to work with one part of your data. To create a subset of your data, use the `filter()` to create the subset. This will select the rows that satisfy a certain condition. Create a subset of `data1` where only the positive values of `var1` are present. Use the `filter()` and state `var1 > 0`.
 
 ```{r s_1, exercise = TRUE}
 

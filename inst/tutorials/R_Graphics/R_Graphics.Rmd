@@ -2,9 +2,12 @@
 title: "Base R Graphics"
 output: 
   learnr::tutorial:
+    css: css/styles.scss
     progressive: true
     allow_skip: true
 runtime: shiny_prerendered
+description: |
+  Provides a basic introduction to R Graphics
 ---
 
 ```{r setup, include=FALSE}
@@ -20,10 +23,12 @@ mtcars_6 <- subset(mtcars, cyl == "6")
 mtcars_8 <- subset(mtcars, cyl == "8")
 ```
 
-## Introduction
+## Introduction {data-progressive="FALSE"}
 
 This tutorial provides an introduction on how to create different graphics in R. For this tutorial, we will focus on plotting different components from the `mtcars` data set.
 
+
+::: contents
 ### Contents
 
 1.  Basic
@@ -31,6 +36,7 @@ This tutorial provides an introduction on how to create different graphics in R.
 2.  Grouping
 
 3.  Tweaking
+:::
 
 ### Notation
 
@@ -72,7 +78,7 @@ plot(mtcars$mpg, type = "l")
 grade_this_code()
 ```
 
-\
+
 Let's add the points back to the plot and keep the lines. What we are going to do is first create the scatter plot as we did before, but we will also use the `lines()` to add the lines. The `lines()` needs the `x=` which is a vector of points (`mpg`). The two lines of code must run together.
 
 ```{r base_sp_3, exercise = TRUE}
