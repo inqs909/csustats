@@ -2,7 +2,7 @@ ID <- c("R_Basics", "R_Obj", "R_Graphics",
         "R_Stats", "R_Hyp",
         "R_ANOVA", "R_Design",
         "R_SLR", "R_MLR", "R_Resid",
-        "R_Tidy", "R_ggplot2")
+        "R_Tidyverse", "R_ggplot2")
 
 Subject <- c(rep("R Basics", 3),
              rep("Basic Statistics", 2),

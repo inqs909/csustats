@@ -15,12 +15,12 @@ Isaac Quintanilla Salinas
 
 ## General Information
 
-Thw `csustats` R Package contains
+The `csustats` R Package contains
 [learnr](https://rstudio.github.io/learnr/) tutorials for students to
-complete. The package will install the `learnr` and the
-[`tidyverse`](https://www.tidyverse.org/) package as well. RStudio is
-required to run the tutorials. You can download the latest version of
-RStudio [here](https://posit.co/download/rstudio-desktop/).
+complete. The package will install the `learnr`, `gradethis`, `readr`
+and `stringr` packages as well. RStudio is required to run the
+tutorials. You can download the latest version of RStudio
+[here](https://posit.co/download/rstudio-desktop/).
 
 If there are any questions or there are any errors in the tutorial,
 please feel free to email me.
