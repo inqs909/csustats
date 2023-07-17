@@ -19,6 +19,8 @@ Imports:
     learnrhash,
 Suggests:
     formatR,
+    readr,
+    stringr,
     car,
     tibble,
     rsconnect,
