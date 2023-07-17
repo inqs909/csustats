@@ -16,8 +16,7 @@ Depends: R (>= 4.3.0)
 Imports: 
     learnr,
     gradethis,
-    readr,
-    stringr
+    learnrhash,
 Suggests:
     formatR,
     car,
@@ -30,5 +29,6 @@ Suggests:
 VignetteBuilder: knitr
 Remotes: 
     rstudio/gradethis
+    rundel/learnrhash
 URL: http://www.inqs.info/csustats/
 RoxygenNote: 7.2.3

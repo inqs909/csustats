@@ -1,3 +1,4 @@
 exportPattern("^[[:alpha:]]+")
-importFrom("utils", "write.csv")
 importFrom("gradethis", "grade_this_code")
+importFrom("learnrhash", "encoder_ui")
+importFrom("learnrhash", "encoder_logic")
