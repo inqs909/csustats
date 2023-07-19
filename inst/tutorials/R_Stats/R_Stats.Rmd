@@ -32,7 +32,6 @@ This tutorial provides an introduction on some of the basic statistics in R.
 
 2. Statistics
 
-3. Diagnostics
 :::
 
 ```{r intro, echo=FALSE}
@@ -42,20 +41,33 @@ question_text(
   rows = 4,
   correct = NULL,
   incorrect = NULL,
+  try_again_button = "Edit Answer",
   allow_retry = TRUE)
 
 ```
 
 ### Notation
 
-Through out this tutorial, we use certain notations for different components in R. To begin, when something is in a gray block, `_`, this indicates that R code is being used. When I am talking about an R Object, it will be displayed as a word. For example, we will be using the R object `mtcars`. When I am talking about an R function, it will be displayed as a word followed by an open and close parentheses. For example, we will use the mean function denoted as `mean()` (read this as "mean function"). When I am talking about an R argument for a function, it will be displayed as a word following by an equal sign. For example, we will use the data argument denoted as `data=` (read this as "data argument"). When I am referencing an R package, I will use `::` (two colons) after the name. For example, in this tutorial, I will use the `ggplot2::` (read this as "ggplot2 package") Lastly, if I am displaying R code for your reference or to run, it will be displayed on its own line. There are many components in R, and my hope is that this will help you understand what components am I talking about.
-
+Through out this tutorial, we use certain notations for different components in R. To begin, when something is in a gray block, `_`, this indicates that R code is being used. When I am talking about an R Object, it will be displayed as a word. For example, we will be using the R object `mtcars`. When I am talking about an R function, it will be displayed as a word followed by an open and close parentheses. For example, we will use the mean function denoted as `mean()` (read this as "mean function"). When I am talking about an R argument for a function, it will be displayed as a word following by an equal sign. For example, we will use the data argument denoted as `data=` (read this as "data argument"). When I am referencing an R package, I will use `::` (two colons) after the name. For example, in this tutorial, I will use the `ggplot2::` (read this as "ggplot2 package") Lastly, if I am displaying R code for your reference or to run, it will be displayed on its own line. 
 
 ## Probability
 
 We will discuss several R functions used for different probability distributions
 
-### Distributions
+### Common Distributions
+
+1. **Uniform Distribution**: In a uniform distribution, all outcomes within a given range are equally likely. For example, rolling a fair six-sided die where each face has an equal probability of 1/6 (Discrete Version).
+
+2. **Normal Distribution (Gaussian Distribution)**: The normal distribution is a continuous probability distribution that is symmetric and bell-shaped. Many natural phenomena follow this distribution, such as heights or weights of people. It is fully characterized by its mean ($\mu$) and standard deviation ($\sigma$).
+
+3. **Bernoulli Distribution**: The Bernoulli distribution is a discrete probability distribution that describes a single trial with two possible outcomes, usually labeled as success (with probability $p$) and failure (with probability $1-p$). It is commonly used for modeling binary events.
+
+4. **Binomial Distribution**: The binomial distribution describes the probability of obtaining a specific number of successes in a fixed number of independent Bernoulli trials, where each trial has two possible outcomes (usually referred to as success and failure). It is characterized by two parameters: the number of trials ($n$) and the probability of success ($p$) in each trial.
+
+5. **Poisson Distribution**: The Poisson distribution models the number of events occurring in a fixed interval of time or space. It is often used to model rare events, such as the number of emails received per hour or the number of accidents at a particular intersection. It is characterized by a single parameter $\lambda$, which represents the average rate of occurrence.
+
+
+### Distributions in R
 
 To see what distributions R supports, use
 
@@ -187,17 +199,19 @@ head(mtcars)
 
 The variable `mpg` would be used as a continuous variable, and the variable `cyl` would be used as a categorical variable.
 
+###
 
 ### Point Estimates
 
 ```{r PE, echo=FALSE}
-question(
+question_text(
   "Describe in your words what is the definition of a point estimate. Click the 'Continue' button to reveal the answer.",
   answer(NULL, correct = TRUE),
   correct = NULL,
+  rows = 4,
+  try_again_button = "Edit Answer",
   incorrect = NULL,
-  allow_retry = TRUE,
-  type = c("always_correct", "learnr_text")
+  allow_retry = TRUE
 )
 
 ```
@@ -280,7 +294,23 @@ grade_this_code()
 
 ### Variability
 
-In addition to point estimates, variability is an important statistic to report to let a user know about the spread of the data. Here we will calculate certain variability statistics.
+```{r VAR, echo=FALSE}
+question_text(
+  "Describe in your words what is the definition of variability. Click the 'Continue' button to reveal the answer.",
+  answer(NULL, correct = TRUE),
+  correct = NULL,
+  rows = 4,
+  try_again_button = "Edit Answer",
+  incorrect = NULL,
+  allow_retry = TRUE
+)
+
+```
+
+
+###
+
+Variability statistics can describes the average deviation of data points from a central tendency (point estimate). It can be thought as how far the data points are from the center. R is capable of calculating several variability statistics.
 
 #### Variance
 
@@ -420,15 +450,15 @@ question("Which cylinder has the smallest mpg?",
 
 Reporting the association between two categorical variables is may be challenging. If you have a $2\times 2$ table, you can report a ratio of association. However, any other case may be challenging. You can report a hypothesis test to indicate an association, but it does not provide much information about the effect of each variable. You can also report row, column, or table proportions. Here we will talk about creating cross tables and report these proportions. To create a cross table, use the `table()` and use the first two arguments to specify the two categorical variables. Create a cross tabulation between `cyl` and `carb` from the `mtcars` data set.
 
-```{r ctab, exerise = TRUE}
+```{r ctab-00, exercise = TRUE}
 
 ```
 
-```{r ctab-solution}
+```{r ctab-00-solution}
 table(mtcars$cyl,mtcars$carb)
 ```
 
-```{r ctab-check}
+```{r ctab-00-check}
 grade_this_code()
 ```
 
@@ -480,70 +510,52 @@ grade_this_code()
 ```
 
 
-## Diagnostics
-
-Here is more practice in trying to understand some of the errors R may output. Type the following code
-```
-qnorm(2)
-```
-
-```{r rd_1, exercise = TRUE}
-
-```
-
-```{r rd_1-solution}
-qnorm(2)
-```
-
-
-Here a `NaN` is produced. Notice how R puts a warning in the output. Here it is much more difficult to diagnose what the problem may be. My first advice is to look at the R documentation for the `qnorm()`. Now looking at the documentation for this particular function may not provide information on why it is wrong. The next best thing may be to go online. However, you may have read that this function provides a quantile; therefore, the value we input must be a number between 0 and 1. 
-
 
 ## Quiz
 
 ```{r quiz, echo=FALSE}
 quiz(caption = "",
-  question("If I were to extract a variable from a data frame, what type of R object is it?",
-    answer("list", message = "A list contains multiple R objects"),
-    answer("matrix", message = sprintf("A matrix produces a $n \\times k$ R object")),
-    answer("vector", correct = TRUE),
-    answer("data frame", message = "A data frame contains multiple variables"),
+  question("What is the code to generate 100 random variables from a Bernoulli distribution with parameter p?",
+    answer("dbinom(100, 1, p)", message = "The function is mispecified."),
+    answer("dbinom(1, 100, p)", message = sprintf("The arguments and function are mispecified.")),
+    answer("rbinom(100, 1, p)", correct = TRUE),
+    answer("rbinom(1, 100, p)", message = "The arguments are mispecified."),
     allow_retry = TRUE,
     random_answer_order = TRUE
   ),
-  question("What are methods to import data into R?",
-    answer("Base R Code", correct = TRUE),
-    answer("shiny app", message = "Shiny apps are used to create data dashboards"),
-    answer("`readr::` code", correct = TRUE),
-    answer("RStudio data import wizard.", correct = TRUE),
-    incorrect = "Incorrect. You are at least on one more thing.",
+  question("What are common central tendency statistics?",
+    answer("Mean", correct = TRUE),
+    answer("Range", message = "Measures lowest and highest values."),
+    answer("Median", correct = TRUE),
+    answer("Variance.", message = "Measures variability."),
+    incorrect = "Incorrect. There is at least on one more thing.",
     allow_retry = TRUE,
     random_answer_order = TRUE
   ),
-    question("When testing the type of variables, we utilized a function similar to `is.xxx()`. What type of data was the output?",
-    answer("Logical", correct = TRUE),
-    answer("Character", message = "A character will be surrounded by quotes"),
-    answer("Numeric", message = "A number will be produced instead"),
-    answer("Raw", message = "Raw would look like byte code"),
+    question("Which 2 statistics can be used to measure the association between two variables?",
+    answer("Spearman's Correlation", correct = TRUE),
+    answer("Kappa Statistic", message = "Used for interrator reliability."),
+    answer("Bayes' Factor", message = "Used for hypothesis testing."),
+    answer("Kendall's Tau", correct = TRUE),
     allow_retry = TRUE,
     random_answer_order = TRUE
   ),
-  question("What is the difference between a matrix and a data frame?",
-    answer("A matrix requires the data to be the same type and data frame does not", correct = TRUE),
-    answer("Each row of a data frame corresponds to an experimental unit and a matrix does not.", message = "The rows of a matrix can still correspond to different experimental units and columns correspond to characteristics"),
-    answer("A data frame can be indexed with the `$` operator and a matrix cannot.", correct = TRUE),
-    answer("A matrix must be a squared and a data frame does not."),
+  question("Which functions can be used to obtain statistics on categorical variables?",
+    answer("table()", correct = TRUE),
+    answer("lm()"),
+    answer("prop.table()", correct = TRUE),
+    answer("quantile()"),
     allow_retry = TRUE,
     random_answer_order = TRUE
   ),
-  question("Different programming languages have their index starting value at 0?",
+  question("Use the help(Distributions) command to learn more about R's capability on probability distributions.",
            answer("TRUE", correct = T),
            answer("FALSE"),
            allow_retry = TRUE),
-  question("Choose the correct brackets to index and R object:",
-           answer("()"),
-           answer("{}"),
-           answer("[]", correct = TRUE),
+  question("Which letter gives you the quantile of a distribution function",
+           answer("d"),
+           answer("q"),
+           answer("r", correct = TRUE),
            allow_retry = TRUE,
            random_answer_order = TRUE
            ),
