@@ -13,11 +13,12 @@ description: |
 ```{r setup, include=FALSE}
 library(learnr)
 library(gradethis)
-tutorial_options(exercise.timelimit = 25)
+tutorial_options(exercise.timelimit = 60, 
+                 exercise.checker = gradethis::grade_learnr)
+
+gradethis_setup(exercise.reveal_solution = FALSE)
 knitr::opts_chunk$set(echo = FALSE)
 
-# set the learnr logging function
-# shiny::observe(options(tutorial.event_recorder = csustats::writing_tutorial))
 
 new_df <- data.frame(x=c("A", "B", "C", "D"), y=c(1:4))
 my_vec <- c(1,2,3,4,5,6,7,8,9,10)
@@ -61,17 +62,16 @@ One of the central principles of R is the use of objects.
 :::
 
 ```{r intro, echo=FALSE}
-question(
+question_text(
   "Make a prediction on what you think an R object is and why it is used.",
   answer(NULL, correct = TRUE),
+  trim = TRUE,
+  rows = 4,
   correct = NULL,
   incorrect = NULL,
-  allow_retry = TRUE,
-  type = c("always_correct", "learnr_text")
-)
+  allow_retry = TRUE)
 
 ```
-
 
 ### Notation
 
@@ -830,7 +830,7 @@ quiz(caption = "",
     answer("shiny app", message = "Shiny apps are used to create data dashboards"),
     answer("`readr::` code", correct = TRUE),
     answer("RStudio data import wizard.", correct = TRUE),
-    incorrect = "Incorrect. You are at least on one more thing.",
+    incorrect = "Incorrect. There is at least one more thing.",
     allow_retry = TRUE,
     random_answer_order = TRUE
   ),
@@ -860,12 +860,23 @@ quiz(caption = "",
            answer("[]", correct = TRUE),
            allow_retry = TRUE,
            random_answer_order = TRUE
-           )
+           ),
+  question_text(
+  "Write a reflection on what you had learned about R objects.",
+  answer(NULL, correct = TRUE),
+  trim = TRUE,
+  rows = 4,
+  correct = NULL,
+  incorrect = NULL,
+  allow_retry = TRUE)
+
   
 )
 ```
 
-## Submit
+## Submit Responses
+
+**Generate a Hash if you need to submit your work for an assignment.**
 
 ```{r context="server"}
 learnrhash::encoder_logic()
@@ -879,4 +890,10 @@ learnrhash::encoder_ui(
     "submit it using the corresponding tutorial assignment tab on your Learning Management System, if needed.",
     shiny::tags$br()
   ))
+```
+
+## Feedback
+
+```{=html}
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSda_bV4VFGk1pgrevik7afgjAlWTA0g9kQE7ZR52S_UQiT3NA/viewform?embedded=true" width="640" height="742" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
 ```

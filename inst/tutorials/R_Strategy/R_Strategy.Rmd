@@ -1,0 +1,124 @@
+---
+title: "R Strategies"
+output: 
+  learnr::tutorial:
+    css: css/styles.scss
+    progressive: true
+    allow_skip: true
+runtime: shiny_prerendered
+description: |
+  Provides general tips and tricks to 
+---
+
+```{r setup, include=FALSE}
+library(learnr)
+library(gradethis)
+tutorial_options(exercise.timelimit = 60, 
+                 exercise.checker = gradethis::grade_learnr)
+
+gradethis_setup(exercise.reveal_solution = FALSE)
+knitr::opts_chunk$set(echo = FALSE)
+
+
+```
+
+
+## R Packages
+
+As I stated before, R can be extended to do more things, such as create this tutorial. This is done by installing R packages. An R package can be thought of as extra software. This allows you to do more with R. To install an R package, you will need to use `install.packages("NAME_OF_PACKAGE")`. Once you install it, you do not need to install it again. To use the R package, use `library("NAME_OF_PACKAGE")`. This allows you to load the package in R. You will need to load the package every time you start R. For more information, please watch the video below.
+
+```{=html}
+<iframe src="https://player.vimeo.com/video/203516241?h=819422ce1e&color=428bca" width="640" height="400" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+<p><a href="https://vimeo.com/203516241">install Packages</a> from <a href="https://vimeo.com/rstudioinc">RStudio, Inc.</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
+```
+
+
+## Quiz
+
+```{r quiz, echo=FALSE}
+quiz(caption = "",
+  question("Which function do you need to use to properly load an R package?",
+    answer("install.packages()", message = "This will install an R package."),
+    answer("load()", message = sprintf("This is used to load data, not a package.")),
+    answer("library()", correct = TRUE),
+    answer("require()", message = "While this will work, it is advised not to use this function."),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("What is the code to add 5 to 4 squared?",
+    answer("5 + 4**2", correct = TRUE),
+    answer("5 * 4 && 4", message = "Shiny apps are used to create data dashboards"),
+    answer("4^2 + 5", correct = TRUE),
+    answer("4*4 + 5", correct = TRUE),
+    incorrect = "Incorrect. There is at least one more thing.",
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+    question("Which operator is used to create an R object with data? ",
+    answer("<-", correct = TRUE),
+    answer("==", message = "This is the absolute equal operator."),
+    answer("=", correct = TRUE),
+    answer("<<", message = "This is not a known operator"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("You will need to install each R package everytime you boot up R.",
+           answer("TRUE"),
+           answer("FALSE", correct = T),
+           allow_retry = TRUE),
+  question("Which one is the pipe operator?",
+    answer("|>", correct = TRUE),
+    answer("%|%", message = "This is not a known R operator."),
+    answer("%>%", correct = TRUE),
+    answer("%%", message = "This is the modulo (remainder) operator."),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("Do you need to specify the name of the argument for a function?",
+           answer("TRUE"),
+           answer("FALSE", correct = T),
+           allow_retry = TRUE),
+  question("Which function tells you if a data value is a Logical value?",
+           answer("if.logical()"),
+           answer("as.logical()"),
+           answer("is.logical()", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE
+           ),
+  question_text(
+  "Write a reflection on what you had learned about R Basics.",
+  answer(NULL, correct = TRUE),
+  trim = TRUE,
+  rows = 4,
+  try_again_button = "Edit Answer",
+  correct = NULL,
+  incorrect = NULL,
+  allow_retry = TRUE)
+
+  
+)
+```
+
+## Submit Responses
+
+**Generate a Hash if you need to submit your work for an assignment.**
+
+```{r context="server"}
+learnrhash::encoder_logic()
+```
+
+```{r encode, echo=FALSE}
+learnrhash::encoder_ui(
+  ui_before = shiny::div(
+    "If you have completed this tutorial and are happy with all of your",
+    "solutions, please click the button below to generate your hash and",
+    "submit it using the corresponding tutorial assignment tab on your Learning Management System, if needed.",
+    shiny::tags$br()
+  ))
+```
+
+## Feedback
+
+```{=html}
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSda_bV4VFGk1pgrevik7afgjAlWTA0g9kQE7ZR52S_UQiT3NA/viewform?embedded=true" width="640" height="742" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+```

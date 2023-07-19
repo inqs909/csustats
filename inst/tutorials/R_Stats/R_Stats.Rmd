@@ -13,10 +13,11 @@ description: |
 ```{r setup, include=FALSE}
 library(learnr)
 library(gradethis)
-knitr::opts_chunk$set(echo = FALSE)
+tutorial_options(exercise.timelimit = 60, 
+                 exercise.checker = gradethis::grade_learnr)
 
-# set the learnr logging function
-# observe(options(tutorial.event_recorder = writing_tutorial))
+gradethis_setup(exercise.reveal_solution = FALSE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
@@ -35,17 +36,15 @@ This tutorial provides an introduction on some of the basic statistics in R.
 :::
 
 ```{r intro, echo=FALSE}
-question(
-  "Make a prediction on how R calculates basic probability and descriptive statistics.",
-  answer(NULL, correct = TRUE),
+question_text(
+  "Make a prediction on how R calculates basic probability and descriptive statistics.",  answer(NULL, correct = TRUE),
+  trim = TRUE,
+  rows = 4,
   correct = NULL,
   incorrect = NULL,
-  allow_retry = TRUE,
-  type = c("always_correct", "learnr_text")
-)
+  allow_retry = TRUE)
 
 ```
-
 
 ### Notation
 
@@ -547,13 +546,23 @@ quiz(caption = "",
            answer("[]", correct = TRUE),
            allow_retry = TRUE,
            random_answer_order = TRUE
-           )
+           ),
+  question_text(
+  "Write a reflection on what you had learned about basic probability and statistics in R.",
+  answer(NULL, correct = TRUE),
+  trim = TRUE,
+  rows = 4,
+  correct = NULL,
+  incorrect = NULL,
+  allow_retry = TRUE)
+
   
 )
 ```
 
+## Submit Responses
 
-## Submit
+**Generate a Hash if you need to submit your work for an assignment.**
 
 ```{r context="server"}
 learnrhash::encoder_logic()
@@ -569,3 +578,8 @@ learnrhash::encoder_ui(
   ))
 ```
 
+## Feedback
+
+```{=html}
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSda_bV4VFGk1pgrevik7afgjAlWTA0g9kQE7ZR52S_UQiT3NA/viewform?embedded=true" width="640" height="742" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+```

@@ -464,6 +464,58 @@ Additionally, you can change certain part of the theme using the `theme()`. I en
 
 If you want to save the plot, use the `ggsave()`. Read the help documentation for the functions capabilities.
 
+## Quiz
+
+
+```{r quiz, echo=FALSE}
+quiz(caption = "",
+  question("If I were to extract a variable from a data frame, what type of R object is it?",
+    answer("list", message = "A list contains multiple R objects"),
+    answer("matrix", message = sprintf("A matrix produces a $n \\times k$ R object")),
+    answer("vector", correct = TRUE),
+    answer("data frame", message = "A data frame contains multiple variables"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("What are methods to import data into R?",
+    answer("Base R Code", correct = TRUE),
+    answer("shiny app", message = "Shiny apps are used to create data dashboards"),
+    answer("`readr::` code", correct = TRUE),
+    answer("RStudio data import wizard.", correct = TRUE),
+    incorrect = "Incorrect. You are at least on one more thing.",
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+    question("When testing the type of variables, we utilized a function similar to `is.xxx()`. What type of data was the output?",
+    answer("Logical", correct = TRUE),
+    answer("Character", message = "A character will be surrounded by quotes"),
+    answer("Numeric", message = "A number will be produced instead"),
+    answer("Raw", message = "Raw would look like byte code"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("What is the difference between a matrix and a data frame?",
+    answer("A matrix requires the data to be the same type and data frame does not", correct = TRUE),
+    answer("Each row of a data frame corresponds to an experimental unit and a matrix does not.", message = "The rows of a matrix can still correspond to different experimental units and columns correspond to characteristics"),
+    answer("A data frame can be indexed with the `$` operator and a matrix cannot.", correct = TRUE),
+    answer("A matrix must be a squared and a data frame does not."),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("Different programming languages have their index starting value at 0?",
+           answer("TRUE", correct = T),
+           answer("FALSE"),
+           allow_retry = TRUE),
+  question("Choose the correct brackets to index and R object:",
+           answer("()"),
+           answer("{}"),
+           answer("[]", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE
+           )
+  
+)
+```
 
 
 ## Submit
@@ -481,3 +533,11 @@ learnrhash::encoder_ui(
     shiny::tags$br()
   ))
 ```
+
+## Feedback
+
+```{=html}
+<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSda_bV4VFGk1pgrevik7afgjAlWTA0g9kQE7ZR52S_UQiT3NA/viewform?embedded=true" width="640" height="742" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+```
+
+
