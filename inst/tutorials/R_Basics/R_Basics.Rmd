@@ -16,7 +16,7 @@ library(gradethis)
 tutorial_options(exercise.timelimit = 60, 
                  exercise.checker = gradethis::grade_learnr)
 
-gradethis_setup(exercise.reveal_solution = FALSE)
+gradethis_setup(exercise.reveal_solution = TRUE)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 

@@ -16,7 +16,7 @@ library(gradethis)
 tutorial_options(exercise.timelimit = 60, 
                  exercise.checker = gradethis::grade_learnr)
 
-gradethis_setup(exercise.reveal_solution = FALSE)
+gradethis_setup(exercise.reveal_solution = TRUE)
 knitr::opts_chunk$set(echo = FALSE)
 
 mtcars_4 <- subset(mtcars, cyl == "4")
@@ -41,7 +41,7 @@ This tutorial provides an introduction on how to create different graphics in R.
 
 ### Notation
 
-Through out this tutorial, we use certain notations for different components in R. To begin, when something is in a gray block, `_`, this indicates that R code is being used. When I am talking about an R Object, it will be displayed as a word. For example, we will be using the R object `mtcars`. When I am talking about an R function, it will be displayed as a word followed by an open and close parentheses. For example, we will use the mean function denoted as `mean()` (read this as "mean function"). When I am talking about an R argument for a function, it will be displayed as a word following by an equal sign. For example, we will use the data argument denoted as `data=` (read this as "data argument"). When I am referencing an R package, I will use `::` (two colons) after the name. For example, in this tutorial, I will use the `ggplot2::` (read this as "ggplot2 package") Lastly, if I am displaying R code for your reference or to run, it will be displayed on its own line. There are many components in R, and my hope is that this will help you understand what components am I talking about.
+Through out this tutorial, we use certain notations for different components in R. To begin, when something is in a gray block, `_`, this indicates that R code is being used. When I am talking about an R Object, it will be displayed as a word. For example, we will be using the R object `mtcars`. When I am talking about an R function, it will be displayed as a word followed by an open and close parentheses. For example, we will use the mean function denoted as `mean()` (read this as "mean function"). When I am talking about an R argument for a function, it will be displayed as a word following by an equal sign. For example, we will use the data argument denoted as `data=` (read this as "data argument"). When I am referencing an R package, I will use `::` (two colons) after the name. For example, an alternative to R graphics is using the `ggplot2::` (read this as "ggplot2 package") Lastly, if I am displaying R code for your reference or to run, it will be displayed on its own line. There are many components in R, and my hope is that this will help you understand what components am I talking about.
 
 ## Basic Graphics
 
@@ -49,7 +49,7 @@ Here we will use the built-in R functions to create different graphics. The main
 
 ### Scatter Plot
 
-Let's first create a scatter plot for one variable using the `mpg` variable. This is done using the `plot()` and setting the first argument `x=` to the vector.
+Let's first create a scatter plot for one variable using the `mpg` variable from the `mtcars` data set. This is done using the `plot()` and setting the first argument `x=` to the vector.
 
 ```{r base_sp_1, exercise = TRUE}
 

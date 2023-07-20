@@ -17,18 +17,20 @@ library(gradethis)
 tutorial_options(exercise.timelimit = 60, 
                  exercise.checker = gradethis::grade_learnr)
 
-gradethis_setup(exercise.reveal_solution = FALSE)
+gradethis_setup(exercise.reveal_solution = TRUE)
 knitr::opts_chunk$set(echo = FALSE)
 
-data1<-read_csv("data_3_1.csv")
-data2<-read_csv("data_3_2.csv")
-data3<-read_csv("data_3_3.csv")
-data4<-read_csv("data_3_6.csv")
-data5<-read_csv("data_3_7.csv")
-data6<-read_csv("data_3_5.csv")
-data7<-read_csv("data_3_4.csv")
+data1<-read_csv("www/data_3_1.csv")
+data2<-read_csv("www/data_3_2.csv")
+data3<-read_csv("www/data_3_3.csv")
+data4<-read_csv("www/data_3_6.csv")
+data5<-read_csv("www/data_3_7.csv")
+data6<-read_csv("www/data_3_5.csv")
+data7<-read_csv("www/data_3_4.csv")
 
-data8 <- data7 %>% pivot_longer(`v1/mean`:`v4/median`,"measurement","value") %>% 
+data8 <- data7 %>% pivot_longer(`v1/mean`:`v4/median`, 
+                                names_to = "measurement",
+                                values_to = "value") %>% 
           separate(measurement,c("time","stat"),sep="/") %>% 
           pivot_wider(names_from = stat,values_from = value)
 
@@ -38,12 +40,26 @@ medval <- data2$va1 %>% median()
 
 ## Introduction {data-progressive="FALSE"}
 
-Tidyverse is a set of packages that makes data manipulation much easier. These are functions that many individuals from the R community find useful to use for data analysis. In my opinion, once you have understand how the Tidyverse packages function, it makes it much easier to work with than Base R. Many of the functions are descriptively named for easy remembrance. For the most part you can do almost everything that Base R can do. There are just a few things you can't do, but it is rare that you will use them. One last thing is that the output from tidyverse is always formatted as tibble class, the Tidyverse version of the data frame. This can have some ups and downs. However, think of a tibble as a lazier data frame. 
+Tidyverse is a set of packages that makes data manipulation much easier. These are functions that many individuals from the R community find useful for data analysis. In my opinion, once you understand how the Tidyverse packages work, it makes it much easier to use than Base R. Many of the functions are descriptively named for easy remembrance. For the most part you can do almost everything that Base R can do. There are just a few things you can't do, but it is rare that you will use them. One last thing is that the output from Tidyverse is always formatted as tibble class, the Tidyverse version of the data frame. This can have some ups and downs. However, think of a tibble as a lazier data frame. 
 
-Through out this tutorial, we use certain notations for different components in R. To begin, when something is in a gray block, `_`, this indicates that R code is being used. When I am talking about an R Object, it will be displayed as a word. For example, we will be using the R object `mtcars`. When I am talking about an R function, it will be displayed as a word followed by an open and close parentheses. For example, we will use the mean function denoted as `mean()` (read this as "mean function"). When I am talking about an R argument for a function, it will be displayed as a word following by an equal sign. For example, we will use the data argument denoted as `data=` (read this as "data argument"). When I am referencing an R package, I will use `::` (two colons) after the name. For example, in this tutorial, I will use the `ggplot2::` (read this as "ggplot2 package") Lastly, if I am displaying R code for your reference or to run, it will be displayed on its own line. There are many components in R, and my hope is that this will help you understand what components am I talking about.
+```{r intro, echo=FALSE}
+question_text(
+  "Think why users create the Tidyverse when Base R exists.",
+  answer(NULL, correct = TRUE),
+  trim = TRUE,
+  rows = 4,
+  correct = NULL,
+  try_again_button = "Edit Answer",
+  incorrect = NULL,
+  allow_retry = TRUE)
 
+```
 
-When you installed the `s170r::`, it would have installed the `tidyverse::` in your computer. Therefore, you will only need to use the `library()` to load `tidyverse::`:
+### Notation
+
+Through out this tutorial, we use certain notations for different components in R. To begin, when something is in a gray block, `_`, this indicates that R code is being used. When I am talking about an R Object, it will be displayed as a word. For example, if we were using the R object `data1`. When I am talking about an R function, it will be displayed as a word followed by an open and close parentheses. For example, we will use the mean function denoted as `glimpse()` (read this as "glimpse function"). When I am talking about an R argument for a function, it will be displayed as a word following by an equal sign. For example, we will use the col argument denoted as `col=` (read this as "col argument"). When I am referencing an R package, I will use `::` (two colons) after the name. For example, in this tutorial, I will use the `dplyr::` (read this as "dplyr package") Lastly, if I am displaying R code for your reference or to run, it will be displayed on its own line. 
+
+When you loaded up this tutorial, a prompt would have told you to install the `tidyverse::` on your computer. Therefore, you will only need to use the `library()` to load `tidyverse::`:
 
 ```{r load, exercise = TRUE}
 
@@ -53,30 +69,144 @@ When you installed the `s170r::`, it would have installed the `tidyverse::` in y
 library(tidyverse)
 ```
 
-This will load the main Tidyverse packages: `ggplot2::`, `tibble::`, `tidyr::`, `readr::`, `purr::`, `dplyr::`, `stringr::`, and `forcats::`.
+This will load the main Tidyverse packages: `ggplot2::`, `tibble::`, `tidyr::`, `readr::`, `purr::`, `dplyr::`, `stringr::`, `forcats::`, and several other tidyverse packages.
 
 ## Pipes 
 
-The main benefit of the pipe operator is to make the code easier to read. The pipe operator is from the `magrittr::`. It is usually loaded when you load the `tidyverse::`. What the pipe operator, `%>%`, does is that it will take the output from a previous function and it will use it as an input for the next function. This prevents us from nesting functions together and overwhelm us with numerous parentheses and commas. To practice, pipe `data` into the `glimpse()`.
+Piping in computer science refers to a mechanism that allows the flow of data between two or more software components or processes. In a typical piping scenario, the output produced by one program is directed to the input of another program, forming a chain of connected processes. The data flows through the pipeline, often undergoing transformations or filtering at each stage, until it reaches the desired final output. Overall, piping is a powerful concept in computer science that facilitates the modularization and integration of software components, enabling the creation of flexible and efficient data processing workflows.
 
-```{r pipe, exercise = TRUE}
+###
+
+### Magritter Pipe `%>%`
+
+The main benefit of the pipe operator is to make your code easier to read. The pipe operator is from the `magrittr::`. It is usually loaded when you load the `tidyverse::`. What the pipe operator, `%>%`, does is that it will take the output from a previous function and it will use it as the input for the first argument of the next function. This prevents us from nesting functions together and overwhelm readers with numerous parentheses and commas. To practice, pipe `mtcars` into the `glimpse()`.
+
+```{r pipe-1, exercise = TRUE}
 
 ```
 
-```{r pipe-solution}
-data1 %>% glimpse()
+```{r pipe-1-solution}
+mtcars %>% glimpse()
 ```
 
-The `glimpse()` then provides basic variable information about `data1`. I recommend practice reading the code in plain English to help you understand how these functions. 
+```{r pipe-1-check}
+grade_this_code()
+```
+
+The `glimpse()` then provides basic variable information about `mtcars`. I recommend practice reading the code in plain English to help you understand how these functions. 
+
+If we need to pipe the output to another argument that is not the first one, we can use the `.` notation for the specific argument. This will tell R where to put the input. 
+
+Now, lets pipe `mtcars` into the `lm()` and then the `summary()`. The first argument of the `lm()` needs to be a formula, it will not accept `mtcars`. Therefore, we will need put `mpg~disp` for the first argument, and `data = .` afterwards: 
+
+```{r pipe-2, exercise = TRUE}
+
+```
+
+```{r pipe-2-solution}
+mtcars %>% lm(mpg~disp, data = .) %>% summary()
+```
+
+```{r pipe-2-check}
+grade_this_code()
+```
+
+Let's say we are only interesting with the Coefficients table. We can pipe it and extract it using the `.` notation and `$` operator. Add `.$coefficients` to your chain.
+
+```{r pipe-3, exercise = TRUE}
+
+```
+
+```{r pipe-3-solution}
+mtcars %>% lm(mpg~disp, data = .) %>% summary() %>% .$coefficients
+```
+
+```{r pipe-3-check}
+grade_this_code()
+```
+
+
+### Native Pipe `|>`
+
+In R 4.1, the native pipe `|>` was introduced to R. This allowed users to chain functions together without having to install the `magrittr::`. In R 4.3, the `|>` was extended to include new capabilites such as the extraction call that the `magrittr::` had. 
+
+ Use the native pipe to take a `glimpse` on `mtcars`:
+ 
+```{r pipe-4, exercise = TRUE}
+
+```
+
+```{r pipe-4-solution}
+mtcars |> glimpse()
+```
+
+```{r pipe-4-check}
+grade_this_code()
+```
+
+Similarly before, the native pipe can pipe output to other arguments that are not the first one. If we need to pipe the output to another argument, you can use the `_` notation for the specific argument. This will tell R where to put the input. 
+
+Now, lets pipe `mtcars` into the `lm()` and then the `summary()`. The first argument of the `lm()` needs to be a formula, it will not accept `mtcars`. Therefore, we will need put `mpg~disp` for the first argument, and `data = _` afterwards: 
+
+
+```{r pipe-5, exercise = TRUE}
+
+```
+
+```{r pipe-5-solution}
+mtcars |> lm(mpg~disp, data = _) |> summary()
+```
+
+```{r pipe-5-check}
+grade_this_code()
+```
+
+
+As before, if you are only interesting with the Coefficients table. We can pipe it and extract it using the `_` notation and `$` operator. Add `_$coefficients` to your chain.
+
+```{r pipe-6, exercise = TRUE}
+
+```
+
+```{r pipe-6-solution}
+mtcars |> lm(mpg~disp, data = _) |> summary() |> _$coefficients
+```
+
+```{r pipe-6-check}
+grade_this_code()
+```
+
+
+### Native vs Magrittr Pipe
+
+Which one should you use? Well, it does not matter. They both have advantages and disadvantages. It completely up to user choice. The main thing is to know that they both exist and behave relatively the same. Regardless of which one you decide to use, change the settings in RStudio that allows you use the keyboard shortcut of your preferred pipe.
+
+### More Pipes
+
+The `magrittr::` package has several other pipes that you can use for further analysis. Visit there website for more information: [magrittr.tidyverse.org/reference/index.html](https://magrittr.tidyverse.org/reference/index.html)
 
 
 ## Data Transformation
 
 This section focuses on manipulating the data to obtain basic statistics, such as obtaining the mean for different categories. Many of the functions used here are from the `dplyr::`.
 
+Before we begin, take a `glimpse` of `data1`:
+
+
+```{r sd_0, exercise = TRUE}
+
+```
+
+```{r sd_0-solution}
+data1 %>% glimpse()
+```
+
+###
+
 ### Summarizing Data
 
-Summarizing Data is one of the most important thing in statistics. First, let's get the mean for all the variables in `data1`. This is done by using the `summarize_all()`. All you need to do is provide the function you want R to provide. Pipe `data1` into the `summarize_all()` and specify `mean` in the function.
+
+Summarizing Data is one of the most important thing in statistics. You should always provide summary statistics for all your research. First, let's get the mean for all the variables in `data1`. This is done by using the `summarize_all()`. All you need to do is provide the function you want R to provide. Pipe `data1` into the `summarize_all()` and specify `mean` in the function.
 
 ```{r sd_1, exercise = TRUE}
 
@@ -85,6 +215,11 @@ Summarizing Data is one of the most important thing in statistics. First, let's 
 ```{r sd_1-solution}
 data1 %>% summarise_all(mean)
 ```
+
+```{r sd_1-check}
+grade_this_code()
+```
+
 
 Notice how some values are `NA`, this is because the variables are character data types. Therefore, it will not be able to compute the mean. Now find the standard deviation for the data set.
 
@@ -96,6 +231,11 @@ Notice how some values are `NA`, this is because the variables are character dat
 data1 %>%  summarise_all(sd)
 ```
 
+```{r sd_2-check}
+grade_this_code()
+```
+
+
 Now lets create a frequency table for the `cat1` variable in `data1`. use the `count()` and specify the variable you are interested in:
 
 ```{r sd_3, exercise = TRUE}
@@ -106,6 +246,10 @@ Now lets create a frequency table for the `cat1` variable in `data1`. use the `c
 data1 %>% count(cat1)
 ```
 
+```{r sd_3-check}
+grade_this_code()
+```
+
 Now, repeat for `cat2` in `data1`:
 
 ```{r sd_4, exercise = TRUE}
@@ -114,6 +258,10 @@ Now, repeat for `cat2` in `data1`:
 
 ```{r sd_4-solution}
 data1 %>%  count(cat2)
+```
+
+```{r sd_4-check}
+grade_this_code()
 ```
 
 
@@ -129,6 +277,11 @@ Summarizing data is great, but sometimes you may want to group data and obtain s
 data1 %>% group_by(cat1)
 ```
 
+```{r g_1-check}
+grade_this_code()
+```
+
+
 Great! You now have grouped data; however, this is not helpful. We can use this output and summarize the groups. All we need to do is pipe the output to the `summarise_all()`. Group `data1` by `cat1` and find the mean:
 
 ```{r g_2, exercise = TRUE}
@@ -139,6 +292,10 @@ Great! You now have grouped data; however, this is not helpful. We can use this 
 data1 %>% group_by(cat1) %>% summarise_all(mean)
 ```
 
+```{r g_2-check}
+grade_this_code()
+```
+
 
 If we want to group by two variables, all we need to do is specify both variables in the `group_by()`. Group `data1` by `cat1` and `cat2` then find the mean:
 
@@ -147,8 +304,13 @@ If we want to group by two variables, all we need to do is specify both variable
 ```
 
 ```{r g_3-solution}
-data1 %>% group_by(cat1,cat2) %>% summarise_all(mean)
+data1 %>% group_by(cat1, cat2) %>% summarise_all(mean)
 ```
+
+```{r g_3-check}
+grade_this_code()
+```
+
 
 Now, instead of finding the mean for all variables in a data set, we are only interested in viewing `var1`. We can use the `summarise()` and type the R code for finding the mean for the particular variable. Group `data1` by `cat1` and find the mean for `var1`:
 
@@ -156,9 +318,12 @@ Now, instead of finding the mean for all variables in a data set, we are only in
 
 ```
 
-
 ```{r g_4-solution}
 data1 %>% group_by(cat1) %>% summarise(mean(var1))
+```
+
+```{r g_4-check}
+grade_this_code()
 ```
 
 
@@ -186,29 +351,44 @@ If you know which rows you want, you can use the `slice()` and specify the rows 
 data1 %>% slice(c(100:200,300:400))
 ```
 
-If you need random sample of your `data1`, use the `sample_n()` and specify the number you want. It will create a data set of randomly selected rows. Create a random sample of `data1` of 100 rows.
+```{r s_2-check}
+grade_this_code()
+```
+
+
+If you need random sample of your `data1`, use the `slice_sample()` and specify the number you want (`n=value`). It will create a data set of randomly selected rows. Create a random sample of `data1` of 100 rows. Note, you must specify the argument for the `slice_sampel()`.
 
 ```{r s_3, exercise = TRUE}
 
 ```
 
 ```{r s_3-solution}
-data1 %>%  sample_n(100)
+data1 %>% slice_sample(n = 100)
 ```
 
-If you want a random sample that is proportion of your original data size, use the `sample_frac()`. Specify the proportion that you want from the data. Create a random sample of `data1` that is only 2/7th of the original size.
+```{r s_3-check}
+grade_this_code()
+```
+
+
+If you want a random sample that is proportion of your original data size, use the `slice_sampele()` as well. Specify the proportion that you want from the data (`prop = p`). Create a random sample of `data1` that is only 2/7th of the original size. Note, you must specify the argument for the `slice_sampel()`.
 
 ```{r s_4, exercise = TRUE}
 
 ```
 
 ```{r s_4-solution}
-data1 %>% sample_frac(2/7)
+data1 %>% slice_sample(prop = 2/7)
 ```
+
+```{r s_4-check}
+grade_this_code()
+```
+
 
 ### Creating Variables
 
-Some times you may need to transform variables to a new variable. This can be done by using the `mutate()` where you specify the name of the new variable and set equal to the transformation of other variables. Using the `data2` data set, create a new variable called `logvar1` and set that to the log of `va1`.
+Some times you may need to transform variables to a new variable. This can be done by using the `mutate()` where you specify the name of the new variable and set it equal to the transformation of other variables. Using `data2`, create a new variable called `logvar1` and set that to the natural log of `va1`.
 
 ```{r m_1, exercise = TRUE}
 
@@ -219,7 +399,12 @@ Some times you may need to transform variables to a new variable. This can be do
 data2 %>% mutate(logvar1 = log(va1))
 ```
 
-The `mutate()` allows you to create multiple new variables at once. Id addition to `logvar1`, create a new variable called `sqrtvar2` and set that equal to the square root of `va2`.
+```{r m_1-check}
+grade_this_code()
+```
+
+
+The `mutate()` allows you to create multiple new variables at once. In addition to `logvar1`, create a new variable called `sqrtvar2` and set that equal to the square root of `va2`.
 
 ```{r m_2, exercise = TRUE}
 
@@ -227,6 +412,10 @@ The `mutate()` allows you to create multiple new variables at once. Id addition 
 
 ```{r m_2-solution}
 data2 %>% mutate(logvar1 = log(va1), sqrtvar2 = sqrt(va2))
+```
+
+```{r m_2-check}
+grade_this_code()
 ```
 
 
@@ -241,29 +430,39 @@ If you want to create categorical variables, use the `mutate()` and the `if_else
 medval <- data2$va1 %>% median() 
 ```
 
-No create a  new variable called `diva1` where if `va1` is greater than the median of `va1`,  assign it "A", otherwise assign it "B".
+```{r m_3-check}
+grade_this_code()
+```
+
+
+Now create a new variable called `diva1` where if `va1` is greater than the median of `va1`,  assign it "A", otherwise assign it "B".
 
 ```{r m_4, exercise = TRUE}
 
 ```
 
-
 ```{r m_4-solution}
-data2 %>% mutate(diva1=if_else(va1>medval,"A","B"))
+data2 %>% mutate(diva1 = if_else(va1 > medval, "A", "B"))
 ```
 
+```{r m_4-check}
+grade_this_code()
+```
 
 ### Merging Datasets
 
-One of the last thing is to go over how to merge data sets together.  To merge the data sets, we use the `full_join()`. The `full_join()` needs two data sets (separated by commas) and the `by=` which provides the variables needed (must be the same name for each data set) to merge the data sets. Merge `data1` and `data2` with the variable `ID1`.
+One of the last thing is to go over how to merge data sets together.  To merge data sets, we use the `full_join()`. The `full_join()` needs two data sets (separated by commas) and the `by=` which provides the variables needed (must be the same name for each data set) to merge the data sets. Merge `data1` and `data2` with the variable `ID1`.
 
 ```{r j_1, exercise = TRUE}
 
 ```
 
-
 ```{r j_1-solution}
 full_join(data1, data2, by = "ID1")
+```
+
+```{r j_1-check}
+grade_this_code()
 ```
 
 The `full_join()` allows you to merge data sets using two variables instead of one. All you need to do is specify `by=` with a vector specifying the arguments. Merge `data2` and `data3` by `ID_1` and `ID_2`.
@@ -276,11 +475,15 @@ The `full_join()` allows you to merge data sets using two variables instead of o
 full_join(data2, data3, by = c("ID_1","ID_2"))
 ```
 
+```{r j_2-check}
+grade_this_code()
+```
 
 ## Reshaping Data
 
-This section focuses on reshaping the data to prepare it for analysis. For example, to conduct longitudinal data analysis, you will need to have long data. Reshaping data may be with converting data from wide to long, converting back from long to wide, splitting variables, splitting rows and merging variable.
-The functions used in this lesson are from the `tidy::`
+This section focuses on reshaping the data and preparing it for analysis. For example, to conduct longitudinal data analysis, you will need to have long data. Reshaping data may require converting data from wide to long, changing things, converting it back from long to wide, splitting variables, splitting rows and merging variable. The functions used in this lesson are from the `tidy::`.
+
+###
 
 ### Wide to Long Data
 
@@ -297,7 +500,9 @@ data4
  
 Let's say `data4` represents biomarker data. Variable `ID1` represents a unique identifier for the participant. Then `X1`, `X2`, `X3`, and `X4` represents a value collected for a participant at different time point. This is know as repeated measurements. This data is considered wide because the repeated measurements are on the same row. To make it long, the repeated measurements must be on the same column.
 
-To convert data from long to wide, we will use the `pivot_longer()` with the first argument taking variables of the repeated measurements, `c(X1:X4)` or `X1:X4`, the second argument asks for the name for the variable that contains the stored repeated measurements, the variable names, and the last variable asks for the name for all the values, the data collected. Convert the `data4` to long and name the variable names column `"measurement"`, and values column `"value"`.
+To convert data from long to wide, we will use the `pivot_longer()` with the first argument (`cols=`) taking variables of the repeated measurements, `c(X1:X4)` or `X1:X4`, the the next argument you will need is the `names_to=` which asks for the name of the variable that will store the repeated measurements names, and the last argument needed is the `values_to=` which asks for the name of the variable to store all the repeated measurements' values, the data collected. Note that `names_to=` and `values_to` are not the second or third argument, respectively.
+
+Convert the `data4` to long and name the variable names column `"measurement"`, and values column `"value"`.
 
 ```{r wl_2, exercise = TRUE}
 
@@ -305,10 +510,15 @@ To convert data from long to wide, we will use the `pivot_longer()` with the fir
 
 
 ```{r wl_2-solution}
-data4 %>% pivot_longer(X1:X4, "measurement", "value")
+data4 %>% pivot_longer(cols = X1:X4, 
+                       names_to = "measurement", values_to = "value")
 ```
 
-### Long to Wide
+```{r wl_2-check}
+grade_this_code()
+```
+
+### Long to Wide Data
 
 If you need to convert data from long to wide, use the `pivot_wider()`. You will need to specify the `names_from=` which specifies the variable names for the wide data set, and you will need to specify the `values_from=` that specifies variable that contains the values in the long data set. Convert `data5` from long to wide data. Note, you must specify the arguments for this function.
 
@@ -320,6 +530,9 @@ If you need to convert data from long to wide, use the `pivot_wider()`. You will
 data5 %>% pivot_wider(names_from = measurement, values_from = value)
 ```
 
+```{r wl_3-check}
+grade_this_code()
+```
 
 ### Spliting Variables
 
@@ -329,7 +542,7 @@ Before we begin, look at `data6`:
 
 ```
 
-Notice how the `merge` variable has two values separated by "/". If we need to split the variable into two variables, we need to specify the `separate()`. All you need to specify is the variable you need to split, the name of the 2 new variables, in a character vector, and how to split the variable `"/"`. Split the variable `merge` in `data6` to two new variables called `X1` and `X2`.
+Notice how the `merge` variable has two values separated by "/". If we need to split the variable into two variables, we need to use the `separate()`. All you need to specify is the variable you need to split, the name of the 2 new variables, in a character vector, and how to split the variable `"/"`. Split the variable `merge` in `data6` to two new variables called `X1` and `X2`.
 
 ```{r sv_2, exercise = TRUE}
 
@@ -339,6 +552,11 @@ Notice how the `merge` variable has two values separated by "/". If we need to s
 ```{r sv_2-solution}
 data6 %>% separate(merge, c("X1", "X2"), "/")
 ```
+
+```{r sv_2-check}
+grade_this_code()
+```
+
 
 ### Splitting Rows
 
@@ -353,9 +571,13 @@ The variable `merge` in `data6` was split into different variables before, now i
 data6 %>% separate_rows(merge, sep = "/")
 ```
 
-### Merging Rows
+```{r sr_1-check}
+grade_this_code()
+```
 
-If you need to merge variables together, similar to the `merge` variable, use the `unite()`. All you need to do is specify the variables to merge, the `col=` which specifies the name of the new variable (as a character), and the `sep=` which indicates the symbol for separate value, as a character. Note, you need to specify the bot the `col=` and `sep=`.  Merge variable `X3` and `X4` in `data6` to a new variable called `merge2` and have the separator be a hyphen.
+### Merging Cols
+
+If you need to merge variables together, similar to the `merge` variable, use the `unite()`. All you need to do is specify the variables to merge, the `col=` which specifies the name of the new variable (as a character), and the `sep=` which indicates the symbol to separate values, as a character. Note, you need to specify the both the `col=` and `sep=`.  Merge variable `X3` and `X4` in `data6` to a new variable called `merge2` and have the separator be a hyphen.
 
 ```{r mr_1, exercise = TRUE}
 
@@ -366,10 +588,14 @@ If you need to merge variables together, similar to the `merge` variable, use th
 data6 %>% unite(X3, X4, col = "merge2", sep="-")
 ```
 
+```{r mr_1-check}
+grade_this_code()
+```
+
 
 ## Applied Example
 
-Here is an applied example where you will use what you learned from the previous lesson and convert `data7` into `data8`. `data7` has a wide data format which contains time points labeled as `vX`, where `X` represents the time point number. At each time point, the mean, sd, and median was taken. You will need to convert the data to long where each row represents a new time point, and each row will have 3 variables representing the mean, sd, and median. View both `data7` and `data8` to have a better idea on what is going on. Remember you need to convert `data7` to `data8`. 
+Here is an applied example where you will use what you learned from the previous lesson and convert `data7` into `data8`. `data7` has a wide data format which contains time points labeled as `vX`, where `X` represents the time point number. At each time point, the mean, sd, and median was taken. You will need to convert the data to long where each row represents a new time point, and each row will have 3 variables representing the mean, sd, and median. View both `data7` and `data8` to have a better idea on what needs to be done. Remember you need to convert `data7` to `data8`. 
 
 ```{r ae_1, exercise = TRUE}
 
@@ -381,7 +607,7 @@ Here is an applied example where you will use what you learned from the previous
 ```
 
 
-Now that you viewed the data set, type the code to convert `data7` to `data8`. Try working it out before you look at the solution.
+Now that you viewed the data sets, type the code to convert `data7` to `data8`. Try working it out before you look at the solution.
 
 ```{r ae_3, exercise = TRUE, exercise.lines = 6}
 
@@ -389,7 +615,7 @@ Now that you viewed the data set, type the code to convert `data7` to `data8`. T
 
 
 ```{r ae_3-hint-1}
-#Specifying the variables will require the use of back ticks because of the forward slash. For example, use: `v1/mean`
+#To specify the variables will require, use of back ticks. For example, use: `v1/mean`
 ```
 
 
@@ -407,65 +633,88 @@ Now that you viewed the data set, type the code to convert `data7` to `data8`. T
 
 
 ```{r ae_3-solution}
-data7 %>% pivot_longer(`v1/mean`:`v4/median`,"measurement","value") %>% 
-          separate(measurement,c("time","stat"),sep="/") %>% 
-          pivot_wider(names_from = stat,values_from = value)
+data7 %>% pivot_longer(cols = `v1/mean`:`v4/median`, 
+                       names_to = "measurement", 
+                       values_to = "value") %>% 
+          separate(measurement,c("time","stat"), sep = "/") %>% 
+          pivot_wider(names_from = stat, values_from = value)
 ```
 
-
-
-```{r quiz, echo=FALSE}
-quiz(caption = "",
-  question("If I were to extract a variable from a data frame, what type of R object is it?",
-    answer("list", message = "A list contains multiple R objects"),
-    answer("matrix", message = sprintf("A matrix produces a $n \\times k$ R object")),
-    answer("vector", correct = TRUE),
-    answer("data frame", message = "A data frame contains multiple variables"),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  ),
-  question("What are methods to import data into R?",
-    answer("Base R Code", correct = TRUE),
-    answer("shiny app", message = "Shiny apps are used to create data dashboards"),
-    answer("`readr::` code", correct = TRUE),
-    answer("RStudio data import wizard.", correct = TRUE),
-    incorrect = "Incorrect. You are at least on one more thing.",
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  ),
-    question("When testing the type of variables, we utilized a function similar to `is.xxx()`. What type of data was the output?",
-    answer("Logical", correct = TRUE),
-    answer("Character", message = "A character will be surrounded by quotes"),
-    answer("Numeric", message = "A number will be produced instead"),
-    answer("Raw", message = "Raw would look like byte code"),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  ),
-  question("What is the difference between a matrix and a data frame?",
-    answer("A matrix requires the data to be the same type and data frame does not", correct = TRUE),
-    answer("Each row of a data frame corresponds to an experimental unit and a matrix does not.", message = "The rows of a matrix can still correspond to different experimental units and columns correspond to characteristics"),
-    answer("A data frame can be indexed with the `$` operator and a matrix cannot.", correct = TRUE),
-    answer("A matrix must be a squared and a data frame does not."),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  ),
-  question("Different programming languages have their index starting value at 0?",
-           answer("TRUE", correct = T),
-           answer("FALSE"),
-           allow_retry = TRUE),
-  question("Choose the correct brackets to index and R object:",
-           answer("()"),
-           answer("{}"),
-           answer("[]", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE
-           )
-  
+```{r ae_3-check}
+grade_result(
+  pass_if(~ (identical(.result, 
+                       (data7 %>% pivot_longer(cols = `v1/mean`:`v4/median`, 
+                       names_to = "measurement", 
+                       values_to = "value") %>% 
+          separate(measurement,c("time","stat"), sep = "/") %>% 
+          pivot_wider(names_from = stat, values_from = value)
+))))
 )
 ```
 
 
-## Submit
+## Quiz
+
+```{r quiz, echo=FALSE}
+quiz(caption = "",
+  question("Which package is used to reshape the data?",
+    answer("dplyr", message = "This package is used for data manipulation."),
+    answer("lubridate", message = sprintf("This package is used for date/time manipulation.")),
+    answer("tidyr", correct = TRUE),
+    answer("purrr", message = "This package is used for functional programming."),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("Which function will split a variable cell to multiple rows?",
+    answer("separate()"),
+    answer("split()"),
+    answer("separate_rows()", correct = TRUE),
+    answer("slice()"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("What are the two forward pipes?",
+    answer("|>", correct = TRUE),
+    answer("%$%", message = "This is the exposition pipe."),
+    answer("%>%", correct = TRUE),
+    answer("%!>%", message = "This is the excite pipe."),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("Which function allows you to group data by varibles?",
+    answer("group_by()", correct = TRUE),
+    answer("unite()"), 
+    answer("merge()"), 
+    answer("join()"),
+    allow_retry = TRUE,
+    random_answer_order = TRUE
+  ),
+  question("You will need to load the Tidyverse package to use |>.",
+           answer("TRUE"),
+           answer("FALSE", correct = T),
+           allow_retry = TRUE),
+  question("Which function is used to subset data randomly",
+           answer("splice()"),
+           answer("filter()"),
+           answer("splice_sample()", correct = TRUE),
+           allow_retry = TRUE,
+           random_answer_order = TRUE
+           ),
+  question_text(
+  "Write a reflection on what you had learned about Tidyverse.",
+  answer(NULL, correct = TRUE),
+  trim = TRUE,
+  rows = 4,
+  try_again_button = "Edit Answer",
+  correct = NULL,
+  incorrect = NULL,
+  allow_retry = TRUE)
+)
+```
+
+## Submit Responses
+
+**Generate a Hash if you need to submit your work for an assignment.**
 
 ```{r context="server"}
 learnrhash::encoder_logic()
@@ -486,6 +735,3 @@ learnrhash::encoder_ui(
 ```{=html}
 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSda_bV4VFGk1pgrevik7afgjAlWTA0g9kQE7ZR52S_UQiT3NA/viewform?embedded=true" width="640" height="742" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
 ```
-
-
-
