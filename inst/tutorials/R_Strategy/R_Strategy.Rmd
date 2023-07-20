@@ -7,7 +7,7 @@ output:
     allow_skip: true
 runtime: shiny_prerendered
 description: |
-  Provides general tips and tricks to 
+  Provides general tips and tricks to conduct data analysis projects in R.
 ---
 
 ```{r setup, include=FALSE}
@@ -22,20 +22,102 @@ knitr::opts_chunk$set(echo = FALSE)
 
 ```
 
+## Introduction {data-progressive="FALSE"}
+
+Analyzing data can be one of the most challenging parts of a research project. Having a system setup before you analyze data is essential to ensure proper analysis and reproducibility. A bit of effort at the beginning will prevent problems down the line, as well as head aches.
+
+This tutorial will provide some tips and tricks that will make your life easier.
+
+```{r intro, echo=FALSE}
+question_text(
+  "What are some strategies that will make your life easier to analyze data.",
+  answer(NULL, correct = TRUE),
+  trim = TRUE,
+  rows = 4,
+  correct = NULL,
+  try_again_button = "Edit Answer",
+  incorrect = NULL,
+  allow_retry = TRUE)
+
+```
+
+::: contents
+### Contents
+
+1.  Rstudio
+
+2.  Customizations
+
+3.  R Projects
+
+4.  R Packages
+
+5.  Scripting
+
+6.  Diagnostics
+:::
+
+## RStudio
+
+### 
+
+### Script Pane
+
+The script pane
+
+### Console Pane
+
+### Environment
+
+### Files, Plots, Packages, Tutorial, ...
+
+## Customizations
+
+When you are using RStudio, you can interact your experience. While all the tips are important, the main tip you should follow is the R General Sessions Tip.
+
+### 
+
+### R General Sessions
+
+### Appearance
+
+### Pane Layout
+
+### Keyboard Shortcuts
+
+## R Projects
+
+### Types of Projects
+
+### File Directory
 
 ## R Packages
 
-As I stated before, R can be extended to do more things, such as create this tutorial. This is done by installing R packages. An R package can be thought of as extra software. This allows you to do more with R. To install an R package, you will need to use `install.packages("NAME_OF_PACKAGE")`. Once you install it, you do not need to install it again. To use the R package, use `library("NAME_OF_PACKAGE")`. This allows you to load the package in R. You will need to load the package every time you start R. For more information, please watch the video below.
+R can be extended to do more things, such as create this tutorial. This is done by installing R packages. An R package can be thought of as extra software. This allows you to do more with R. To install an R package, you will need to use `install.packages("NAME_OF_PACKAGE")`. Once you install it, you do not need to install it again. To use the R package, use `library("NAME_OF_PACKAGE")`. This allows you to load the package in R. You will need to load the package every time you start R. For more information, please watch the video below.
 
 ```{=html}
 <iframe src="https://player.vimeo.com/video/203516241?h=819422ce1e&color=428bca" width="640" height="400" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
 <p><a href="https://vimeo.com/203516241">install Packages</a> from <a href="https://vimeo.com/rstudioinc">RStudio, Inc.</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
 ```
+## Scripting
+
+### Source Files
+
+### Anatomy of R Script
 
 ## Diagnostics
 
+### 
+
+### Error Output
+
+### Help Documentation
+
+### Example
+
 Here is more practice in trying to understand some of the errors R may output. Type the following code
-```
+
+```         
 qnorm(2)
 ```
 
@@ -47,9 +129,7 @@ qnorm(2)
 qnorm(2)
 ```
 
-
-Here a `NaN` is produced. Notice how R puts a warning in the output. Here it is much more difficult to diagnose what the problem may be. My first advice is to look at the R documentation for the `qnorm()`. Now looking at the documentation for this particular function may not provide information on why it is wrong. The next best thing may be to go online. However, you may have read that this function provides a quantile; therefore, the value we input must be a number between 0 and 1. 
-
+Here a `NaN` is produced. Notice how R puts a warning in the output. Here it is much more difficult to diagnose what the problem may be. My first advice is to look at the R documentation for the `qnorm()`. Now looking at the documentation for this particular function may not provide information on why it is wrong. The next best thing may be to go online. However, you may have read that this function provides a quantile; therefore, the value we input must be a number between 0 and 1.
 
 ## Quiz
 
@@ -104,7 +184,7 @@ quiz(caption = "",
            random_answer_order = TRUE
            ),
   question_text(
-  "Write a reflection on what you had learned about R Basics.",
+  "Write a reflection on what you had learned about strategies using R.",
   answer(NULL, correct = TRUE),
   trim = TRUE,
   rows = 4,

@@ -38,6 +38,7 @@ The `ggplot2` package provides a set of functions to create different graphics. 
 This tutorial focuses on plotting different components from the `mtcars` data set using functions from `ggplot2`.
 
 ::: contents
+### Contents
 
 1. Basics
 
