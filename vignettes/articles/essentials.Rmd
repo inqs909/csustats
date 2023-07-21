@@ -63,7 +63,7 @@ This tutorial provides basic code for computing probability and statistics.
 ## Tidyverse
 
 ```{r}
-access_tutorial("R_Tidyverse")1
+access_tutorial("R_Tidyverse")
 ```
 
 This tutorial introduces `dplyr` and `tidyr` packages to users.
