@@ -57,19 +57,39 @@ question_text(
 6.  Diagnostics
 :::
 
+**This tutorial requires internet access to view videos and gifs.**
+
 ## RStudio
+
+RStudio IDE (Integrated Development Environment) is a popular and powerful open-source software designed specifically for data analysis, statistical computing, and programming in the R programming language. It offers a user-friendly interface with various tools and features that enhance the R programming experience.
 
 ### 
 
 ### Script Pane
 
-The script pane
+![](https://www.inqs.info/files/learnr/script.gif){width="600"}
+
+The script pane allows you to write R code in a text document that you can reuse later. The script will be saved as a special ".R" script.
+
+To open an R script, click on the white document with a green border plus sign on the top-left corner of Rstudio.
 
 ### Console Pane
 
+![](https://www.inqs.info/files/learnr/console.gif){width="600"}
+
+The R console is the primary interface of the R programming language. The R console provides a simple and straightforward way to execute R code.
+
 ### Environment
 
+![](https://www.inqs.info/files/learnr/environment.gif){width="600"}
+
+The R environment refers to the entire ecosystem in which the R programming language operates. The R environment will contain objects and user-created R functions.
+
 ### Files, Plots, Packages, Tutorial, ...
+
+![](https://www.inqs.info/files/learnr/etc.gif){width="600"}
+
+The remaining tabs in RStudio are used to access files, data, and documentation for your analysis needs.
 
 ## Customizations
 
@@ -79,17 +99,59 @@ When you are using RStudio, you can interact your experience. While all the tips
 
 ### R General Sessions
 
+![](https://www.inqs.info/files/learnr/console_adj.gif){width="600"}
+
+To change aspects in your R Session, go to Tools -\> Global Options -\> General. There uncheck "Restore most recently opened project at startup", "Restore previously open source documents at startup", "Restore .RData into workspace at startup", and set "Save workspace to .RData on exit:" to "Never".
+
+These will ensure that you will create reproducible analysis. It will force to make all your changes on the script document.
+
 ### Appearance
+
+![](https://www.inqs.info/files/learnr/appearance.gif){width="600"}
+
+RStudio allows you to change the visual aspects of the IDE. It is recommended that you change it to something you like. To change the appearance, go to Tools -\> Global Options -\> Appearance and choose something from the "Editor Theme".
 
 ### Pane Layout
 
+![](https://www.inqs.info/files/learnr/Panel_layout.gif){width="600"}
+
+This is not a necessary step, but I like to have large script to work on. This can be achieved by moving the "Console" to top-right pane, and add all tabs to the lower-right pane. You can change the pane layout here: Tools -\> Global Options -\> Panel Layout.
+
 ### Keyboard Shortcuts
+
+![](https://www.inqs.info/files/learnr/keyboard.gif){width="600"}
+
+Learning how to use the keyboard shortcuts in RStudio will make you life much easier!
+
+To access the default keyboard shortcuts, go to Tools -\> Keyboard Shortcuts Help.
+
+To modify or create your own keyboard short cuts, go to Tools -\> Modify Keyboard Shortcuts.
+
+To set the Native Pipe as default (instead of Magrittr's pipe), go to Tools -\> Global Options -\> Code.
 
 ## R Projects
 
+![](https://www.inqs.info/files/learnr/R_projects.gif){width="600"}
+
+R Projects are a feature in RStudio that provide a structured and organized way to manage your R-related work, making it easier to handle multiple analyses, data sets, and scripts. When you create an R Project, it creates a dedicated directory on your file system, where all project-related files and data are stored.
+
+### 
+
 ### Types of Projects
 
+There are several types of projects you can create, but I recommend using the "New Project" option. It contains the basics for data analysis.
+
 ### File Directory
+
+![](https://www.inqs.info/files/learnr/creating_files.gif){width="600"}
+
+In your R Project, you should create these folders for better organization:
+
+-   data: Store all your data here
+
+-   R: Store R scripts
+
+-   src (optional): Store other files, especially files that need to be compiled such as cpp files.
 
 ## R Packages
 
@@ -101,17 +163,59 @@ R can be extended to do more things, such as create this tutorial. This is done 
 ```
 ## Scripting
 
-### Source Files
-
-### Anatomy of R Script
-
-## Diagnostics
+Scripting is the process of writing your code in sequential order to analyze data, or other programming projects. Writing is more of an art than a science where you do not know what the final script will look like. A general rule of thumb is that your final script should contain all the analysis that will be used for a report.
 
 ### 
 
-### Error Output
+### Anatomy of R Script
+
+Below is a basic "Anatomy" of an R script. Depending on your situation, this script may change.
+
+``` default
+# Load libraries and functions
+library(parallel)
+source("R/Fxs.R")
+Rcpp::sourceCpp("src/Fxs.cpp")
+
+# Load Data
+df <- load(...)
+df <- read_csv(...)
+
+# Data Manipulation
+wdf <- df |> manipulate()
+
+# Descriptive Statistics
+df |> summarize()
+
+# Graphics
+df |> ggplot() + geom_point()
+
+# Simple Analysis
+df |> lm(y ~ x)
+
+# Advanve Analysis
+df |> lm(z ~ x + y)
+
+# Save Results
+file_name <- paste("Results_", date_time, ".RData",sep = "")
+save(results, file = file_name, version = 2)
+```
+
+## Debugging Code
+
+Debugging code in R involves identifying and resolving errors, unexpected behavior, or issues in your R scripts or functions. There are several techniques and tools you can use to debug your R code effectively. Here's a basic description of some common debugging methods: print statements, tracebacks, `try()` approaches.
+
+The best types of errors are the one's that the console tells you there is a mistake. This means that there is a syntax or logical error. You can go back to which line caused the error and fix it.
+
+When there is an error, but R does not produce there is an error, you have a real problem. You will need to run things line by line and inspect if a line is producing what is says it will produce. Preventing these bugs are important. The best way is to inspect each line while you are writing it. This will help prevent bugs.
+
+If you have a bug at the end, strap in and begin to search for the bug. It is a long process, but necessary to ensure accurate results. It is okay if takes you days to find it.
+
+### 
 
 ### Help Documentation
+
+While the help documentation may not help identify errors, it can give you an idea how a function works to prevent errors.
 
 ### Example
 
@@ -134,55 +238,6 @@ Here a `NaN` is produced. Notice how R puts a warning in the output. Here it is 
 ## Quiz
 
 ```{r quiz, echo=FALSE}
-quiz(caption = "",
-  question("Which function do you need to use to properly load an R package?",
-    answer("install.packages()", message = "This will install an R package."),
-    answer("load()", message = sprintf("This is used to load data, not a package.")),
-    answer("library()", correct = TRUE),
-    answer("require()", message = "While this will work, it is advised not to use this function."),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  ),
-  question("What is the code to add 5 to 4 squared?",
-    answer("5 + 4**2", correct = TRUE),
-    answer("5 * 4 && 4", message = "Shiny apps are used to create data dashboards"),
-    answer("4^2 + 5", correct = TRUE),
-    answer("4*4 + 5", correct = TRUE),
-    incorrect = "Incorrect. There is at least one more thing.",
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  ),
-    question("Which operator is used to create an R object with data? ",
-    answer("<-", correct = TRUE),
-    answer("==", message = "This is the absolute equal operator."),
-    answer("=", correct = TRUE),
-    answer("<<", message = "This is not a known operator"),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  ),
-  question("You will need to install each R package everytime you boot up R.",
-           answer("TRUE"),
-           answer("FALSE", correct = T),
-           allow_retry = TRUE),
-  question("Which one is the pipe operator?",
-    answer("|>", correct = TRUE),
-    answer("%|%", message = "This is not a known R operator."),
-    answer("%>%", correct = TRUE),
-    answer("%%", message = "This is the modulo (remainder) operator."),
-    allow_retry = TRUE,
-    random_answer_order = TRUE
-  ),
-  question("Do you need to specify the name of the argument for a function?",
-           answer("TRUE"),
-           answer("FALSE", correct = T),
-           allow_retry = TRUE),
-  question("Which function tells you if a data value is a Logical value?",
-           answer("if.logical()"),
-           answer("as.logical()"),
-           answer("is.logical()", correct = TRUE),
-           allow_retry = TRUE,
-           random_answer_order = TRUE
-           ),
   question_text(
   "Write a reflection on what you had learned about strategies using R.",
   answer(NULL, correct = TRUE),
@@ -193,8 +248,6 @@ quiz(caption = "",
   incorrect = NULL,
   allow_retry = TRUE)
 
-  
-)
 ```
 
 ## Submit Responses
