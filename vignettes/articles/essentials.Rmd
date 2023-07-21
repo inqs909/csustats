@@ -1,0 +1,106 @@
+---
+title: "R Essentials"
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE,
+  echo = TRUE
+)
+```
+
+```{r setup}
+library(csustats)
+```
+
+## Basics
+
+```{r}
+access_tutorial("R_Basics")
+```
+
+This tutorial introduces the basics of R programming.
+
+-   Calculator
+
+-   Operators
+
+-   Functions
+
+-   Data Types
+
+-   Objects
+
+## R Objects
+
+```{r}
+access_tutorial("R_Obj")
+```
+
+This tutorial introduces users to the basic idea of R objects. It extends topics from the R Basics tutorial.
+
+-   Types of Data
+
+-   R Objects
+
+-   Indexing
+
+-   Loading Data
+
+## Probability and Statistics
+
+```{r}
+access_tutorial("R_Stats")
+```
+
+This tutorial provides basic code for computing probability and statistics.
+
+## Tidyverse
+
+```{r}
+access_tutorial("R_Tidyverse")1
+```
+
+This tutorial introduces `dplyr` and `tidyr` packages to users.
+
+-   Pipes
+
+-   Data Transformation
+
+-   Reshaping Data
+
+## ggplot2
+
+```{r}
+access_tutorial("R_ggplot2")
+```
+
+This tutorial introduces users to the basic idea of the `ggplot2` R package.
+
+-   Basics
+
+-   Grouping
+
+-   Themes
+
+## Strategies
+
+```{r}
+access_tutorial("R_Strategy")
+```
+
+This tutorial provides tips and tricks to extend your R programming skills in RStudio.
+
+-   RStudio
+
+-   Customizations
+
+-   R Projects
+
+-   R Packages
+
+-   Scripting
+
+-   Debugging

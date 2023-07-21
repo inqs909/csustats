@@ -172,34 +172,38 @@ Scripting is the process of writing your code in sequential order to analyze dat
 Below is a basic "Anatomy" of an R script. Depending on your situation, this script may change.
 
 ``` default
-# Load libraries and functions
+# Load libraries and functions -----
 library(parallel)
 source("R/Fxs.R")
 Rcpp::sourceCpp("src/Fxs.cpp")
 
-# Load Data
+# Load Data -----
 df <- load(...)
 df <- read_csv(...)
 
-# Data Manipulation
+# Data Manipulation -----
 wdf <- df |> manipulate()
 
-# Descriptive Statistics
+# Descriptive Statistics -----
 df |> summarize()
 
-# Graphics
+# Graphics -----
 df |> ggplot() + geom_point()
 
-# Simple Analysis
+# Simple Analysis -----
 df |> lm(y ~ x)
 
-# Advanve Analysis
+# Advanve Analysis -----
 df |> lm(z ~ x + y)
 
-# Save Results
+# Save Results -----
 file_name <- paste("Results_", date_time, ".RData",sep = "")
 save(results, file = file_name, version = 2)
 ```
+
+### Syntax
+
+When you are writing code, you want to make you code readable. To learn more how to write readable code, use the following website: [style.tidyverse.org](https://style.tidyverse.org/index.html)
 
 ## Debugging Code
 
