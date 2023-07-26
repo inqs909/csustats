@@ -18,8 +18,9 @@ Isaac Quintanilla Salinas
 The `csustats` R Package contains
 [learnr](https://rstudio.github.io/learnr/) tutorials for students to
 complete. The package will install the `learnr`, `gradethis`, and
-`learnrhash` packages as well. RStudio is required to run the tutorials.
-You can download the latest version of RStudio
+`learnrhash` packages as well. R 4.3.0 and RStudio 1.3 (2020 edition) is
+required to run the tutorials. You can download the latest version of R
+[here](https://cloud.r-project.org/) and RStudio
 [here](https://posit.co/download/rstudio-desktop/).
 
 If there are any questions or there are any errors in the tutorial,

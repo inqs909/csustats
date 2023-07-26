@@ -7,7 +7,7 @@ output:
     allow_skip: true
 runtime: shiny_prerendered
 description: |
-  This tutorial provides code to conduct basic statistics.
+  This tutorial provides code to conduct basic probability and statistics.
 ---
 
 ```{r setup, include=FALSE}

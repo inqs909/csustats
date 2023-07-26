@@ -1,27 +1,28 @@
-ID <- c("R_Basics", "R_Obj", "R_Graphics",
-        "R_Stats", "R_Hyp",
-        "R_ANOVA", "R_Design",
+ID <- c("R_Basics", "R_Obj", "R_Stats", "R_Tidyverse", "R_ggplot2", "R_Strategy",
+        "R_Hyp", "R_ANOVA", "R_Design", "R_Power",
         "R_SLR", "R_MLR", "R_Resid",
-        "R_Tidyverse", "R_ggplot2")
+        "R_Graphics")
 
-Subject <- c(rep("R Basics", 3),
-             rep("Basic Statistics", 2),
-             rep("ANOVA", 2),
-             rep("Linear Regression", 3),
-             rep("Tidyverse", 2))
+Subject <- c(rep("R Basics", 6),
+             rep("Hypothesis", 4),
+             rep("Regression", 3),
+             rep("Other", 1))
 
-Description <- c("This tutorial is an introduction to R.",
-                 "This tutorial provides information on R Objects",
-                 "This tutorial provide information on R Graphics",
-                 "This tutorial details how to conduct a basic statistics in R.",
-                 "This tutorial details how to conduct hypothesis testing in R.",
-                 "This tutorial details how to conduct an ANOVA in R.",
-                 "This tutorial details how to conduct an various ANOVA methods in R.",
-                 "This tutorial details how to conduct a simple linear regression model in R.",
-                 "This tutorial details how to conduct a multiple linear regression model in R.",
-                 "This tutorial details how to conduct a residual analysis in R.",
-                 "This tutorial details how to use tidyverse packages",
-                 "This tutorial details how to create plots using ggplot2.")
+Description <- c("Introduction to R Programming.",
+                 "Basics of R Objects.",
+                 "Covers basic probability and statistics.",
+                 "An introduction to the Tidyverse!",
+                 "A basic introduction to ggplot2.",
+                 "Tips and tricks for data analysis projects in R.",
+                 "Conduct hypothesis testing in R.",
+                 "Conduct an ANOVA in R.",
+                 "Conduct an various ANOVA methods in R.",
+                 "APower calculations with the pwr package.",
+                 "Simple linear regression model in R.",
+                 "Multiple linear regression model in R.",
+                 "Residual analysis in R.",
+                 "Provides an introduction to Base R graphics."
+                 )
 
 tutorials <- data.frame(ID=ID,
                         Subject = Subject,

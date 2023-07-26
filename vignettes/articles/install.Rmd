@@ -21,7 +21,7 @@ Posit.cloud is an online platform to run R. It is one of the resources provided 
 
 ### Using R
 
-If you like to install R in your computer, please watch the video below.
+If you like to install R in your computer, please watch the video below:
 
 ```{=html}
 <iframe src="https://player.vimeo.com/video/203516510?h=9ef4d70382&amp;color=428bca" width="640" height="400" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
@@ -38,16 +38,6 @@ Additionally, RStudio provides numerous resources for new learners and data scie
 
 To install RStudio on your computer, go to [posit.co/download/rstudio-desktop/](https://posit.co/download/rstudio-desktop/), and download the desktop free version to your system. Then install the software package on your computer. For more information, watch the video below.
 
-#### Windows
-
-```{=html}
-<iframe width="560" height="315" src="https://www.youtube.com/embed/YrEe2TLr3MI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-```
-#### Mac
-
-```{=html}
-<iframe width="560" height="315" src="https://www.youtube.com/embed/n8kP7c_QbLA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-```
 ### Installing R Packages
 
 If you are using RStudio, installing R packages is quite simple. Watch the video on install and use R packages.
@@ -61,16 +51,16 @@ Sometimes, you may want to install an R package, but it fails to install because
 
 #### Windows
 
-Once you install R, you will need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/). It will have the necessary cpp[^2] compiler to install `Rcpp`.
+Once you install R, you will need to install [Rtools](https://cran.r-project.org/bin/windows/Rtools/). It will have the necessary cpp[^2] compiler to install `Rcpp`. Download Rtools 4.3 to be compatible for this package.
 
 [^2]: c++
 
 #### Mac
 
-Once you install R, you will need to install Xcode via the terminal. Use the following code:
+Once you install R, you may not be able to install packages with out some additional software. The best way to work around this problem is to install tidyverse:
 
-``` default
-xcode-select --install
+```{r eval=FALSE, echo=TRUE}
+install.packages("tidyverse")
 ```
 
 #### Linux
@@ -97,3 +87,13 @@ sudo apt install jags
 
 sudo apt install libv8-dev 
 ```
+
+### Installing `csustats` 
+
+You can install the package with the following code:
+
+```{r eval=FALSE, echo=TRUE}
+remotes::install_github("inqs909/csustats")
+```
+
+You may be prompted to update some of your current package. Unless you need to maintain certain package versions, I advise you to update all your packages. Press '1' or the number indicating all packages. You will be prompted multiple time update your packages. Continue updating all packages until the installation is complete.

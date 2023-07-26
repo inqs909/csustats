@@ -68,6 +68,7 @@ question_text(
   trim = TRUE,
   rows = 4,
   correct = NULL,
+  try_again_button = "Edit Answer",
   incorrect = NULL,
   allow_retry = TRUE)
 
@@ -83,7 +84,7 @@ More information on the topics can be found here: [Data Types](https://www.inqs.
 
 ## Types of Data
 
-Before we begin learning about R Objects, it is important to learn about different data types. Data types are For this tutorial, there are three types of data: numeric, character, and logical.
+Before we begin learning about R Objects, it is important to learn about different data types. For this tutorial, there are three types of data: numeric, character, and logical.
 
 ### Numeric
 
@@ -102,12 +103,12 @@ is.numeric(pi)
 ::: info
 #### Note
 
-Numeric is one of the most common data types you can work with; however, numbers can be represented as well as a double or integer.
+Numeric data is one of the most common data types you can work with; however, numbers can be represented as a double or integer.
 :::
 
 ### Character
 
-Character data types are expressions (also known as a string) that do not have a numerical value. These are usually denoted with quotes. For example `"1"` is now considered a character because it focuses on the symbol of one and not the value of one. To check if you have character data, use `is.character()`. Try `is.character("1")`:
+Character data types are expressions (also known as a string) that do not have a numerical value. Characters are printed with quotes. For example `"1"` is now considered a character because it focuses on the symbol one and not the value. To check if you have character data, use `is.character()`. Try `is.character("1")`:
 
 ```{r char-1, exercise = TRUE}
 
@@ -122,7 +123,7 @@ is.character("1")
 ::: info
 #### Note
 
-Character data can be used different analysis, such as text mining. However, there is a special type of character data type called factor. Factors are data types where only a set number of options are available and they can be leveled in a way.
+Character data can still be used for data analysis, such as text mining. However, there is a special type of character data type called factor. Factors are data types where only a set number of options are available and are leveled.
 :::
 
 ### Logical
@@ -867,6 +868,7 @@ quiz(caption = "",
   trim = TRUE,
   rows = 4,
   correct = NULL,
+  try_again_button = "Edit Answer",
   incorrect = NULL,
   allow_retry = TRUE)
 
