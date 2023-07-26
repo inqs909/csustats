@@ -7,6 +7,8 @@
 
 [![R-CMD-check](https://github.com/inqs909/csustats/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/inqs909/csustats/actions/workflows/R-CMD-check.yaml)
 
+![](man/figures/lifecycle-maturing.svg)
+
 <!-- badges: end -->
 
 ## Author

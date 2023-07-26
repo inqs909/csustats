@@ -16,7 +16,7 @@ Depends: R (>= 4.3.0)
 Imports: 
     learnr,
     gradethis,
-    learnrhash,
+    learnrhash
 Suggests:
     formatR,
     readr,
@@ -34,3 +34,4 @@ Remotes:
     rundel/learnrhash
 URL: http://www.inqs.info/csustats/
 RoxygenNote: 7.2.3
+Roxygen: list(markdown = TRUE)
