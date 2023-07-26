@@ -113,7 +113,7 @@ RStudio allows you to change the visual aspects of the IDE. It is recommended th
 
 ### Pane Layout
 
-![](https://www.inqs.info/files/learnr/Panel_layout.gif){width="600"}
+![](https://www.inqs.info/files/learnr/panel_layout.gif){width="600"}
 
 This is not a necessary step, but I like to have large script to work on. This can be achieved by moving the "Console" to top-right pane, and add all tabs to the lower-right pane. You can change the pane layout here: Tools -\> Global Options -\> Panel Layout.
 
@@ -131,7 +131,7 @@ To set the Native Pipe as default (instead of Magrittr's pipe), go to Tools -\> 
 
 ## R Projects
 
-![](https://www.inqs.info/files/learnr/R_projects.gif){width="600"}
+![](https://www.inqs.info/files/learnr/r_projects.gif){width="600"}
 
 R Projects are a feature in RStudio that provide a structured and organized way to manage your R-related work, making it easier to handle multiple analyses, data sets, and scripts. When you create an R Project, it creates a dedicated directory on your file system, where all project-related files and data are stored.
 

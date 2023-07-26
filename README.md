@@ -66,8 +66,7 @@ To see what tutorials are available in this package, use the following
 code:
 
 ``` r
-
 csustats::list_tutorials()
 ```
 
-The `ID` variable lists the input for the `access_tutorial` function.
+The `ID` variable lists the “id” for the `access_tutorial` function.
