@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   essentials: essentials.html
   install: install.html
-last_built: 2023-07-26T18:40Z
+last_built: 2023-07-26T18:46Z
 urls:
   reference: http://www.inqs.info/csustats/reference
   article: http://www.inqs.info/csustats/articles
