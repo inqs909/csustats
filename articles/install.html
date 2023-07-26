@@ -94,7 +94,7 @@ your Google account to create an account in Posit.</p>
 <h3 id="using-r">Using R<a class="anchor" aria-label="anchor" href="#using-r"></a>
 </h3>
 <p>If you like to install R in your computer, please watch the video
-below.</p>
+below:</p>
 <iframe src="https://player.vimeo.com/video/203516510?h=9ef4d70382&amp;color=428bca" width="640" height="400" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen>
 </iframe>
 <p><a href="https://vimeo.com/203516510" class="external-link">install-R</a> from <a href="https://vimeo.com/rstudioinc" class="external-link">Posit, Inc.</a> on <a href="https://vimeo.com" class="external-link">Vimeo</a>.</p>
@@ -118,16 +118,6 @@ recommend you to look at Posit’s website for more information <a href="https:/
 and download the desktop free version to your system. Then install the
 software package on your computer. For more information, watch the video
 below.</p>
-<div class="section level4">
-<h4 id="windows">Windows<a class="anchor" aria-label="anchor" href="#windows"></a>
-</h4>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/YrEe2TLr3MI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-</div>
-<div class="section level4">
-<h4 id="mac">Mac<a class="anchor" aria-label="anchor" href="#mac"></a>
-</h4>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/n8kP7c_QbLA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-</div>
 </div>
 <div class="section level3">
 <h3 id="installing-r-packages">Installing R Packages<a class="anchor" aria-label="anchor" href="#installing-r-packages"></a>
@@ -146,17 +136,20 @@ best to explain what other software you need to install the
 <code>Rcpp</code> package, one of the most commonly used package by
 other R packages. Most of this information is available <a href="https://teuder.github.io/rcpp4everyone_en/020_install.html" class="external-link">here</a>.</p>
 <div class="section level4">
-<h4 id="windows-1">Windows<a class="anchor" aria-label="anchor" href="#windows-1"></a>
+<h4 id="windows">Windows<a class="anchor" aria-label="anchor" href="#windows"></a>
 </h4>
 <p>Once you install R, you will need to install <a href="https://cran.r-project.org/bin/windows/Rtools/" class="external-link">Rtools</a>. It
-will have the necessary cpp<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;c++&lt;/p&gt;"><sup>2</sup></a> compiler to install <code>Rcpp</code>.</p>
+will have the necessary cpp<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;c++&lt;/p&gt;"><sup>2</sup></a> compiler to install <code>Rcpp</code>.
+Download Rtools 4.3 to be compatible for this package.</p>
 </div>
 <div class="section level4">
-<h4 id="mac-1">Mac<a class="anchor" aria-label="anchor" href="#mac-1"></a>
+<h4 id="mac">Mac<a class="anchor" aria-label="anchor" href="#mac"></a>
 </h4>
-<p>Once you install R, you will need to install Xcode via the terminal.
-Use the following code:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode default"><code class="sourceCode default"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>xcode-select --install</span></code></pre></div>
+<p>Once you install R, you may not be able to install packages with out
+some additional software. The best way to work around this problem is to
+install tidyverse:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"tidyverse"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level4">
 <h4 id="linux">Linux<a class="anchor" aria-label="anchor" href="#linux"></a>
@@ -181,6 +174,18 @@ other R packages, via the terminal<a class="footnote-ref" tabindex="0" data-bs-t
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>sudo apt install libv8-dev </span></code></pre></div>
 </div>
+</div>
+<div class="section level3">
+<h3 id="installing-csustats">Installing <code>csustats</code><a class="anchor" aria-label="anchor" href="#installing-csustats"></a>
+</h3>
+<p>You can install the package with the following code:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"inqs909/csustats"</span><span class="op">)</span></span></code></pre></div>
+<p>You may be prompted to update some of your current package. Unless
+you need to maintain certain package versions, I advise you to update
+all your packages. Press ‘1’ or the number indicating all packages. You
+will be prompted multiple time update your packages. Continue updating
+all packages until the installation is complete.</p>
 </div>
 </div>
 
