@@ -1,10 +1,10 @@
 Package: csustats
 Type: Package
 Title: CSU R Tutorials
-Version: 0.1.7
+Version: 0.1.8
 Authors@R: c(
   person("Isaac", "Quintanilla Salinas", 
-  role = c("aut","cre"), email = "inqs.909@gmail.com",
+  role = c("aut","cre"), email = "inqs.qs@csuci.com",
   comment = c(ORCID = "0000-0002-1137-4310"))
   )
 Maintainer: Isaac Quintanilla Salinas <inqs.909@gmail.com>
