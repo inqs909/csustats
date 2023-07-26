@@ -18,15 +18,19 @@ Isaac Quintanilla Salinas
 The `csustats` R Package contains
 [learnr](https://rstudio.github.io/learnr/) tutorials for students to
 complete. The package will install the `learnr`, `gradethis`, and
-`learnrhash` packages as well. R 4.3.0 and RStudio 1.3 (2020 edition) is
-required to run the tutorials. You can download the latest version of R
-[here](https://cloud.r-project.org/) and RStudio
+`learnrhash` packages as well. **R 4.3.0 and RStudio 1.3 (2020 edition)
+is required to run the tutorials.** You can download the latest version
+of R [here](https://cloud.r-project.org/) and RStudio
 [here](https://posit.co/download/rstudio-desktop/).
 
 If there are any questions or there are any errors in the tutorial,
 please feel free to email me.
 
 ## Install R Package
+
+If you are installing this package on your computer, take a look at this
+[documentation](https://www.inqs.info/csustats/articles/install.html) if
+you run into problems.
 
 To install the package, use the following code:
 
@@ -64,4 +68,4 @@ code:
 csustats::list_tutorials()
 ```
 
-This will display a data frame that you can manipulate it further.
+The `ID` variable lists the input for the `access_tutorial` function.
