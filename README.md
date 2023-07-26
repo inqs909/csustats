@@ -6,8 +6,8 @@
 <!-- badges: start -->
 
 [![R-CMD-check](https://github.com/inqs909/csustats/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/inqs909/csustats/actions/workflows/R-CMD-check.yaml)
-
-![](man/figures/lifecycle-maturing.svg)
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 
 <!-- badges: end -->
 
