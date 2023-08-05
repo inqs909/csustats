@@ -37,8 +37,9 @@ you run into problems.
 To install the package, use the following code:
 
 ``` r
-#install.packages("remotes")
-remotes::install_github("inqs909/csustats")
+install.packages('csustats', 
+                 repos = c('https://inqs909.r-universe.dev',
+                           'https://cloud.r-project.org'))
 ```
 
 Make sure to install the `remotes` package first.
