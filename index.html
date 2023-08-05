@@ -81,8 +81,9 @@
 <p>If you are installing this package on your computer, take a look at this <a href="https://www.inqs.info/csustats/articles/install.html" class="external-link">documentation</a> if you run into problems.</p>
 <p>To install the package, use the following code:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co">#install.packages("remotes")</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"inqs909/csustats"</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">'csustats'</span>, </span>
+<span>                 repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'https://inqs909.r-universe.dev'</span>,</span>
+<span>                           <span class="st">'https://cloud.r-project.org'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p>Make sure to install the <code>remotes</code> package first.</p>
 </div>
 <div class="section level2">
